@@ -6,6 +6,7 @@ import {I18nProvider} from './i18n'
 import {Dashboard} from './layouts/Dashboard'
 import {Public,AuthPage} from './pages/Public'
 import {Overview} from './pages/Overview'
+import {Courses,Materials,Assignments,Quizzes} from './pages/Academics'
 import './styles.css'
-function App(){return <Routes><Route path="/" element={<Public/>}/><Route path="/login" element={<AuthPage/>}/><Route path="/register" element={<AuthPage register/>}/><Route path="/app" element={<Dashboard/>}><Route index element={<Navigate to="overview" replace/>}/><Route path="overview" element={<Overview/>}/></Route><Route path="/:section" element={<Public/>}/><Route path="*" element={<Navigate to="/" replace/>}/></Routes>}
+function App(){return <Routes><Route path="/" element={<Public/>}/><Route path="/login" element={<AuthPage/>}/><Route path="/register" element={<AuthPage register/>}/><Route path="/app" element={<Dashboard/>}><Route index element={<Navigate to="overview" replace/>}/><Route path="overview" element={<Overview/>}/><Route path="courses" element={<Courses/>}/><Route path="materials" element={<Materials/>}/><Route path="assignments" element={<Assignments/>}/><Route path="quizzes" element={<Quizzes/>}/></Route><Route path="/:section" element={<Public/>}/><Route path="*" element={<Navigate to="/" replace/>}/></Routes>}
 ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><BrowserRouter><I18nProvider><AuthProvider><App/></AuthProvider></I18nProvider></BrowserRouter></React.StrictMode>)
