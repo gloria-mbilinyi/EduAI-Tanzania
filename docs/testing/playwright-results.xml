@@ -1,0 +1,20 @@
+<testsuites id="" name="" tests="8" failures="0" skipped="0" errors="0" time="22.646573">
+<testsuite name="workflows.spec.ts" timestamp="2026-11-23T21:03:06.015Z" hostname="" tests="8" failures="0" skipped="0" time="20.213" errors="0">
+<testcase name="public landing and registration entry" classname="workflows.spec.ts" time="1.963">
+</testcase>
+<testcase name="student dashboard shows actual courses and only approved pathways" classname="workflows.spec.ts" time="2.373">
+</testcase>
+<testcase name="teacher dashboard and lesson assistance persist a reviewed draft" classname="workflows.spec.ts" time="2.567">
+</testcase>
+<testcase name="parent sees approved child and academic report" classname="workflows.spec.ts" time="2.417">
+</testcase>
+<testcase name="school administrator can inspect scoped accounts and reports" classname="workflows.spec.ts" time="2.857">
+</testcase>
+<testcase name="bilingual retrieval tutor returns a cited passage" classname="workflows.spec.ts" time="2.658">
+</testcase>
+<testcase name="demo checkout requires a separate server verification before premium activation" classname="workflows.spec.ts" time="2.954">
+</testcase>
+<testcase name="mobile navigation and content fit a narrow viewport" classname="workflows.spec.ts" time="2.424">
+</testcase>
+</testsuite>
+</testsuites>
