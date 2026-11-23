@@ -1,0 +1,1114 @@
+# MASTER DEVELOPMENT PROMPT — EduAI Tanzania Ltd.
+
+## ROLE AND OBJECTIVE
+
+Act as a senior software engineer, systems analyst, UML architect, AI engineer, UI/UX designer, QA engineer, and technical documentation specialist.
+
+Your assignment is to design, implement, test, document, and version-control a professional AI-powered education management and learning platform called **EduAI Tanzania Ltd.**
+
+This is an academic software engineering project based on a Tanzanian secondary-school education scenario.
+
+I expect you to perform substantial development work independently while following my requirements accurately. Do not stop at planning or providing sample code. Create actual project files, working interfaces, backend services, database models, UML diagrams, tests, and technical documentation.
+
+The system should be realistic enough for implementation and demonstrate at least 75% of the required functionalities. Aim for 90–100% functional coverage wherever practical.
+
+**Important:** Create many genuine, meaningful Git commits as work progresses. Do not develop the entire project and commit everything once.
+
+## 1. PROJECT INFORMATION
+
+Project name: EduAI Tanzania Ltd.
+
+Suggested repository name: `EduAI-Tanzania`
+
+GitHub owner: `gloria-mbilinyi`
+
+Target repository:
+
+https://github.com/gloria-mbilinyi/EduAI-Tanzania
+
+Before pushing, verify that the repository exists and that Git authentication is working. If it does not exist, create it through an authenticated GitHub workflow where authorized. Never claim a push succeeded without verification.
+
+Project context: Secondary schools in Tanzania.
+
+Supported languages: English and Kiswahili.
+
+Target users:
+- Students
+- Teachers
+- Parents
+- School administrators
+
+The platform must support desktop and mobile browser users through responsive design.
+
+## 2. PROBLEM STATEMENT
+
+Many Tanzanian secondary schools experience:
+
+1. Shortages of qualified subject teachers.
+2. Limited personalized learning resources.
+3. Difficulty monitoring academic progress.
+4. Delayed school-parent communication.
+5. Limited data-driven academic decisions.
+6. Insufficient after-school learning assistance, particularly in rural communities.
+
+Develop a centralized educational platform that integrates AI-assisted learning, academic management, teacher support, parent monitoring, administrative reporting, and subscription management.
+
+Design it with Tanzanian educational realities in mind, including internet limitations, affordable devices, Kiswahili support, and relevant secondary-school subjects.
+
+## 3. RECOMMENDED TECHNOLOGY STACK
+
+Use a maintainable full-stack architecture.
+
+Frontend:
+- React with TypeScript and Vite
+- Tailwind CSS
+- React Router
+- Axios or Fetch
+- Recharts for analytics
+- Responsive dashboard layouts
+
+Backend:
+- Python
+- FastAPI
+- SQLAlchemy
+- Pydantic
+- JWT-based authentication
+- Role-based access control
+- REST APIs
+
+Database:
+- PostgreSQL for production
+- SQLite permitted for local demonstration
+
+AI services:
+- Python-based AI recommendation engine
+- scikit-learn for interpretable performance-risk prediction
+- Teacher-controlled AI recommendation workflow
+- Retrieval-based educational chatbot
+- Optional locally hosted open-source LLM through Ollama
+
+Testing:
+- Pytest
+- Vitest
+- React Testing Library
+- Playwright if supported
+
+Development tools:
+- Git and GitHub
+- VS Code or another suitable IDE
+- draw.io / diagrams.net
+- Python virtual environments
+
+Prioritize free and open-source software. Do not introduce paid AI APIs, hosting subscriptions, or payment gateways as mandatory dependencies.
+
+Provide a working local demonstration even when external services are unavailable.
+
+## 4. FUNCTIONAL REQUIREMENTS
+
+Implement the following requirements and assign unique identifiers to each for traceability.
+
+### A. Student Services
+
+ST-01: Student registration and login.
+
+ST-02: Student profile management.
+
+ST-03: School association during registration.
+
+ST-04: AI-powered personalized learning recommendations.
+
+ST-05: Academic chatbot tutor.
+
+ST-06: Online assignment submission.
+
+ST-07: Online quizzes.
+
+ST-08: Automatic grading of objective assessments.
+
+ST-09: Academic performance dashboard.
+
+ST-10: Progress report generation.
+
+ST-11: Learning recommendations based on academic weaknesses and interests.
+
+ST-12: English/Kiswahili switching.
+
+### B. Teacher Services
+
+TC-01: Teacher registration and authentication.
+
+TC-02: Teacher dashboard.
+
+TC-03: Course creation and management.
+
+TC-04: Management of assigned courses only.
+
+TC-05: Uploading educational notes and materials.
+
+TC-06: Uploading or linking lesson videos.
+
+TC-07: Assignment creation and management.
+
+TC-08: Monitoring student performance.
+
+TC-09: AI-assisted quiz generation.
+
+TC-10: AI-assisted lesson plan generation.
+
+TC-11: Review, approval, or rejection of AI-generated recommendations before publication.
+
+### C. Parent Services
+
+PR-01: Parent registration and authentication.
+
+PR-02: Secure linking of parent and student accounts.
+
+PR-03: Parent academic dashboard.
+
+PR-04: Viewing linked students' performance.
+
+PR-05: Receiving student performance alerts.
+
+PR-06: Teacher-parent messaging.
+
+PR-07: Restrict access to linked students only.
+
+### D. School Administrator Services
+
+AD-01: Administrator authentication.
+
+AD-02: User and role management.
+
+AD-03: School management.
+
+AD-04: Teacher-course assignment.
+
+AD-05: Platform usage statistics.
+
+AD-06: School academic performance reports.
+
+AD-07: Subscription plan management.
+
+AD-08: Payment monitoring and verification.
+
+AD-09: Subscription activation and deactivation.
+
+AD-10: Administrative reporting.
+
+### E. Artificial Intelligence Services
+
+AI-01: Student learning behavior analysis.
+
+AI-02: Student academic risk prediction.
+
+AI-03: Personalized learning pathway generation.
+
+AI-04: AI-generated academic performance reports.
+
+AI-05: English and Kiswahili chatbot support.
+
+AI-06: AI-assisted teacher lesson planning.
+
+AI-07: AI-assisted quiz generation.
+
+AI-08: Explainable recommendations.
+
+AI-09: Teacher approval before recommendation publication.
+
+AI-10: Recommendation history and audit logs.
+
+AI capabilities must not be represented as functional when only placeholder responses exist. Clearly label demonstrations, simulations, heuristic engines, and actual machine learning implementations.
+
+Use explainable rules as a fallback where ML training data is unavailable. Do not fabricate real student datasets or unsupported model accuracy.
+
+## 5. BUSINESS RULES
+
+Enforce these rules in backend services, not only through frontend restrictions.
+
+BR-01: Every student belongs to a registered school.
+
+BR-02: A parent can view only explicitly linked students.
+
+BR-03: Teachers can manage only assigned courses.
+
+BR-04: AI recommendations must be approved by an authorized teacher before students can view them.
+
+BR-05: Administrators can access authorized system and school reports according to their administrative scope.
+
+BR-06: Every protected service requires authentication.
+
+BR-07: Premium AI features are available only after verified payment and active subscription entitlement.
+
+BR-08: Students cannot modify grades or teacher approvals.
+
+BR-09: Authentication credentials must never be stored in plaintext.
+
+BR-10: Sensitive student information must not be exposed to unrelated users.
+
+BR-11: Payment verification must happen server-side, never through a client-submitted success flag.
+
+BR-12: Maintain an audit trail of important actions.
+
+## 6. UML DIAGRAM REQUIREMENTS
+
+**All required UML diagrams must be created as editable native draw.io files.**
+
+Do not substitute screenshots, Mermaid-only files, or PlantUML-only source for the editable draw.io deliverables.
+
+You may use programmatic generation of draw.io XML where helpful, provided the resulting files open correctly in diagrams.net and every element remains editable.
+
+Export every diagram to PNG and PDF after validating the source.
+
+Create the following diagrams.
+
+### Diagram 1: Sequence Diagram
+
+Filename: `01_EduAI_Sequence_Diagram.drawio`
+
+Create ONE comprehensive UML sequence diagram representing the four requested business processes:
+
+1. Student Learning and AI Recommendation
+2. Teacher Course and Assignment Management
+3. Parent Monitoring and Notification
+4. Subscription Payment and Service Activation
+
+Use UML interaction frames to separate the four scenarios clearly within one diagram.
+
+Include relevant actors, lifelines, activation bars, messages, return messages, and guard conditions.
+
+Suggested objects:
+
+- Student
+- Teacher
+- Parent
+- School Administrator
+- Web/Mobile Application
+- Authentication Service
+- Course Service
+- Assignment Service
+- AI Recommendation Engine
+- Teacher Approval Service
+- Performance Service
+- Notification Service
+- Subscription Service
+- Payment Verification Service
+- Database
+
+Demonstrate conditions including:
+
+`[authenticated]`
+
+`[student belongs to school]`
+
+`[teacher assigned to course]`
+
+`[recommendation approved]`
+
+`[parent linked to student]`
+
+`[payment verified]`
+
+`[subscription active]`
+
+Use `alt`, `opt`, and `loop` fragments where appropriate.
+
+Ensure the sequence diagram reflects realistic process ordering and shows how authorization and teacher approval work.
+
+### Diagram 2: Communication Diagram
+
+Filename: `02_EduAI_Communication_Diagram.drawio`
+
+Create ONE UML communication diagram corresponding to the sequence diagram.
+
+Include:
+- Objects and participating actors.
+- Object links.
+- Numbered messages.
+- Message direction.
+- Nested message numbering such as 1, 1.1, 1.2.
+- Guard conditions.
+- Consistency with the sequence diagram.
+
+The communication diagram must model the same four business processes and preserve their logical message order.
+
+### Diagram 3: Behavioral State Machine — AI Recommendation
+
+Filename: `03_AI_Recommendation_State_Machine.drawio`
+
+Model the lifecycle of one AI recommendation object.
+
+Suggested states:
+
+Initial
+→ Created
+→ Analysis Pending
+→ Generated
+→ Pending Teacher Review
+
+Then branch into:
+
+Approved
+→ Published
+→ Viewed by Student
+→ Archived
+→ Final
+
+OR
+
+Rejected
+→ Revision Required
+→ Regenerated
+→ Pending Teacher Review
+
+Also handle a failed-generation state and a cancelled recommendation where appropriate.
+
+Include transitions, triggers, guards, actions, initial pseudostate, and final state.
+
+A recommendation must never be published before teacher approval.
+
+### Diagram 4: Behavioral State Machine — Subscription
+
+Filename: `04_Subscription_State_Machine.drawio`
+
+Model the lifecycle of one student or school subscription.
+
+Suggested states:
+
+Initial
+→ Created
+→ Pending Payment
+→ Payment Verification
+→ Active
+→ Expiring Soon
+→ Expired
+→ Renewed
+→ Active
+
+Alternative states:
+
+Payment Failed
+Payment Rejected
+Cancelled
+Suspended
+
+Demonstrate how verification controls premium feature activation.
+
+Include transition events, guards, and actions.
+
+### Diagram 5: Overview Package Diagram
+
+Filename: `05_EduAI_Overview_Package_Diagram.drawio`
+
+Create the UML overview package diagram for the complete system.
+
+Suggested packages:
+
+- Authentication and Authorization
+- Student Management
+- Teacher Management
+- Parent Management
+- School Administration
+- Course Management
+- Assignment and Quiz Management
+- AI Learning Engine
+- Performance Analytics
+- Notification and Communication
+- Subscription and Payment
+- Reporting
+- Data Access
+- Shared Services
+
+Show meaningful package dependencies, interfaces, and logical organization.
+
+Avoid circular dependencies where possible.
+
+### Diagram 6: Detailed Package Diagram — Learning and AI
+
+Filename: `06_Learning_AI_Detailed_Package.drawio`
+
+Include relevant classes inside packages.
+
+Example classes:
+
+Student
+StudentProfile
+School
+Course
+Enrollment
+LearningActivity
+AssessmentResult
+Recommendation
+RecommendationEngine
+RiskPredictionService
+ChatbotTutor
+RecommendationApproval
+Teacher
+
+Include key attributes, operations, and class relationships.
+
+Show multiplicities and relevant dependencies.
+
+### Diagram 7: Detailed Package Diagram — Course and Assessment
+
+Filename: `07_Course_Assessment_Detailed_Package.drawio`
+
+Include:
+
+Teacher
+TeacherCourseAssignment
+Course
+Lesson
+LearningMaterial
+Assignment
+Question
+Quiz
+Submission
+Grade
+AutoGradingService
+
+Show relationships, important attributes, methods, and multiplicities.
+
+### Diagram 8: Detailed Package Diagram — Parent, Administration and Subscription
+
+Filename: `08_Admin_Parent_Subscription_Detailed_Package.drawio`
+
+Include:
+
+Parent
+ParentStudentLink
+Student
+Notification
+Message
+SchoolAdministrator
+School
+Subscription
+SubscriptionPlan
+Payment
+PaymentVerificationService
+ReportService
+
+Include relationships, operations, and dependencies.
+
+All UML diagrams must be technically consistent with the actual implementation.
+
+## 7. SYSTEM ARCHITECTURE
+
+Use a modular architecture:
+
+Frontend
+→ REST API
+→ Authentication and Application Services
+→ AI Services / Business Services
+→ Database and File Storage
+
+Design the modules to keep concerns separated.
+
+Suggested folder structure:
+
+```text
+EduAI-Tanzania/
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── layouts/
+│   │   ├── services/
+│   │   ├── hooks/
+│   │   ├── contexts/
+│   │   ├── i18n/
+│   │   └── tests/
+│   └── package.json
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── core/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── services/
+│   │   ├── ai/
+│   │   ├── repositories/
+│   │   └── main.py
+│   ├── tests/
+│   └── requirements.txt
+├── diagrams/
+│   ├── drawio/
+│   ├── png/
+│   └── pdf/
+├── docs/
+│   ├── technical-proposal/
+│   ├── architecture/
+│   ├── requirements/
+│   ├── testing/
+│   ├── agent-development-log/
+│   └── screenshots/
+├── scripts/
+├── .github/
+│   └── workflows/
+├── .gitignore
+├── .env.example
+├── README.md
+└── LICENSE
+```
+
+Modify the structure only where an improvement is technically justified.
+
+## 8. DATABASE DESIGN
+
+Design normalized relational tables including:
+
+- users
+- roles
+- schools
+- students
+- teachers
+- parents
+- parent_student_links
+- courses
+- teacher_course_assignments
+- enrollments
+- lessons
+- learning_materials
+- assignments
+- questions
+- quizzes
+- submissions
+- grades
+- learning_activities
+- ai_recommendations
+- recommendation_approvals
+- notifications
+- messages
+- subscription_plans
+- subscriptions
+- payments
+- audit_logs
+
+Include primary keys, foreign keys, constraints, indexes, timestamps, and appropriate relationships.
+
+Prevent cross-school data leakage.
+
+Create database migration scripts and realistic demonstration seed data using fictional users and schools clearly identified as sample records.
+
+## 9. USER INTERFACE REQUIREMENTS
+
+Build an attractive, professional, education-focused interface.
+
+The system must not look like a collection of disconnected assignment pages.
+
+Use consistent:
+- Navigation
+- Dashboard cards
+- Typography
+- Icons
+- Color palette
+- Forms
+- Status indicators
+- Validation feedback
+- Responsive layouts
+
+Develop the following interfaces:
+
+### Public Pages
+
+1. Landing page
+2. About the platform
+3. Features
+4. Subscription plans
+5. Login
+6. Registration
+7. Contact/support
+
+### Student Dashboard
+
+8. Student overview
+9. My courses
+10. Learning materials
+11. Assignments
+12. Quizzes
+13. AI tutor
+14. Personalized recommendations
+15. Performance analytics
+16. Student profile
+
+### Teacher Dashboard
+
+17. Teacher overview
+18. Assigned courses
+19. Course management
+20. Learning material uploads
+21. Assignment management
+22. Quiz generation
+23. Lesson plan assistance
+24. Student performance
+25. Recommendation approval queue
+
+### Parent Dashboard
+
+26. Parent overview
+27. Linked student profiles
+28. Academic reports
+29. Performance notifications
+30. Teacher messaging
+
+### Administrator Dashboard
+
+31. Administrator overview
+32. School management
+33. User management
+34. Teacher-course assignments
+35. School analytics
+36. Subscription management
+37. Payment verification
+38. Reports
+
+Prioritize complete working workflows over unnecessary visual effects.
+
+## 10. AI IMPLEMENTATION
+
+Implement demonstrable AI functionality.
+
+### Personalized Recommendations
+
+Use measurable student data such as:
+- Quiz scores
+- Assignment grades
+- Subject performance
+- Learning activity history
+- Identified weak topics
+- Learning preferences
+
+Generate individualized learning recommendations.
+
+Persist them in the database.
+
+Require teacher approval before publication.
+
+### Risk Prediction
+
+Build an explainable baseline risk assessment.
+
+Where suitable, use a scikit-learn model trained on clearly identified synthetic demonstration data.
+
+Do not treat synthetic predictions as scientifically validated academic outcomes.
+
+Display understandable reasons for the risk assessment.
+
+### AI Tutor
+
+Build a chatbot interface with:
+- English support
+- Kiswahili support
+- Subject selection
+- Academic question input
+- Educational responses
+- Conversation history where practical
+
+Use curriculum-grounded retrieval or a locally available open-source language model.
+
+Do not pretend that a hardcoded FAQ is a fully generative AI tutor.
+
+Provide clear error handling and honest capability labels when the optional model is unavailable.
+
+### AI-Assisted Teacher Tools
+
+Implement:
+- Quiz question generation
+- Lesson outline generation
+- Learning resource suggestions
+- Recommendation review and approval
+
+All generated educational content must be treated as draft material until reviewed by teachers.
+
+## 11. PAYMENT AND SUBSCRIPTION WORKFLOW
+
+Implement demonstration subscription plans.
+
+Create a simulated payment provider adapter for academic demonstrations.
+
+Do not claim actual M-Pesa, Airtel Money, Tigo Pesa/Mixx by Yas, or banking integration unless a real supported integration is implemented.
+
+Payment flow:
+
+1. User selects a subscription.
+2. System creates a pending transaction.
+3. Demonstration payment provider processes the request.
+4. Backend verifies the simulated transaction result.
+5. Verified transaction updates the subscription state.
+6. Premium access is activated.
+7. Payment receipt is generated.
+8. Transaction history is recorded.
+
+Implement unsuccessful payment and expired subscription scenarios.
+
+Payment verification must not be bypassable by direct frontend changes.
+
+## 12. TESTING REQUIREMENTS
+
+Create automated tests for core functionality.
+
+Mandatory areas:
+
+1. Authentication
+2. Registration
+3. School association
+4. Role-based permissions
+5. Course management
+6. Teacher-course assignment restrictions
+7. Assignment submission
+8. Automatic grading
+9. Performance reporting
+10. Parent-student authorization
+11. AI recommendation generation
+12. Teacher recommendation approval
+13. Rejected recommendation handling
+14. Payment verification
+15. Premium access restrictions
+16. Kiswahili/English functionality
+17. API validation
+18. Error handling
+
+Include negative security tests, especially attempts to access other users' records.
+
+Test actual application behavior rather than relying only on mocked success responses.
+
+Provide test commands, results, limitations, and evidence in the documentation.
+
+## 13. TECHNICAL PROPOSAL DOCUMENT
+
+Create a comprehensive academic technical software engineering proposal.
+
+Output:
+- Editable DOCX
+- Final PDF
+
+Filename:
+
+`EduAI_Tanzania_Technical_Proposal.pdf`
+
+Use the following structure:
+
+1. Cover Page
+2. Abstract
+3. Introduction
+4. Background of the Study
+5. Problem Statement
+6. Project Objectives
+7. Scope of the System
+8. Stakeholder Analysis
+9. Functional Requirements
+10. Non-Functional Requirements
+11. Business Rules
+12. Feasibility Analysis
+13. Proposed Technology Stack
+14. System Architecture
+15. Database Design
+16. UML Sequence Diagram
+17. UML Communication Diagram
+18. AI Recommendation State Machine
+19. Subscription State Machine
+20. Overview Package Diagram
+21. Detailed Package Diagrams
+22. AI Methodology
+23. Security and Privacy Considerations
+24. Development Methodology
+25. Implementation Plan
+26. Testing and Quality Assurance
+27. Risks and Mitigation Strategies
+28. Expected Outcomes
+29. Conclusion
+30. References
+31. Appendices
+
+Embed the actual diagrams with readable captions and descriptions.
+
+Explain how the proposed design corresponds to the implemented prototype.
+
+Use academically appropriate language without unnecessary exaggeration.
+
+Document assumptions, especially those concerning subscriptions, curriculum data, student information, and AI capabilities.
+
+The proposal must be suitable for submission several weeks before the prototype presentation.
+
+Do not invent completed results in a proposal describing work that has not yet been implemented.
+
+## 14. SOFTWARE AGENT CONTRIBUTION DOCUMENTATION
+
+The assignment explicitly requires evidence of software development agent assistance.
+
+Create:
+
+`docs/agent-development-log/AGENT_CONTRIBUTION_REPORT.md`
+
+Document:
+
+- Project instructions supplied by the human developer
+- Requirements analysis performed by the agent
+- Architecture decisions
+- Modules implemented by the agent
+- Human decisions and corrections
+- AI-related implementation work
+- UML generation process
+- Testing performed
+- Problems encountered
+- Changes made after review
+- Evidence of actual Git commits
+
+Maintain a clear distinction between human guidance and agent execution.
+
+Create a development activity log using actual implementation evidence rather than fabricated conversations.
+
+## 15. GIT AND GITHUB REQUIREMENTS
+
+This is a mandatory and important part of the assignment.
+
+Initialize or verify the repository before substantial development.
+
+**Target at least 40 meaningful Git commits, with 50–70 appropriate if the work genuinely justifies them.**
+
+Never create empty, fake, duplicated, or meaningless commits simply to increase the commit count.
+
+Create commits incrementally after completing logical units of development.
+
+Use conventional commit messages.
+
+Suggested sequence:
+
+### Planning and Architecture
+
+1. `chore: initialize EduAI Tanzania repository`
+2. `docs: add project requirements and scope`
+3. `docs: define functional requirements and business rules`
+4. `docs: add system architecture documentation`
+5. `docs: define database entities and relationships`
+
+### UML Diagrams
+
+6. `docs(uml): add sequence diagram`
+7. `docs(uml): add communication diagram`
+8. `docs(uml): add AI recommendation state machine`
+9. `docs(uml): add subscription state machine`
+10. `docs(uml): add overview package diagram`
+11. `docs(uml): add learning AI detailed package diagram`
+12. `docs(uml): add course assessment detailed package diagram`
+13. `docs(uml): add administration and payment package diagram`
+
+### Backend Development
+
+14. `feat(backend): initialize FastAPI application`
+15. `feat(database): configure database connection and migrations`
+16. `feat(auth): implement registration and login`
+17. `feat(auth): implement JWT authentication`
+18. `feat(auth): implement role-based permissions`
+19. `feat(schools): implement school management`
+20. `feat(students): implement student profiles`
+21. `feat(teachers): implement teacher profiles`
+22. `feat(parents): implement secure student linking`
+23. `feat(courses): implement course management`
+24. `feat(assignments): implement assignment workflows`
+25. `feat(quizzes): implement objective assessments`
+26. `feat(grading): implement automatic grading`
+27. `feat(performance): implement student analytics`
+28. `feat(ai): implement personalized recommendation engine`
+29. `feat(ai): implement academic risk assessment`
+30. `feat(ai): implement teacher approval workflow`
+31. `feat(ai): implement academic tutor integration`
+32. `feat(notifications): implement academic alerts`
+33. `feat(messages): implement teacher-parent messaging`
+34. `feat(subscriptions): implement subscription lifecycle`
+35. `feat(payments): implement verified demo payments`
+
+### Frontend Development
+
+36. `feat(frontend): initialize React application`
+37. `feat(ui): implement responsive navigation and layouts`
+38. `feat(ui): implement authentication pages`
+39. `feat(ui): implement student dashboard`
+40. `feat(ui): implement teacher dashboard`
+41. `feat(ui): implement parent dashboard`
+42. `feat(ui): implement administrator dashboard`
+43. `feat(ui): implement AI tutor interface`
+44. `feat(ui): implement recommendation approval interface`
+45. `feat(ui): implement performance charts`
+46. `feat(i18n): add English and Kiswahili translations`
+47. `feat(ui): implement payment and subscription pages`
+
+### Quality Assurance
+
+48. `test(auth): add authentication and authorization tests`
+49. `test(courses): add course and assignment tests`
+50. `test(ai): add recommendation approval workflow tests`
+51. `test(parents): add parent access restriction tests`
+52. `test(payments): add subscription verification tests`
+53. `test(frontend): add dashboard component tests`
+
+### Documentation and Delivery
+
+54. `docs: add installation and setup instructions`
+55. `docs: add API documentation`
+56. `docs: add agent contribution report`
+57. `docs: prepare technical proposal`
+58. `docs: add system screenshots and demonstration guide`
+59. `ci: add automated testing workflow`
+60. `chore: verify final release artifacts`
+
+These are suggested milestones, not commits that should be generated without corresponding completed work.
+
+After each meaningful feature:
+1. Check the modified files.
+2. Run relevant tests.
+3. Inspect the Git diff.
+4. Stage only relevant files.
+5. Commit with an accurate message.
+6. Record the commit SHA.
+7. Push to GitHub when authentication and connectivity allow.
+
+Do not commit secrets, passwords, virtual environments, dependency folders, database files containing personal records, or generated temporary artifacts.
+
+Do not overwrite unrelated repository history.
+
+At completion, report the actual commit count, branch, latest SHA, working tree status, remote URL, and push verification.
+
+## 16. DEVELOPMENT PHASES
+
+Work systematically.
+
+**Phase 1 — Analysis and planning**
+
+Analyze the entire assignment. Define requirements, business rules, use cases, architecture, database entities, and implementation milestones.
+
+**Phase 2 — UML design**
+
+Generate and validate all eight required draw.io diagrams.
+
+Check that each diagram matches the written requirements.
+
+**Phase 3 — Backend foundation**
+
+Implement authentication, authorization, database, user management, schools, and core academic modules.
+
+**Phase 4 — AI integration**
+
+Implement recommendations, risk analysis, teacher approvals, chatbot, and teacher AI assistance.
+
+**Phase 5 — Frontend implementation**
+
+Implement all role-specific dashboards and connect them to working backend endpoints.
+
+**Phase 6 — Payments and communications**
+
+Implement subscriptions, simulated verified payments, notifications, and teacher-parent communication.
+
+**Phase 7 — Testing**
+
+Run unit, integration, API, permission, and UI tests. Resolve failures and document remaining limitations.
+
+**Phase 8 — Documentation and delivery**
+
+Create technical proposal files, screenshots, installation instructions, demonstration scenarios, and agent contribution evidence.
+
+Commit work throughout every phase.
+
+## 17. DEVELOPMENT AGENT OPERATING INSTRUCTIONS
+
+You are responsible for performing the actual engineering work, not merely describing what another developer should do.
+
+Follow these rules:
+
+1. Inspect the existing workspace before modifying files.
+2. Preserve valid existing code and history.
+3. Identify missing requirements.
+4. Build complete vertical features from database to UI.
+5. Implement and test in small increments.
+6. Create genuine Git commits throughout development.
+7. Fix errors rather than hiding them.
+8. Use realistic sample data.
+9. Avoid unnecessary paid dependencies.
+10. Enforce authorization on the server.
+11. Keep all diagrams editable in draw.io.
+12. Validate every generated deliverable.
+13. Never claim that tests passed unless executed.
+14. Never claim successful GitHub pushes unless verified.
+15. Do not invent implementation evidence.
+16. Clearly identify unfinished functionality.
+17. Maintain a requirements traceability matrix.
+18. Keep the system runnable locally.
+19. Make design decisions that support future deployment.
+20. Prioritize academic correctness and reliable demonstrations.
+
+Do not stop after writing a project plan. Continue implementing the project through the specified phases using available tools and environment capabilities.
+
+When a requirement cannot be implemented, explain the actual technical blocker and provide a justified alternative.
+
+## 18. ACCEPTANCE CRITERIA
+
+Before declaring completion, verify:
+
+- All four roles have usable authentication and dashboard workflows.
+- Students are associated with schools.
+- Teachers cannot modify unassigned courses.
+- Parents cannot access unlinked students.
+- Assignments and objective quizzes work.
+- Grades and performance reports persist.
+- AI recommendations require teacher approval.
+- Chatbot and learning support are demonstrable.
+- Subscription verification controls premium access.
+- Language switching works.
+- All eight draw.io diagrams open and remain editable.
+- UML diagrams align with implementation.
+- Technical proposal PDF exists and is readable.
+- Editable proposal source exists.
+- Real test evidence is available.
+- Agent contribution documentation is complete.
+- At least 75% of requirements have verified working implementations.
+- Git history contains meaningful incremental commits.
+- GitHub push status is accurately reported.
+
+Create a requirements coverage table with the following columns:
+
+Requirement ID | Description | Implementation Status | Source Files | Test Evidence | Notes
+
+Calculate functional coverage from genuinely implemented requirements.
+
+Count partial or placeholder implementations separately. Do not classify them as complete.
+
+## 19. FINAL DELIVERY
+
+Deliver:
+
+1. Functional source code.
+2. Configured local database and demo seed script.
+3. Eight editable draw.io UML diagrams.
+4. Exported UML PNG files.
+5. Exported UML PDF files.
+6. Complete technical proposal PDF.
+7. Editable technical proposal DOCX.
+8. Comprehensive README.
+9. Installation and execution guide.
+10. API documentation.
+11. Automated test suite.
+12. Testing report.
+13. Agent contribution report.
+14. Demonstration screenshots.
+15. Demo account instructions.
+16. Git commit history.
+17. Verified GitHub repository link.
+18. Requirements coverage report.
+19. Known limitations report.
+20. Suggested future improvements.
+
+At the end, provide a concise final engineering report containing:
+
+- Modules completed
+- Functional coverage percentage
+- Test results
+- Number of Git commits
+- GitHub synchronization status
+- Diagram validation status
+- Proposal completion status
+- How to run the application
+- How to demonstrate each user role
+- Remaining limitations
+
+**Start by inspecting the workspace, creating the implementation plan, and establishing the Git repository. Then begin the actual development and continue committing verified progress throughout the project.**
+
+**The objective is a credible, well-engineered EduAI Tanzania prototype with professional documentation, complete UML deliverables, demonstrable AI-assisted development, and authentic Git history.**
