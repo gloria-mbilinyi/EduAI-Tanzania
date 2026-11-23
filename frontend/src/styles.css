@@ -585,7 +585,7 @@ a:focus-visible {
   color: var(--ink);
   min-width: 0;
 }
-.field > span {
+.field > label {
   font-weight: 550;
 }
 .field input,

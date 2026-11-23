@@ -1,4 +1,13 @@
-import { ReactNode, useState, FormEvent } from "react";
+import {
+  ReactNode,
+  useState,
+  FormEvent,
+  useId,
+  Children,
+  isValidElement,
+  cloneElement,
+  ReactElement,
+} from "react";
 import { useI18n } from "../i18n";
 import { refresh } from "../services/api";
 export function Badge({ children }: { children: ReactNode }) {
@@ -57,11 +66,17 @@ export function Field({
   children: ReactNode;
 }) {
   const { t } = useI18n();
+  const id = useId();
   return (
-    <label className="field">
-      <span>{t(label)}</span>
-      {children}
-    </label>
+    <div className="field">
+      <label htmlFor={id}>{t(label)}</label>
+      {Children.map(children, (child) =>
+        isValidElement(child) &&
+        ["input", "textarea", "select"].includes(String(child.type))
+          ? cloneElement(child as ReactElement<{ id?: string }>, { id })
+          : child,
+      )}
+    </div>
   );
 }
 export function ActionForm({

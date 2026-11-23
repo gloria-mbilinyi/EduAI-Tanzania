@@ -55,7 +55,7 @@ export function PerformanceChart({ courses }: { courses: Row[] }) {
             formatter={(v) => [`${v}%`, "Average score"]}
             cursor={{ fill: "#f4f8f5" }}
           />
-          <Bar dataKey="average" radius={[5, 5, 0, 0]} maxBarSize={40}>
+          <Bar dataKey="average" isAnimationActive={false} radius={[5, 5, 0, 0]} maxBarSize={40}>
             {courses
               .filter((c) => c.average !== null)
               .map((_, i) => (
