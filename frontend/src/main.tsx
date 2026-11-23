@@ -1,17 +1,74 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import {BrowserRouter,Routes,Route,Navigate} from 'react-router-dom'
-import {AuthProvider} from './contexts/Auth'
-import {I18nProvider} from './i18n'
-import {Dashboard} from './layouts/Dashboard'
-import {Public,AuthPage} from './pages/Public'
-import {Overview} from './pages/Overview'
-import {Courses,Materials,Assignments,Quizzes} from './pages/Academics'
-import {Tutor,Recommendations,LessonPlans} from './pages/AI'
-import {Performance,Students,Profile} from './pages/Performance'
-import {LinkedStudents,Notifications,Messages} from './pages/Families'
-import {Billing} from './pages/Billing'
-import {School,Users,TeacherAssignments,ParentLinks,Reports,Plans,Subscriptions,Audit} from './pages/Admin'
-import './styles.css'
-function App(){return <Routes><Route path="/" element={<Public/>}/><Route path="/login" element={<AuthPage/>}/><Route path="/register" element={<AuthPage register/>}/><Route path="/app" element={<Dashboard/>}><Route index element={<Navigate to="overview" replace/>}/><Route path="overview" element={<Overview/>}/><Route path="courses" element={<Courses/>}/><Route path="materials" element={<Materials/>}/><Route path="assignments" element={<Assignments/>}/><Route path="quizzes" element={<Quizzes/>}/><Route path="tutor" element={<Tutor/>}/><Route path="recommendations" element={<Recommendations/>}/><Route path="lesson-plans" element={<LessonPlans/>}/><Route path="performance" element={<Performance/>}/><Route path="students" element={<Students/>}/><Route path="profile" element={<Profile/>}/><Route path="linked-students" element={<LinkedStudents/>}/><Route path="notifications" element={<Notifications/>}/><Route path="messages" element={<Messages/>}/><Route path="billing" element={<Billing/>}/><Route path="school" element={<School/>}/><Route path="users" element={<Users/>}/><Route path="teacher-assignments" element={<TeacherAssignments/>}/><Route path="parent-links" element={<ParentLinks/>}/><Route path="reports" element={<Reports/>}/><Route path="plans" element={<Plans/>}/><Route path="subscriptions" element={<Subscriptions/>}/><Route path="payments" element={<Subscriptions payments/>}/><Route path="audit" element={<Audit/>}/><Route path="*" element={<Navigate to="overview" replace/>}/></Route><Route path="/:section" element={<Public/>}/><Route path="*" element={<Navigate to="/" replace/>}/></Routes>}
-ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><BrowserRouter><I18nProvider><AuthProvider><App/></AuthProvider></I18nProvider></BrowserRouter></React.StrictMode>)
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./contexts/Auth";
+import { I18nProvider } from "./i18n";
+import { Dashboard } from "./layouts/Dashboard";
+import { Public, AuthPage } from "./pages/Public";
+import { Overview } from "./pages/Overview";
+import { Courses, Materials, Assignments, Quizzes } from "./pages/Academics";
+import { Tutor, Recommendations, LessonPlans } from "./pages/AI";
+import { Performance, Students, Profile } from "./pages/Performance";
+import { LinkedStudents, Notifications, Messages } from "./pages/Families";
+import { Billing } from "./pages/Billing";
+import {
+  School,
+  Users,
+  TeacherAssignments,
+  ParentLinks,
+  Reports,
+  Plans,
+  Subscriptions,
+  Audit,
+} from "./pages/Admin";
+import "./styles.css";
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Public />} />
+      <Route path="/login" element={<AuthPage />} />
+      <Route path="/register" element={<AuthPage register />} />
+      <Route path="/app" element={<Dashboard />}>
+        <Route index element={<Navigate to="overview" replace />} />
+        <Route path="overview" element={<Overview />} />
+        <Route path="courses" element={<Courses />} />
+        <Route path="materials" element={<Materials />} />
+        <Route path="assignments" element={<Assignments />} />
+        <Route path="quizzes" element={<Quizzes />} />
+        <Route path="tutor" element={<Tutor />} />
+        <Route path="recommendations" element={<Recommendations />} />
+        <Route path="lesson-plans" element={<LessonPlans />} />
+        <Route path="performance" element={<Performance />} />
+        <Route path="students" element={<Students />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="linked-students" element={<LinkedStudents />} />
+        <Route path="notifications" element={<Notifications />} />
+        <Route path="messages" element={<Messages />} />
+        <Route path="billing" element={<Billing />} />
+        <Route path="school" element={<School />} />
+        <Route path="users" element={<Users />} />
+        <Route path="teacher-assignments" element={<TeacherAssignments />} />
+        <Route path="parent-links" element={<ParentLinks />} />
+        <Route path="reports" element={<Reports />} />
+        <Route path="plans" element={<Plans />} />
+        <Route path="subscriptions" element={<Subscriptions />} />
+        <Route path="payments" element={<Subscriptions payments />} />
+        <Route path="audit" element={<Audit />} />
+        <Route path="*" element={<Navigate to="overview" replace />} />
+      </Route>
+      <Route path="/:section" element={<Public />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <I18nProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </I18nProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
+);

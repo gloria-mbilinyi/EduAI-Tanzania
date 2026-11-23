@@ -1,20 +1,222 @@
-import {useState} from 'react'
-import {Navigate,NavLink,Outlet,useLocation,Link} from 'react-router-dom'
-import {GraduationCap,LayoutDashboard,BookOpen,FileText,ListChecks,Sparkles,ChartNoAxesCombined,UserRound,Users,Bell,MessageSquare,Building2,CreditCard,ClipboardCheck,LogOut,Menu,X,Globe,NotebookPen,Link2,Settings,LucideIcon} from 'lucide-react'
-import {useAuth} from '../contexts/Auth'
-import {useI18n} from '../i18n'
-type Item=[string,string,LucideIcon]
-export const menus:Record<string,Item[]>={
- student:[['overview','Overview',LayoutDashboard],['courses','My courses',BookOpen],['materials','Learning materials',FileText],['assignments','Assignments',NotebookPen],['quizzes','Quizzes',ListChecks],['tutor','AI tutor',Sparkles],['recommendations','Learning pathways',ClipboardCheck],['performance','Performance',ChartNoAxesCombined],['notifications','Notifications',Bell],['billing','Subscriptions',CreditCard],['profile','My profile',UserRound]],
- teacher:[['overview','Overview',LayoutDashboard],['courses','Assigned courses',BookOpen],['materials','Learning materials',FileText],['assignments','Assignments',NotebookPen],['quizzes','Quizzes',ListChecks],['lesson-plans','Lesson planning',Sparkles],['students','Students',Users],['recommendations','Review queue',ClipboardCheck],['messages','Messages',MessageSquare],['billing','Subscriptions',CreditCard],['profile','My profile',UserRound]],
- parent:[['overview','Overview',LayoutDashboard],['linked-students','Linked students',Link2],['performance','Reports',ChartNoAxesCombined],['notifications','Notifications',Bell],['messages','Messages',MessageSquare],['billing','Subscriptions',CreditCard],['profile','My profile',UserRound]],
- admin:[['overview','Overview',LayoutDashboard],['school','School',Building2],['users','Users',Users],['teacher-assignments','Teacher assignments',BookOpen],['parent-links','Parent links',Link2],['reports','Reports',ChartNoAxesCombined],['plans','Plans',Settings],['subscriptions','Subscriptions',CreditCard],['payments','Payments',ClipboardCheck],['audit','Audit trail',FileText]]
+import { useState } from "react";
+import { Navigate, NavLink, Outlet, useLocation, Link } from "react-router-dom";
+import {
+  GraduationCap,
+  LayoutDashboard,
+  BookOpen,
+  FileText,
+  ListChecks,
+  Sparkles,
+  ChartNoAxesCombined,
+  UserRound,
+  Users,
+  Bell,
+  MessageSquare,
+  Building2,
+  CreditCard,
+  ClipboardCheck,
+  LogOut,
+  Menu,
+  X,
+  Globe,
+  NotebookPen,
+  Link2,
+  Settings,
+  LucideIcon,
+} from "lucide-react";
+import { useAuth } from "../contexts/Auth";
+import { useI18n } from "../i18n";
+type Item = [string, string, LucideIcon];
+export const menus: Record<string, Item[]> = {
+  student: [
+    ["overview", "Overview", LayoutDashboard],
+    ["courses", "My courses", BookOpen],
+    ["materials", "Learning materials", FileText],
+    ["assignments", "Assignments", NotebookPen],
+    ["quizzes", "Quizzes", ListChecks],
+    ["tutor", "AI tutor", Sparkles],
+    ["recommendations", "Learning pathways", ClipboardCheck],
+    ["performance", "Performance", ChartNoAxesCombined],
+    ["notifications", "Notifications", Bell],
+    ["billing", "Subscriptions", CreditCard],
+    ["profile", "My profile", UserRound],
+  ],
+  teacher: [
+    ["overview", "Overview", LayoutDashboard],
+    ["courses", "Assigned courses", BookOpen],
+    ["materials", "Learning materials", FileText],
+    ["assignments", "Assignments", NotebookPen],
+    ["quizzes", "Quizzes", ListChecks],
+    ["lesson-plans", "Lesson planning", Sparkles],
+    ["students", "Students", Users],
+    ["recommendations", "Review queue", ClipboardCheck],
+    ["messages", "Messages", MessageSquare],
+    ["billing", "Subscriptions", CreditCard],
+    ["profile", "My profile", UserRound],
+  ],
+  parent: [
+    ["overview", "Overview", LayoutDashboard],
+    ["linked-students", "Linked students", Link2],
+    ["performance", "Reports", ChartNoAxesCombined],
+    ["notifications", "Notifications", Bell],
+    ["messages", "Messages", MessageSquare],
+    ["billing", "Subscriptions", CreditCard],
+    ["profile", "My profile", UserRound],
+  ],
+  admin: [
+    ["overview", "Overview", LayoutDashboard],
+    ["school", "School", Building2],
+    ["users", "Users", Users],
+    ["teacher-assignments", "Teacher assignments", BookOpen],
+    ["parent-links", "Parent links", Link2],
+    ["reports", "Reports", ChartNoAxesCombined],
+    ["plans", "Plans", Settings],
+    ["subscriptions", "Subscriptions", CreditCard],
+    ["payments", "Payments", ClipboardCheck],
+    ["audit", "Audit trail", FileText],
+  ],
+};
+export function Brand() {
+  return (
+    <Link to="/" className="brand">
+      <span className="brand-icon">
+        <GraduationCap size={27} />
+      </span>
+      <span>
+        EduAI<span className="brand-country">TANZANIA</span>
+      </span>
+    </Link>
+  );
 }
-export function Brand(){return <Link to="/" className="brand"><span className="brand-icon"><GraduationCap size={27}/></span><span>EduAI<span className="brand-country">TANZANIA</span></span></Link>}
-export function Dashboard(){
- const {user,logout}=useAuth(),{t,lang,toggle}=useI18n(),[open,setOpen]=useState(false),location=useLocation()
- if(!user)return <Navigate to="/login" replace/>
- const items=menus[user.role]||[],title=items.find(x=>location.pathname.split('/')[2]===x[0])?.[1]||'Overview'
- return <div className="workspace"><aside className={`sidebar ${open?'is-open':''}`}><div className="sidebar-brand"><Brand/><button className="icon-button mobile-only" aria-label="Close navigation" onClick={()=>setOpen(false)}><X/></button></div><p className="nav-caption">{t(user.role==='admin'?'School administrator':user.role==='teacher'?'Teacher':user.role==='parent'?'Parent':'Student')} workspace</p><nav aria-label="Main navigation">{items.map(([path,label,Icon])=><NavLink key={path} to={`/app/${path}`} onClick={()=>setOpen(false)} className={({isActive})=>isActive?'nav-item active':'nav-item'}><Icon size={20}/><span>{t(label)}</span>{path==='tutor'&&<span className="tiny-tag">AI</span>}</NavLink>)}</nav><div className="sidebar-bottom"><div className="school-note"><Building2 size={21}/><span>{t('Academic demonstration')}<small>Fictional school records</small></span></div><button className="nav-item logout" onClick={logout}><LogOut size={19}/>{t('Sign out')}</button></div></aside>{open&&<button className="sidebar-scrim" aria-label="Close navigation" onClick={()=>setOpen(false)}/>}
- <div className="workspace-main"><header className="topbar"><div className="breadcrumb"><button className="icon-button mobile-only" aria-label="Open navigation" onClick={()=>setOpen(true)}><Menu/></button><span>Workspace</span><span className="breadcrumb-divider">/</span><strong>{t(title)}</strong></div><div className="topbar-actions"><button className="language-button" onClick={toggle}><Globe size={17}/>{lang==='en'?'Kiswahili':'English'}</button><Link to="/app/notifications" className="icon-button" aria-label={t('Notifications')}><Bell size={20}/></Link><span className="avatar">{user.name.split(' ').map((n:string)=>n[0]).slice(0,2).join('')}</span><div className="user-label"><strong>{user.name}</strong><small>{t(user.role==='admin'?'School administrator':user.role==='teacher'?'Teacher':user.role==='parent'?'Parent':'Student')}</small></div></div></header><main className="main-content"><Outlet/></main><footer className="workspace-footer">EduAI Tanzania Ltd. <span>Thoughtful learning. Stronger school communities.</span></footer></div></div>
+export function Dashboard() {
+  const { user, logout } = useAuth(),
+    { t, lang, toggle } = useI18n(),
+    [open, setOpen] = useState(false),
+    location = useLocation();
+  if (!user) return <Navigate to="/login" replace />;
+  const items = menus[user.role] || [],
+    title =
+      items.find((x) => location.pathname.split("/")[2] === x[0])?.[1] ||
+      "Overview";
+  return (
+    <div className="workspace">
+      <aside className={`sidebar ${open ? "is-open" : ""}`}>
+        <div className="sidebar-brand">
+          <Brand />
+          <button
+            className="icon-button mobile-only"
+            aria-label="Close navigation"
+            onClick={() => setOpen(false)}
+          >
+            <X />
+          </button>
+        </div>
+        <p className="nav-caption">
+          {t(
+            user.role === "admin"
+              ? "School administrator"
+              : user.role === "teacher"
+                ? "Teacher"
+                : user.role === "parent"
+                  ? "Parent"
+                  : "Student",
+          )}{" "}
+          workspace
+        </p>
+        <nav aria-label="Main navigation">
+          {items.map(([path, label, Icon]) => (
+            <NavLink
+              key={path}
+              to={`/app/${path}`}
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                isActive ? "nav-item active" : "nav-item"
+              }
+            >
+              <Icon size={20} />
+              <span>{t(label)}</span>
+              {path === "tutor" && <span className="tiny-tag">AI</span>}
+            </NavLink>
+          ))}
+        </nav>
+        <div className="sidebar-bottom">
+          <div className="school-note">
+            <Building2 size={21} />
+            <span>
+              {t("Academic demonstration")}
+              <small>Fictional school records</small>
+            </span>
+          </div>
+          <button className="nav-item logout" onClick={logout}>
+            <LogOut size={19} />
+            {t("Sign out")}
+          </button>
+        </div>
+      </aside>
+      {open && (
+        <button
+          className="sidebar-scrim"
+          aria-label="Close navigation"
+          onClick={() => setOpen(false)}
+        />
+      )}
+      <div className="workspace-main">
+        <header className="topbar">
+          <div className="breadcrumb">
+            <button
+              className="icon-button mobile-only"
+              aria-label="Open navigation"
+              onClick={() => setOpen(true)}
+            >
+              <Menu />
+            </button>
+            <span>Workspace</span>
+            <span className="breadcrumb-divider">/</span>
+            <strong>{t(title)}</strong>
+          </div>
+          <div className="topbar-actions">
+            <button className="language-button" onClick={toggle}>
+              <Globe size={17} />
+              {lang === "en" ? "Kiswahili" : "English"}
+            </button>
+            <Link
+              to="/app/notifications"
+              className="icon-button"
+              aria-label={t("Notifications")}
+            >
+              <Bell size={20} />
+            </Link>
+            <span className="avatar">
+              {user.name
+                .split(" ")
+                .map((n: string) => n[0])
+                .slice(0, 2)
+                .join("")}
+            </span>
+            <div className="user-label">
+              <strong>{user.name}</strong>
+              <small>
+                {t(
+                  user.role === "admin"
+                    ? "School administrator"
+                    : user.role === "teacher"
+                      ? "Teacher"
+                      : user.role === "parent"
+                        ? "Parent"
+                        : "Student",
+                )}
+              </small>
+            </div>
+          </div>
+        </header>
+        <main className="main-content">
+          <Outlet />
+        </main>
+        <footer className="workspace-footer">
+          EduAI Tanzania Ltd.{" "}
+          <span>Thoughtful learning. Stronger school communities.</span>
+        </footer>
+      </div>
+    </div>
+  );
 }

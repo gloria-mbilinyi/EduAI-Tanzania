@@ -1,11 +1,207 @@
-import {Link,useSearchParams} from 'react-router-dom'
-import {useAuth} from '../contexts/Auth'
-import {useI18n} from '../i18n'
-import {useLoad} from '../hooks/useLoad'
-import {post,Row} from '../services/api'
-import {ActionForm,ActionButton,Field,Panel,Badge,Notice,Empty} from '../components/UI'
-import {Heading,useCourse,CoursePicker} from './Academics'
+import { Link, useSearchParams } from "react-router-dom";
+import { useAuth } from "../contexts/Auth";
+import { useI18n } from "../i18n";
+import { useLoad } from "../hooks/useLoad";
+import { post, Row } from "../services/api";
+import {
+  ActionForm,
+  ActionButton,
+  Field,
+  Panel,
+  Badge,
+  Notice,
+  Empty,
+} from "../components/UI";
+import { Heading, useCourse, CoursePicker } from "./Academics";
 
-export function LinkedStudents(){const {data,error}=useLoad<Row[]>('/parent/links'),{t}=useI18n();return <><Heading title="Linked students" description="Access is granted only after your school verifies the family link."/><Notice error>{error}</Notice><div className="card-grid">{data?.map(l=><Panel key={l.id} title={l.student_name} action={<Badge>{l.status}</Badge>}><p>{t('Student ID')}: {l.student_id}</p>{l.status==='approved'&&<Link className="button secondary" to={`/app/performance?student=${l.student_id}`}>{t('View report')}</Link>}</Panel>)}</div><Panel title={t('Request link')}><p className="text-sm">Ask your school for the student identifier. Submitting a request does not grant academic access; a school administrator must verify it.</p><ActionForm label="Request link" onSubmit={f=>post('/parent/links',{student_id:Number(f.get('student_id'))})}><Field label="Student ID"><input name="student_id" type="number" min={1} required/></Field></ActionForm></Panel></>}
-export function Notifications(){const {data,error}=useLoad<Row[]>('/notifications'),{t}=useI18n();return <><Heading title="Notifications" description="Academic updates and school conversations."/><Notice error>{error}</Notice>{data?.length?data.map(n=><Panel key={n.id} title={n.title} action={<Badge>{n.read?'Read':'Unread'}</Badge>}><p>{n.body}</p><small>{new Date(n.created_at+'Z').toLocaleString()}</small>{!n.read&&<div className="mt-4"><ActionButton onClick={()=>post(`/notifications/${n.id}/read`)}>{t('Read')}</ActionButton></div>}</Panel>):<Empty/>}</>}
-export function Messages(){const {user}=useAuth(),{t}=useI18n(),[params,setParams]=useSearchParams(),{courses,id,setId}=useCourse(),{data:links}=useLoad<Row[]>(user?.role==='parent'?'/parent/links':null),{data:roster}=useLoad<Row[]>(user?.role==='teacher'&&id?`/courses/${id}/students`:null),{data:messages,error}=useLoad<Row[]>('/messages');const choices=user?.role==='parent'?links?.filter(x=>x.status==='approved').map(x=>({id:x.student_id,name:x.student_name})):roster;const sid=Number(params.get('student'))||choices?.[0]?.id;const {data:contacts}=useLoad<Row[]>(sid?`/message-contacts/${sid}`:null);return <><Heading title="Messages" description="Private conversations between approved parents and assigned teachers."/><Notice error>{error}</Notice><div className="two-columns"><Panel title={t('Send')}>{user?.role==='teacher'&&<CoursePicker courses={courses} value={id} onChange={setId}/>}<Field label="Student"><select value={sid||''} onChange={e=>setParams({student:e.target.value,...(id?{course:String(id)}:{})})}>{choices?.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}</select></Field>{sid&&<ActionForm className="mt-4" label="Send" onSubmit={f=>post('/messages',{student_id:sid,recipient_id:Number(f.get('recipient_id')),body:f.get('body')})}><Field label="Recipient"><select name="recipient_id" required defaultValue=""><option value="" disabled>{t('Recipient')}</option>{contacts?.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></Field><Field label="Message"><textarea name="body" required maxLength={5000}/></Field></ActionForm>}{!contacts?.length&&<p className="text-sm mt-4">No approved parent-teacher contact is available for this student.</p>}</Panel><Panel title="Conversation history">{messages?.length?messages.map(m=><article key={m.id} className="chat-message"><span className="message-meta">{m.sender_name} to {m.recipient_name} · Student {m.student_id}</span><p>{m.body}</p><small>{new Date(m.created_at+'Z').toLocaleString()}</small></article>):<Empty/>}</Panel></div></>}
+export function LinkedStudents() {
+  const { data, error } = useLoad<Row[]>("/parent/links"),
+    { t } = useI18n();
+  return (
+    <>
+      <Heading
+        title="Linked students"
+        description="Access is granted only after your school verifies the family link."
+      />
+      <Notice error>{error}</Notice>
+      <div className="card-grid">
+        {data?.map((l) => (
+          <Panel
+            key={l.id}
+            title={l.student_name}
+            action={<Badge>{l.status}</Badge>}
+          >
+            <p>
+              {t("Student ID")}: {l.student_id}
+            </p>
+            {l.status === "approved" && (
+              <Link
+                className="button secondary"
+                to={`/app/performance?student=${l.student_id}`}
+              >
+                {t("View report")}
+              </Link>
+            )}
+          </Panel>
+        ))}
+      </div>
+      <Panel title={t("Request link")}>
+        <p className="text-sm">
+          Ask your school for the student identifier. Submitting a request does
+          not grant academic access; a school administrator must verify it.
+        </p>
+        <ActionForm
+          label="Request link"
+          onSubmit={(f) =>
+            post("/parent/links", { student_id: Number(f.get("student_id")) })
+          }
+        >
+          <Field label="Student ID">
+            <input name="student_id" type="number" min={1} required />
+          </Field>
+        </ActionForm>
+      </Panel>
+    </>
+  );
+}
+export function Notifications() {
+  const { data, error } = useLoad<Row[]>("/notifications"),
+    { t } = useI18n();
+  return (
+    <>
+      <Heading
+        title="Notifications"
+        description="Academic updates and school conversations."
+      />
+      <Notice error>{error}</Notice>
+      {data?.length ? (
+        data.map((n) => (
+          <Panel
+            key={n.id}
+            title={n.title}
+            action={<Badge>{n.read ? "Read" : "Unread"}</Badge>}
+          >
+            <p>{n.body}</p>
+            <small>{new Date(n.created_at + "Z").toLocaleString()}</small>
+            {!n.read && (
+              <div className="mt-4">
+                <ActionButton
+                  onClick={() => post(`/notifications/${n.id}/read`)}
+                >
+                  {t("Read")}
+                </ActionButton>
+              </div>
+            )}
+          </Panel>
+        ))
+      ) : (
+        <Empty />
+      )}
+    </>
+  );
+}
+export function Messages() {
+  const { user } = useAuth(),
+    { t } = useI18n(),
+    [params, setParams] = useSearchParams(),
+    { courses, id, setId } = useCourse(),
+    { data: links } = useLoad<Row[]>(
+      user?.role === "parent" ? "/parent/links" : null,
+    ),
+    { data: roster } = useLoad<Row[]>(
+      user?.role === "teacher" && id ? `/courses/${id}/students` : null,
+    ),
+    { data: messages, error } = useLoad<Row[]>("/messages");
+  const choices =
+    user?.role === "parent"
+      ? links
+          ?.filter((x) => x.status === "approved")
+          .map((x) => ({ id: x.student_id, name: x.student_name }))
+      : roster;
+  const sid = Number(params.get("student")) || choices?.[0]?.id;
+  const { data: contacts } = useLoad<Row[]>(
+    sid ? `/message-contacts/${sid}` : null,
+  );
+  return (
+    <>
+      <Heading
+        title="Messages"
+        description="Private conversations between approved parents and assigned teachers."
+      />
+      <Notice error>{error}</Notice>
+      <div className="two-columns">
+        <Panel title={t("Send")}>
+          {user?.role === "teacher" && (
+            <CoursePicker courses={courses} value={id} onChange={setId} />
+          )}
+          <Field label="Student">
+            <select
+              value={sid || ""}
+              onChange={(e) =>
+                setParams({
+                  student: e.target.value,
+                  ...(id ? { course: String(id) } : {}),
+                })
+              }
+            >
+              {choices?.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </Field>
+          {sid && (
+            <ActionForm
+              className="mt-4"
+              label="Send"
+              onSubmit={(f) =>
+                post("/messages", {
+                  student_id: sid,
+                  recipient_id: Number(f.get("recipient_id")),
+                  body: f.get("body"),
+                })
+              }
+            >
+              <Field label="Recipient">
+                <select name="recipient_id" required defaultValue="">
+                  <option value="" disabled>
+                    {t("Recipient")}
+                  </option>
+                  {contacts?.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+              <Field label="Message">
+                <textarea name="body" required maxLength={5000} />
+              </Field>
+            </ActionForm>
+          )}
+          {!contacts?.length && (
+            <p className="text-sm mt-4">
+              No approved parent-teacher contact is available for this student.
+            </p>
+          )}
+        </Panel>
+        <Panel title="Conversation history">
+          {messages?.length ? (
+            messages.map((m) => (
+              <article key={m.id} className="chat-message">
+                <span className="message-meta">
+                  {m.sender_name} to {m.recipient_name} · Student {m.student_id}
+                </span>
+                <p>{m.body}</p>
+                <small>{new Date(m.created_at + "Z").toLocaleString()}</small>
+              </article>
+            ))
+          ) : (
+            <Empty />
+          )}
+        </Panel>
+      </div>
+    </>
+  );
+}
