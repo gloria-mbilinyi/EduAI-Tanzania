@@ -3,9 +3,9 @@
 ## Objective and acceptance
 
 Implement the supplied EduAI brief as an academic prototype. Measure coverage
-against the 61 functional requirements (12 student, 11 teacher, 7 parent,
-10 administrator and 10 AI requirements; total recalculated by the traceability
-script). Partial workflows are reported separately. Business rules are
+against the 50 functional requirements (12 student, 11 teacher, 7 parent,
+10 administrator and 10 AI requirements). Partial workflows are reported
+separately. Business rules are
 server-side invariants and are not additional functional coverage points.
 
 ## Delivery milestones
