@@ -38,6 +38,7 @@ def checkout(data: Checkout, u: User = Depends(principal), db: Session = Depends
     if not DEMO_PAYMENTS: raise HTTPException(503, 'Demo provider disabled')
     plan = get(db, SubscriptionPlan, data.plan_id)
     if not plan.active: raise HTTPException(409, 'Plan unavailable')
+    if plan.school_id is not None and plan.school_id != u.school_id: raise HTTPException(404, 'Plan unavailable')
     s = Subscription(user_id=u.id, plan_id=plan.id, premium=plan.premium)
     db.add(s)
     db.flush()

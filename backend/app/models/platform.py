@@ -43,6 +43,7 @@ class Message(Entity, Base):
 
 class SubscriptionPlan(Entity, Base):
     __tablename__ = 'subscription_plans'
+    school_id = Column(Integer, ForeignKey('schools.id'), nullable=True)
     name = Column(String(80), nullable=False)
     price_tzs = Column(Integer, nullable=False)
     days = Column(Integer, nullable=False, default=30)
