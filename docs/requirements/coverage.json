@@ -1,0 +1,412 @@
+{
+  "summary": {
+    "total_functional_requirements": 50,
+    "implemented_and_tested": 46,
+    "partial": 4,
+    "unimplemented": 0,
+    "functional_coverage_percent": 92.0,
+    "method": "Complete requirements / all 50 functional requirements; partial items contribute zero."
+  },
+  "requirements": [
+    {
+      "Requirement ID": "ST-01",
+      "Description": "Student registration and login",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/auth.py; frontend/src/pages/Public.tsx; frontend/src/pages/Performance.tsx",
+      "Test Evidence": "backend/tests/test_identity.py::test_registration_school_profile_and_duplicates",
+      "Notes": "Register/login; admin is provisioned out of band"
+    },
+    {
+      "Requirement ID": "ST-02",
+      "Description": "Student profile management",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/auth.py; frontend/src/pages/Public.tsx; frontend/src/pages/Performance.tsx",
+      "Test Evidence": "backend/tests/test_identity.py::test_profile_language_and_no_role_escalation",
+      "Notes": "Name, language, interests and learning preference"
+    },
+    {
+      "Requirement ID": "ST-03",
+      "Description": "School association during registration",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/auth.py; frontend/src/pages/Public.tsx; frontend/src/pages/Performance.tsx",
+      "Test Evidence": "backend/tests/test_identity.py::test_registration_school_profile_and_duplicates",
+      "Notes": "Existing active school is required"
+    },
+    {
+      "Requirement ID": "ST-04",
+      "Description": "AI-powered personalized learning recommendations",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/recommendations.py; frontend/src/pages/AI.tsx; backend/app/ai/recommendations.py",
+      "Test Evidence": "backend/tests/test_ai.py::test_pending_hidden_then_teacher_approval_publishes",
+      "Notes": "Persisted rule-based recommendations"
+    },
+    {
+      "Requirement ID": "ST-05",
+      "Description": "Academic chatbot tutor",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/tutor.py; frontend/src/pages/AI.tsx; backend/app/ai/tutor.py",
+      "Test Evidence": "backend/tests/test_ai.py::test_bilingual_retrieval_sources_history_and_no_match",
+      "Notes": "Small cited teaching corpus, not a generative LLM"
+    },
+    {
+      "Requirement ID": "ST-06",
+      "Description": "Online assignment submission",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/assignments.py; frontend/src/pages/Academics.tsx",
+      "Test Evidence": "backend/tests/test_academics.py::test_assignment_submission_grading_and_alerts",
+      "Notes": "Text submissions; one per assignment"
+    },
+    {
+      "Requirement ID": "ST-07",
+      "Description": "Online quizzes",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/quizzes.py; frontend/src/pages/Academics.tsx",
+      "Test Evidence": "backend/tests/test_academics.py::test_objective_quiz_hides_keys_validates_and_grades",
+      "Notes": "One objective attempt per quiz"
+    },
+    {
+      "Requirement ID": "ST-08",
+      "Description": "Automatic grading of objective assessments",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/quizzes.py; frontend/src/pages/Academics.tsx",
+      "Test Evidence": "backend/tests/test_academics.py::test_objective_quiz_hides_keys_validates_and_grades",
+      "Notes": "Server-side answer keys and persisted grade"
+    },
+    {
+      "Requirement ID": "ST-09",
+      "Description": "Academic performance dashboard",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/performance.py; frontend/src/pages/Overview.tsx; frontend/src/pages/Performance.tsx; backend/app/services/performance.py",
+      "Test Evidence": "backend/tests/test_academics.py::test_assignment_submission_grading_and_alerts",
+      "Notes": "Charts use persisted grades"
+    },
+    {
+      "Requirement ID": "ST-10",
+      "Description": "Progress report generation",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/performance.py; frontend/src/pages/Overview.tsx; frontend/src/pages/Performance.tsx; backend/app/services/performance.py",
+      "Test Evidence": "backend/tests/test_academics.py::test_assignment_submission_grading_and_alerts",
+      "Notes": "CSV export and printable browser report"
+    },
+    {
+      "Requirement ID": "ST-11",
+      "Description": "Learning recommendations based on academic weaknesses and interests",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/recommendations.py; frontend/src/pages/AI.tsx; backend/app/ai/recommendations.py",
+      "Test Evidence": "backend/tests/test_ai.py::test_pending_hidden_then_teacher_approval_publishes",
+      "Notes": "Uses weakest assessment, preferences, interests and activity"
+    },
+    {
+      "Requirement ID": "ST-12",
+      "Description": "English/Kiswahili switching",
+      "Implementation Status": "Partial",
+      "Source Files": "backend/app/api/auth.py; frontend/src/pages/Public.tsx; frontend/src/pages/Performance.tsx",
+      "Test Evidence": "frontend/src/tests/ui.test.tsx \u2014 switches navigation labels and the document language",
+      "Notes": "Navigation and core labels translated; explanatory and API text still partly English"
+    },
+    {
+      "Requirement ID": "TC-01",
+      "Description": "Teacher registration and authentication",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/auth.py; frontend/src/pages/Public.tsx; frontend/src/pages/Performance.tsx",
+      "Test Evidence": "backend/tests/test_identity.py::test_teacher_requires_activation",
+      "Notes": "Registration plus administrator activation"
+    },
+    {
+      "Requirement ID": "TC-02",
+      "Description": "Teacher dashboard",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/courses.py; frontend/src/pages/Academics.tsx",
+      "Test Evidence": "frontend/e2e/workflows.spec.ts \u2014 teacher dashboard and lesson assistance persist a reviewed draft",
+      "Notes": "Assigned-course dashboard"
+    },
+    {
+      "Requirement ID": "TC-03",
+      "Description": "Course creation and management",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/courses.py; frontend/src/pages/Academics.tsx",
+      "Test Evidence": "backend/tests/test_academics.py::test_course_assignment_permissions_and_scope",
+      "Notes": "Creator is assigned automatically"
+    },
+    {
+      "Requirement ID": "TC-04",
+      "Description": "Management of assigned courses only",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/courses.py; frontend/src/pages/Academics.tsx",
+      "Test Evidence": "backend/tests/test_academics.py::test_course_assignment_permissions_and_scope",
+      "Notes": "Unassigned courses denied on server"
+    },
+    {
+      "Requirement ID": "TC-05",
+      "Description": "Uploading educational notes and materials",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/courses.py; frontend/src/pages/Academics.tsx",
+      "Test Evidence": "backend/tests/test_academics.py::test_materials_upload_download_and_validation",
+      "Notes": "Text notes and protected file upload"
+    },
+    {
+      "Requirement ID": "TC-06",
+      "Description": "Uploading or linking lesson videos",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/courses.py; frontend/src/pages/Academics.tsx",
+      "Test Evidence": "backend/tests/test_academics.py::test_materials_upload_download_and_validation",
+      "Notes": "HTTPS links and capped MP4 upload/download"
+    },
+    {
+      "Requirement ID": "TC-07",
+      "Description": "Assignment creation and management",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/assignments.py; frontend/src/pages/Academics.tsx",
+      "Test Evidence": "backend/tests/test_academics.py::test_assignment_submission_grading_and_alerts",
+      "Notes": "Create/edit assignments and grade submissions"
+    },
+    {
+      "Requirement ID": "TC-08",
+      "Description": "Monitoring student performance",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/performance.py; frontend/src/pages/Overview.tsx; frontend/src/pages/Performance.tsx; backend/app/services/performance.py",
+      "Test Evidence": "backend/tests/test_academics.py::test_teacher_performance_excludes_unassigned_subjects",
+      "Notes": "Results restricted to assigned subjects"
+    },
+    {
+      "Requirement ID": "TC-09",
+      "Description": "AI-assisted quiz generation",
+      "Implementation Status": "Partial",
+      "Source Files": "backend/app/api/teacher_tools.py; frontend/src/pages/AI.tsx",
+      "Test Evidence": "backend/tests/test_ai.py::test_teacher_tools_are_entitled_drafts_and_persist_reviewed_lesson",
+      "Notes": "Curated question-bank assembly; no novel question generation"
+    },
+    {
+      "Requirement ID": "TC-10",
+      "Description": "AI-assisted lesson plan generation",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/teacher_tools.py; frontend/src/pages/AI.tsx",
+      "Test Evidence": "frontend/e2e/workflows.spec.ts \u2014 teacher dashboard and lesson assistance persist a reviewed draft",
+      "Notes": "Retrieved passage plus editable structured lesson template"
+    },
+    {
+      "Requirement ID": "TC-11",
+      "Description": "Review, approval, or rejection of AI-generated recommendations before publication",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/recommendations.py; frontend/src/pages/AI.tsx; backend/app/ai/recommendations.py",
+      "Test Evidence": "backend/tests/test_ai.py::test_rejection_regeneration_keeps_review_history",
+      "Notes": "Assigned teacher approves/rejects; history retained"
+    },
+    {
+      "Requirement ID": "PR-01",
+      "Description": "Parent registration and authentication",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/auth.py; frontend/src/pages/Public.tsx; frontend/src/pages/Performance.tsx",
+      "Test Evidence": "backend/tests/test_risk.py::test_parent_self_registration_creates_restricted_account",
+      "Notes": "Registration and login with no automatic child access"
+    },
+    {
+      "Requirement ID": "PR-02",
+      "Description": "Secure linking of parent and student accounts",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/families.py; frontend/src/pages/Families.tsx",
+      "Test Evidence": "backend/tests/test_families_admin.py::test_pending_link_does_not_grant_access_until_admin_verifies",
+      "Notes": "School-approved family linkage"
+    },
+    {
+      "Requirement ID": "PR-03",
+      "Description": "Parent academic dashboard",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/families.py; frontend/src/pages/Families.tsx",
+      "Test Evidence": "frontend/e2e/workflows.spec.ts \u2014 parent sees approved child and academic report",
+      "Notes": "Parent role dashboard"
+    },
+    {
+      "Requirement ID": "PR-04",
+      "Description": "Viewing linked students' performance",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/performance.py; frontend/src/pages/Overview.tsx; frontend/src/pages/Performance.tsx; backend/app/services/performance.py",
+      "Test Evidence": "backend/tests/test_families_admin.py::test_parent_cannot_view_unlinked_student_or_school",
+      "Notes": "Linked student reports"
+    },
+    {
+      "Requirement ID": "PR-05",
+      "Description": "Receiving student performance alerts",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/families.py; frontend/src/pages/Families.tsx",
+      "Test Evidence": "backend/tests/test_academics.py::test_assignment_submission_grading_and_alerts",
+      "Notes": "In-app alerts only; no SMS/email provider"
+    },
+    {
+      "Requirement ID": "PR-06",
+      "Description": "Teacher-parent messaging",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/families.py; frontend/src/pages/Families.tsx",
+      "Test Evidence": "backend/tests/test_families_admin.py::test_teacher_parent_message_relationship_and_private_history",
+      "Notes": "Validated family/teacher relationship"
+    },
+    {
+      "Requirement ID": "PR-07",
+      "Description": "Restrict access to linked students only",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/families.py; frontend/src/pages/Families.tsx",
+      "Test Evidence": "backend/tests/test_families_admin.py::test_parent_cannot_view_unlinked_student_or_school",
+      "Notes": "Negative cross-student and school tests"
+    },
+    {
+      "Requirement ID": "AD-01",
+      "Description": "Administrator authentication",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/auth.py; frontend/src/pages/Public.tsx; frontend/src/pages/Performance.tsx",
+      "Test Evidence": "backend/tests/test_activity_roles.py::test_all_four_roles_login_and_load_protected_identity",
+      "Notes": "Administrator account seeded out of band"
+    },
+    {
+      "Requirement ID": "AD-02",
+      "Description": "User and role management",
+      "Implementation Status": "Partial",
+      "Source Files": "backend/app/api/admin.py; frontend/src/pages/Admin.tsx",
+      "Test Evidence": "backend/tests/test_families_admin.py::test_admin_scope_school_users_assignments_and_audit",
+      "Notes": "Create role-assigned accounts, activate/deactivate; changing an existing role is not implemented"
+    },
+    {
+      "Requirement ID": "AD-03",
+      "Description": "School management",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/admin.py; frontend/src/pages/Admin.tsx",
+      "Test Evidence": "backend/tests/test_families_admin.py::test_admin_scope_school_users_assignments_and_audit",
+      "Notes": "Update own registered school; school provisioning is out of band"
+    },
+    {
+      "Requirement ID": "AD-04",
+      "Description": "Teacher-course assignment",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/admin.py; frontend/src/pages/Admin.tsx",
+      "Test Evidence": "backend/tests/test_families_admin.py::test_admin_scope_school_users_assignments_and_audit",
+      "Notes": "Add/remove teacher assignment and enroll students"
+    },
+    {
+      "Requirement ID": "AD-05",
+      "Description": "Platform usage statistics",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/admin.py; frontend/src/pages/Admin.tsx",
+      "Test Evidence": "backend/tests/test_families_admin.py::test_admin_scope_school_users_assignments_and_audit",
+      "Notes": "School user, activity and login counts"
+    },
+    {
+      "Requirement ID": "AD-06",
+      "Description": "School academic performance reports",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/admin.py; frontend/src/pages/Admin.tsx",
+      "Test Evidence": "backend/tests/test_families_admin.py::test_admin_scope_school_users_assignments_and_audit",
+      "Notes": "School means computed from persisted student evidence"
+    },
+    {
+      "Requirement ID": "AD-07",
+      "Description": "Subscription plan management",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/admin_billing.py; frontend/src/pages/Admin.tsx",
+      "Test Evidence": "backend/tests/test_families_admin.py::test_school_plan_management_and_scope",
+      "Notes": "Create/edit/disable school plans; shared plans immutable"
+    },
+    {
+      "Requirement ID": "AD-08",
+      "Description": "Payment monitoring and verification",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/billing.py; frontend/src/pages/Billing.tsx; frontend/src/pages/Admin.tsx",
+      "Test Evidence": "backend/tests/test_payments.py::test_amount_tampering_and_unrelated_verifier_denied",
+      "Notes": "Server verification and school-scoped monitoring"
+    },
+    {
+      "Requirement ID": "AD-09",
+      "Description": "Subscription activation and deactivation",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/admin_billing.py; frontend/src/pages/Admin.tsx",
+      "Test Evidence": "backend/tests/test_payments.py::test_expiry_suspension_and_no_manual_activation_bypass",
+      "Notes": "Verified activation, suspension, cancellation and expiry"
+    },
+    {
+      "Requirement ID": "AD-10",
+      "Description": "Administrative reporting",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/admin.py; frontend/src/pages/Admin.tsx",
+      "Test Evidence": "frontend/e2e/workflows.spec.ts \u2014 school administrator can inspect scoped accounts and reports",
+      "Notes": "Printable academic and usage reports plus audit trail"
+    },
+    {
+      "Requirement ID": "AI-01",
+      "Description": "Student learning behavior analysis",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/performance.py; frontend/src/pages/Overview.tsx; frontend/src/pages/Performance.tsx; backend/app/services/performance.py",
+      "Test Evidence": "backend/tests/test_activity_roles.py::test_reading_materials_is_read_only_and_study_is_explicit",
+      "Notes": "Recorded activity and assessment analysis; offline study unknown"
+    },
+    {
+      "Requirement ID": "AI-02",
+      "Description": "Student academic risk prediction",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/performance.py; frontend/src/pages/Overview.tsx; frontend/src/pages/Performance.tsx; backend/app/services/performance.py",
+      "Test Evidence": "backend/tests/test_risk.py::test_explainable_risk_boundaries",
+      "Notes": "Transparent risk rules; no trained ML model or accuracy claim"
+    },
+    {
+      "Requirement ID": "AI-03",
+      "Description": "Personalized learning pathway generation",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/recommendations.py; frontend/src/pages/AI.tsx; backend/app/ai/recommendations.py",
+      "Test Evidence": "backend/tests/test_ai.py::test_pending_hidden_then_teacher_approval_publishes",
+      "Notes": "Three-step rule-based learning pathway"
+    },
+    {
+      "Requirement ID": "AI-04",
+      "Description": "AI-generated academic performance reports",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/performance.py; frontend/src/pages/Overview.tsx; frontend/src/pages/Performance.tsx; backend/app/services/performance.py",
+      "Test Evidence": "backend/tests/test_academics.py::test_assignment_submission_grading_and_alerts",
+      "Notes": "Deterministic evidence summary, not generative narrative"
+    },
+    {
+      "Requirement ID": "AI-05",
+      "Description": "English and Kiswahili chatbot support",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/tutor.py; frontend/src/pages/AI.tsx; backend/app/ai/tutor.py",
+      "Test Evidence": "backend/tests/test_ai.py::test_bilingual_retrieval_sources_history_and_no_match",
+      "Notes": "English/Kiswahili passage retrieval and private history"
+    },
+    {
+      "Requirement ID": "AI-06",
+      "Description": "AI-assisted teacher lesson planning",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/teacher_tools.py; frontend/src/pages/AI.tsx",
+      "Test Evidence": "backend/tests/test_ai.py::test_teacher_tools_are_entitled_drafts_and_persist_reviewed_lesson",
+      "Notes": "Structured, editable teacher-reviewed outline"
+    },
+    {
+      "Requirement ID": "AI-07",
+      "Description": "AI-assisted quiz generation",
+      "Implementation Status": "Partial",
+      "Source Files": "backend/app/api/teacher_tools.py; frontend/src/pages/AI.tsx",
+      "Test Evidence": "backend/tests/test_ai.py::test_teacher_tools_are_entitled_drafts_and_persist_reviewed_lesson",
+      "Notes": "Question bank selection and assembly only"
+    },
+    {
+      "Requirement ID": "AI-08",
+      "Description": "Explainable recommendations",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/recommendations.py; frontend/src/pages/AI.tsx; backend/app/ai/recommendations.py",
+      "Test Evidence": "backend/tests/test_ai.py::test_pending_hidden_then_teacher_approval_publishes",
+      "Notes": "Visible numeric evidence and understandable reasons"
+    },
+    {
+      "Requirement ID": "AI-09",
+      "Description": "Teacher approval before recommendation publication",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/recommendations.py; frontend/src/pages/AI.tsx; backend/app/ai/recommendations.py",
+      "Test Evidence": "backend/tests/test_ai.py::test_rejection_regeneration_keeps_review_history",
+      "Notes": "Rejected drafts never publish without a later approval"
+    },
+    {
+      "Requirement ID": "AI-10",
+      "Description": "Recommendation history and audit logs",
+      "Implementation Status": "Implemented and tested",
+      "Source Files": "backend/app/api/recommendations.py; frontend/src/pages/AI.tsx; backend/app/ai/recommendations.py",
+      "Test Evidence": "backend/tests/test_ai.py::test_rejection_regeneration_keeps_review_history",
+      "Notes": "Review decisions, versions and audited mutations"
+    }
+  ]
+}
