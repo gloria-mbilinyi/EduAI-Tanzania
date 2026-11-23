@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .core.config import FRONTEND_ORIGIN
 from .migrate import migrate
-from .api import auth, courses, assignments, quizzes, performance, billing, recommendations, tutor
+from .api import auth, courses, assignments, quizzes, performance, billing, recommendations, tutor, teacher_tools
 
 @asynccontextmanager
 async def lifespan(app):
@@ -20,6 +20,7 @@ app.include_router(performance.router)
 app.include_router(billing.router)
 app.include_router(recommendations.router)
 app.include_router(tutor.router)
+app.include_router(teacher_tools.router)
 
 @app.get('/api/health', tags=['public'])
 def health():
