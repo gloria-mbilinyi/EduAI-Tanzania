@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="app.diagrams.net" version="24.7.17" type="device">
   <diagram id="05" name="05_EduAI_Overview_Package_Diagram">
-    <mxGraphModel dx="0" dy="0" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1560" pageHeight="1110" math="0" shadow="0">
+    <mxGraphModel dx="0" dy="0" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1560" pageHeight="1660" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -137,99 +137,255 @@
         <mxCell id="45" value="core/config.py · schemas/common.py" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
           <mxGeometry x="432" y="938" width="316" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="46" value="&lt;&lt;uses&gt;&gt; enrollments" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="4" target="16">
+        <mxCell id="46" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="4" target="16">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="205.0" y="300" as="sourcePoint" />
-            <mxPoint x="205.0" y="380" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="47" value="&lt;&lt;uses&gt;&gt; assigned courses" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="7" target="16">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="420" y="222.5" as="sourcePoint" />
+            <mxPoint x="375" y="222.5" as="sourcePoint" />
             <mxPoint x="375" y="457.5" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="392" y="222.5" />
+              <mxPoint x="392" y="1045" />
+              <mxPoint x="400" y="1045" />
+              <mxPoint x="400" y="457.5" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="48" value="&lt;&lt;uses&gt;&gt; linked reports" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="10" target="28">
+        <mxCell id="47" value="P1" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="366.0" y="1023" width="60" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="48" value="P1  Student Management uses Course Management: enrollments" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="35" y="1320" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="49" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="7" target="16">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="805" y="222.5" as="sourcePoint" />
+            <mxPoint x="760" y="222.5" as="sourcePoint" />
+            <mxPoint x="375" y="457.5" as="targetPoint" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="777" y="222.5" />
+              <mxPoint x="777" y="1060" />
+              <mxPoint x="400" y="1060" />
+              <mxPoint x="400" y="457.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="50" value="P2" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="558.5" y="1038" width="60" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="51" value="P2  Teacher Management uses Course Management: assigned courses" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="795" y="1320" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="52" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="10" target="28">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1145" y="222.5" as="sourcePoint" />
             <mxPoint x="375" y="692.5" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="1162" y="222.5" />
+              <mxPoint x="1162" y="1075" />
+              <mxPoint x="400" y="1075" />
+              <mxPoint x="400" y="692.5" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="49" value="&lt;&lt;uses&gt;&gt; school evidence" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="13" target="19">
+        <mxCell id="53" value="P3" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="751.0" y="1053" width="60" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="54" value="P3  Parent Management uses Performance Analytics: linked reports" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="35" y="1358" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="55" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="13" target="19">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1190" y="222.5" as="sourcePoint" />
+            <mxPoint x="1530" y="222.5" as="sourcePoint" />
             <mxPoint x="760" y="457.5" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="1547" y="222.5" />
+              <mxPoint x="1547" y="1090" />
+              <mxPoint x="785" y="1090" />
+              <mxPoint x="785" y="457.5" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="50" value="&lt;&lt;uses&gt;&gt; access" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="16" target="37">
+        <mxCell id="56" value="P4" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="1136.0" y="1068" width="60" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="57" value="P4  School Administration uses Assignment and Quiz Management: school evidence" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="795" y="1358" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="58" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="16" target="37">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="375" y="457.5" as="sourcePoint" />
-            <mxPoint x="1190" y="692.5" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
+            <mxPoint x="1530" y="692.5" as="targetPoint" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="392" y="457.5" />
+              <mxPoint x="392" y="1105" />
+              <mxPoint x="1555" y="1105" />
+              <mxPoint x="1555" y="692.5" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="51" value="&lt;&lt;uses&gt;&gt; grades" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="19" target="28">
+        <mxCell id="59" value="P5" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="943.5" y="1083" width="60" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="60" value="P5  Course Management uses Authentication and Authorization: access" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="35" y="1396" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="61" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="19" target="28">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="420" y="457.5" as="sourcePoint" />
+            <mxPoint x="760" y="457.5" as="sourcePoint" />
             <mxPoint x="375" y="692.5" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="777" y="457.5" />
+              <mxPoint x="777" y="1120" />
+              <mxPoint x="400" y="1120" />
+              <mxPoint x="400" y="692.5" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="52" value="&lt;&lt;uses&gt;&gt; learning evidence" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="22" target="28">
+        <mxCell id="62" value="P6" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="558.5" y="1098" width="60" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="63" value="P6  Assignment and Quiz Management uses Performance Analytics: grades" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="795" y="1396" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="64" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="22" target="28">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="805" y="457.5" as="sourcePoint" />
+            <mxPoint x="1145" y="457.5" as="sourcePoint" />
             <mxPoint x="375" y="692.5" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="1162" y="457.5" />
+              <mxPoint x="1162" y="1135" />
+              <mxPoint x="400" y="1135" />
+              <mxPoint x="400" y="692.5" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="53" value="&lt;&lt;uses&gt;&gt; transactions" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="25" target="40">
+        <mxCell id="65" value="P7" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="751.0" y="1113" width="60" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="66" value="P7  AI Learning Engine uses Performance Analytics: learning evidence" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="35" y="1434" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="67" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="25" target="40">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1190" y="457.5" as="sourcePoint" />
+            <mxPoint x="1530" y="457.5" as="sourcePoint" />
             <mxPoint x="375" y="927.5" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="1547" y="457.5" />
+              <mxPoint x="1547" y="1150" />
+              <mxPoint x="400" y="1150" />
+              <mxPoint x="400" y="927.5" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="54" value="&lt;&lt;uses&gt;&gt; results" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="28" target="40">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="205.0" y="770" as="sourcePoint" />
-            <mxPoint x="205.0" y="850" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
-          </mxGeometry>
+        <mxCell id="68" value="P8" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="943.5" y="1128" width="60" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="55" value="&lt;&lt;uses&gt;&gt; recipients" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="31" target="40">
+        <mxCell id="69" value="P8  Subscription and Payment uses Data Access: transactions" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="795" y="1434" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="70" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="28" target="40">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="420" y="692.5" as="sourcePoint" />
+            <mxPoint x="375" y="692.5" as="sourcePoint" />
             <mxPoint x="375" y="927.5" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="392" y="692.5" />
+              <mxPoint x="392" y="1165" />
+              <mxPoint x="400" y="1165" />
+              <mxPoint x="400" y="927.5" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="56" value="&lt;&lt;uses&gt;&gt; aggregates" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="34" target="28">
+        <mxCell id="71" value="P9" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="366.0" y="1143" width="60" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="72" value="P9  Performance Analytics uses Data Access: results" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="35" y="1472" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="73" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="31" target="40">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="805" y="692.5" as="sourcePoint" />
+            <mxPoint x="760" y="692.5" as="sourcePoint" />
+            <mxPoint x="375" y="927.5" as="targetPoint" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="777" y="692.5" />
+              <mxPoint x="777" y="1180" />
+              <mxPoint x="400" y="1180" />
+              <mxPoint x="400" y="927.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="74" value="P10" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="558.5" y="1158" width="60" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="75" value="P10  Notification and Communication uses Data Access: recipients" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="795" y="1472" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="76" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="34" target="28">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1145" y="692.5" as="sourcePoint" />
             <mxPoint x="375" y="692.5" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="1162" y="692.5" />
+              <mxPoint x="1162" y="1195" />
+              <mxPoint x="400" y="1195" />
+              <mxPoint x="400" y="692.5" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="57" value="&lt;&lt;uses&gt;&gt; configuration" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="37" target="43">
+        <mxCell id="77" value="P11" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="751.0" y="1173" width="60" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="78" value="P11  Reporting uses Performance Analytics: aggregates" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="35" y="1510" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="79" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="37" target="43">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1190" y="692.5" as="sourcePoint" />
+            <mxPoint x="1530" y="692.5" as="sourcePoint" />
             <mxPoint x="760" y="927.5" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="1547" y="692.5" />
+              <mxPoint x="1547" y="1210" />
+              <mxPoint x="785" y="1210" />
+              <mxPoint x="785" y="927.5" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="58" value="&lt;&lt;uses&gt;&gt; current principal" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=13;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" source="37" target="40">
+        <mxCell id="80" value="P12" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="1136.0" y="1188" width="60" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="81" value="P12  Authentication and Authorization uses Shared Services: configuration" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="795" y="1510" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="82" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;exitX=1.0;exitY=0.5;exitPerimeter=0;entryX=1.0;entryY=0.5;entryPerimeter=0;" source="37" target="40">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1190" y="692.5" as="sourcePoint" />
+            <mxPoint x="1530" y="692.5" as="sourcePoint" />
             <mxPoint x="375" y="927.5" as="targetPoint" />
-            <mxPoint x="0" y="-17" as="offset" />
+            <mxPoint x="0" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="1547" y="692.5" />
+              <mxPoint x="1547" y="1225" />
+              <mxPoint x="400" y="1225" />
+              <mxPoint x="400" y="927.5" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="59" value="Exposed interfaces: JSON REST /api, bearer JWT authentication, scoped report CSV downloads and authorized material downloads. Database and simulated provider adapters have no direct browser interface." style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=17;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
-          <mxGeometry x="35" y="1010" width="1490" height="65" as="geometry" />
+        <mxCell id="83" value="P13" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="943.5" y="1203" width="60" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="84" value="P13  Authentication and Authorization uses Data Access: current principal" style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=14;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="35" y="1548" width="735" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="85" value="Interfaces: JSON REST /api; bearer JWT; scoped CSV report and material downloads. Data Access and provider adapters are never directly exposed to the browser." style="text;strokeColor=none;fillColor=none;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=16;fontStyle=0;spacing=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="35" y="1595" width="1490" height="45" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

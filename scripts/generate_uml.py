@@ -35,8 +35,8 @@ SCENARIOS=[
  (2,4,'simulate provider outcome (no real money)'),(4,5,'record internal provider ledger'),(0,3,'request backend verification'),
  (3,5,'read payment and provider ledger'),(3,5,'verify amount/currency [payment verified]'),(3,2,'activate with expiry [payment verified]'),
  (2,5,'persist active subscription and audit'),(2,0,'generate demonstration receipt',True),
+ (3,2,'[failed or rejected] deny activation'),(2,5,'persist failed/rejected and audit'),
  (1,2,'request premium tool [subscription active]'),(2,5,'check verified payment and unexpired entitlement'),(2,0,'allow premium assistance',True),
- (3,2,'[failed or rejected] deny activation'),
  ])]
 
 def sequence():
@@ -52,80 +52,55 @@ def sequence():
    d.node(name,x-spacing*.46,Y+58,spacing*.92,65,font=16,bold=True,fill='#e8f1eb')
    d.line(x,Y+123,x,Y+H-45,dashed=True,arrow=False)
   dy=min(46,(H-200)/max(1,len(messages)))
+  def fragment(start,end,label,split=None):
+   top=Y+165+start*dy-22
+   d.node('',X+12,top,W-24,(end-start)*dy+42,fill='none')
+   d.node(label,X+19,top+1,240,21,font=12,shape='text',style='align=left;')
+   if split is not None:
+    sy=Y+165+split*dy-22
+    d.line(X+12,sy,X+W-12,sy,arrow=False,dashed=True)
+    d.node('[rejected]',X+19,sy+1,200,21,font=12,shape='text',style='align=left;')
+  if n==0:
+   fragment(5,5,'loop [per recorded result]')
+   fragment(10,13,'alt [approved]',12)
+   fragment(14,15,'opt [recommendation approved]')
+  if n==3:
+   fragment(7,12,'alt [payment verified]',11)
+   fragment(13,15,'opt [subscription active]')
   for i,m in enumerate(messages):
    a,b,label,*ret=m;y=Y+165+i*dy
    d.node('',xs[b]-5,y-8,10,27,fill='#d8e8dc')
    d.line(xs[a],y,xs[b],y,f'{n+1}.{i+1}  {label}',dashed=bool(ret and ret[0]),font=14,offset=(0,-16))
-  if n==0:
-   # Interaction fragments remain independent editable vertices/lines.
-   y=Y+165+10*dy-24
-   d.node('alt [approved] / [rejected]',X+18,y,280,28,font=13,shape='text',style='align=left;')
-   d.line(X+12,y-3,X+W-12,y-3,arrow=False,dashed=True)
-   d.line(X+12,y+dy*2.3,X+W-12,y+dy*2.3,arrow=False,dashed=True)
-   d.node('opt [published] student may view',X+15,Y+H-35,650,25,font=13,shape='text',style='align=left;')
-  if n==3:d.node('alt [verified] activate / [failed or rejected] keep premium disabled',X+15,Y+H-35,W-30,25,font=14,shape='text',style='align=left;')
  return d
 
 def communication():
- d=Diagram('02_EduAI_Communication_Diagram',3000,2400)
+ d=Diagram('02_EduAI_Communication_Diagram',3000,2760)
  d.title('EduAI Tanzania Communication Diagram','The message numbers, participants and guards match Diagram 01. Link labels reference the ordered message catalogue in each frame.')
  for n,(title,actors,messages) in enumerate(SCENARIOS):
-  X=30+(n%2)*1490;Y=125+(n//2)*1120;W=1450;H=1090
+  X=30+(n%2)*1490;Y=125+(n//2)*1300;W=1450;H=1270
   d.node('',X,Y,W,H,fill='#fbfdfb');d.node(f'{n+1}  {title}',X+15,Y+8,W-30,40,font=21,bold=True,shape='text',style='align=left;')
   nodes=[]
   for i,name in enumerate(actors):
    col=i%4;row=i//4
-   nodes.append(d.node(name,X+45+col*345,Y+80+row*230,270,58,fill='#e8f1eb',font=17,bold=True))
+   nodes.append(d.node(name,X+45+col*345,Y+80+row*400,270,58,fill='#e8f1eb',font=17,bold=True))
   grouped={}
   for i,m in enumerate(messages):grouped.setdefault((m[0],m[1]),[]).append(f'{n+1}.{i+1}')
   for j,((a,b),nums) in enumerate(grouped.items()):
-   d.connect(nodes[a],nodes[b],', '.join(nums),font=14,offset=(0,(-22 if j%2 else 18)))
-  d.node('Ordered messages and authorization guards',X+25,Y+470,W-50,35,font=18,bold=True,shape='text',style='align=left;')
+   x,y,w,h=d.boxes[nodes[a]];xx,yy,ww,hh=d.boxes[nodes[b]]
+   sy=y+h if a<4 else y;ty=yy+hh if b<4 else yy
+   lane=Y+170+j*19
+   d.line(x+w/2,sy,xx+ww/2,ty,', '.join(nums),points=[(x+w/2,lane),(xx+ww/2,lane)],font=13,source=nodes[a],target=nodes[b],offset=(0,lane-(sy+ty)/2-13))
+  d.node('Ordered messages and authorization guards',X+25,Y+580,W-50,35,font=18,bold=True,shape='text',style='align=left;')
   for i,m in enumerate(messages):
    a,b,label,*ret=m
    text=f'{n+1}.{i+1}  {actors[a]} -> {actors[b]}: {label}'
-   d.node(text,X+25,Y+510+i*32,W-50,30,font=15,shape='text',style='align=left;')
+   d.node(text,X+25,Y+620+i*32,W-50,30,font=15,shape='text',style='align=left;')
  return d
 
-def state_ai():
- d=Diagram('03_AI_Recommendation_State_Machine',1500,1120)
- d.title('AI Recommendation State Machine','One recommendation object. Transient service steps are distinguished from persisted review states. Publication requires an approval record.')
- initial=d.node('',35,210,28,28,shape='ellipse',fill='#19382e')
- data=[('Created',120,175),('Analysis Pending',390,175),('Generated',660,175),('Pending Teacher Review',975,175),('Approved',975,400),('Published',660,400),('Viewed by Student',390,400),('Archived',120,400),('Rejected',975,635),('Revision Required',660,635),('Regenerated',390,635),('Generation Failed',660,850),('Cancelled',120,850)]
- ids={name:d.node(name,x,y,240,85,shape='round',fill='#eaf3ed' if name in {'Published','Approved'} else '#fff',font=19,bold=True) for name,x,y in data}
- final=d.node('',225,1020,35,35,shape='final',fill='#fff')
- d.connect(initial,ids['Created'],'request / validate scope',font=13,offset=(40,-50))
- pairs=[('Created','Analysis Pending','generate / collect evidence'),('Analysis Pending','Generated','analysis succeeds / build draft'),('Generated','Pending Teacher Review','save / status=pending_review'),('Pending Teacher Review','Approved','approve [assigned teacher] / record decision'),('Approved','Published','same transaction / publish'),('Published','Viewed by Student','view [own student] / audit'),('Viewed by Student','Archived','archive [assigned teacher]'),('Pending Teacher Review','Rejected','reject [assigned teacher] / record comment'),('Rejected','Revision Required','request regeneration'),('Revision Required','Regenerated','generate / increment version'),('Regenerated','Pending Teacher Review','save new draft / require review'),('Analysis Pending','Generation Failed','exception / rollback; no publication'),('Generation Failed','Analysis Pending','retry [scope valid]'),('Created','Cancelled','invalid scope or withdrawn request / no draft')]
- for i,(a,b,label) in enumerate(pairs):
-  points=None
-  if a=='Regenerated':points=[(510,565),(1095,565)]
-  if a=='Analysis Pending' and b=='Generation Failed':points=[(510,810),(780,810)]
-  if a=='Generation Failed':points=[(1425,892),(1425,145),(510,145)]
-  d.connect(ids[a],ids[b],label,font=14,offset=(0,-22 if i%2 else 20),points=points)
- d.connect(ids['Archived'],final,'retained for audit / final',font=14,offset=(-30,0))
- d.connect(ids['Cancelled'],final,'no published object',font=14,offset=(70,0))
- d.node('Persisted statuses: pending_review, rejected, published, viewed, archived. Created, analysis, generated, approved, revision and cancelled are transaction-level conceptual steps; the API does not persist separate lifecycle rows for them.',35,111-0,1430,43,font=15,shape='text',style='align=left;')
- return d
-
-def state_subscription():
- d=Diagram('04_Subscription_State_Machine',1500,1080)
- d.title('Subscription State Machine','One per-user subscription. The demonstration provider ledger controls activation. Renewal creates a new subscription object linked through its owner.')
- initial=d.node('',35,210,28,28,shape='ellipse',fill='#19382e')
- data=[('Created',115,175),('Pending Payment',390,175),('Payment Verification',690,175),('Active',1100,175),('Expiring Soon',1100,410),('Expired',795,410),('Renewed',490,410),('Payment Failed',690,655),('Payment Rejected',1000,655),('Suspended',1100,865),('Cancelled',180,865)]
- ids={name:d.node(name,x,y,245,85,shape='round',fill='#eaf3ed' if name=='Active' else '#fff',font=19,bold=True) for name,x,y in data}
- d.connect(initial,ids['Created'],'select plan',font=14,offset=(20,-45))
- pairs=[('Created','Pending Payment','checkout / persist transaction'),('Pending Payment','Payment Verification','verify / query server ledger'),('Payment Verification','Active','[verified amount and currency] / set expiry'),('Active','Expiring Soon','time remaining <= 7 days / derived view'),('Expiring Soon','Expired','now >= expires_at / deny premium'),('Expired','Renewed','checkout / create NEW object'),('Renewed','Pending Payment','new transaction / pending verification'),('Payment Verification','Payment Failed','[provider failure] / deny premium'),('Payment Verification','Payment Rejected','[rejected or mismatch] / deny premium'),('Active','Suspended','admin suspend / deny premium'),('Suspended','Active','admin restore [verified and unexpired]'),('Pending Payment','Cancelled','admin cancel / stop activation'),('Active','Cancelled','admin cancel / deny premium')]
- for i,(a,b,label) in enumerate(pairs):
-  points=None
-  if a=='Suspended':points=[(1430,905),(1430,217)]
-  if a=='Active' and b=='Cancelled':points=[(1395,1020),(302,1020)]
-  if a=='Renewed':points=[(330,452),(330,217)]
-  d.connect(ids[a],ids[b],label,font=14,offset=(0,-20 if i%2 else 20),points=points)
- d.node('Active entitlement = active status + future expires_at + premium flag + verified payment. Expiring Soon is derived, not a persisted status. Failed and rejected payments require a new checkout. No client success flag is accepted.',35,111,1430,45,font=15,shape='text',style='align=left;')
- return d
+from state_uml import state_ai, state_subscription
 
 def overview():
- d=Diagram('05_EduAI_Overview_Package_Diagram',1560,1110)
+ d=Diagram('05_EduAI_Overview_Package_Diagram',1560,1660)
  d.title('EduAI Tanzania Overview Package Diagram','Dashed arrows indicate a package using another package. Responsibilities are logical packages mapped to application modules.')
  specs=[('Student Management','api/auth.py · students profile'),('Teacher Management','api/teacher_tools.py'),('Parent Management','api/families.py · approved links'),('School Administration','api/admin.py'),('Course Management','api/courses.py'),('Assignment and Quiz Management','api/assignments.py · api/quizzes.py'),('AI Learning Engine','ai/recommendations.py · ai/tutor.py'),('Subscription and Payment','api/billing.py · services/billing.py'),('Performance Analytics','services/performance.py'),('Notification and Communication','services/notifications.py · families.py'),('Reporting','api/performance.py · admin/reports'),('Authentication and Authorization','core/security.py · services/access.py'),('Data Access','core/database.py · SQLAlchemy models'),('Shared Services','core/config.py · schemas/common.py')]
  ids=[]
@@ -135,12 +110,17 @@ def overview():
   ids.append(d.node('',x,y,340,155,shape='package',fill='#f1f7f3'))
   d.node(name,x+12,y+40,316,46,font=18,bold=True,shape='text')
   d.node(module,x+12,y+88,316,52,font=14,shape='text')
- for a,b,label in [(0,4,'enrollments'),(1,4,'assigned courses'),(2,8,'linked reports'),(3,5,'school evidence'),(4,11,'access'),(5,8,'grades'),(6,8,'learning evidence'),(7,12,'transactions'),(8,12,'results'),(9,12,'recipients'),(10,8,'aggregates'),(11,13,'configuration'),(11,12,'current principal')]:d.connect(ids[a],ids[b],'<<uses>> '+label,dashed=True,font=13,offset=(0,-17))
- d.node('Exposed interfaces: JSON REST /api, bearer JWT authentication, scoped report CSV downloads and authorized material downloads. Database and simulated provider adapters have no direct browser interface.',35,1010,1490,65,font=17,shape='text',style='align=left;')
+ relations=[(0,4,'enrollments'),(1,4,'assigned courses'),(2,8,'linked reports'),(3,5,'school evidence'),(4,11,'access'),(5,8,'grades'),(6,8,'learning evidence'),(7,12,'transactions'),(8,12,'results'),(9,12,'recipients'),(10,8,'aggregates'),(11,13,'configuration'),(11,12,'current principal')]
+ for i,(a,b,label) in enumerate(relations):
+  x,y,w,h=d.boxes[ids[a]];X,Y,W,H=d.boxes[ids[b]];lane=1045+i*15
+  d.transition(ids[a],ids[b],f'P{i+1}',((x+w+17+X+W+25)/2-30,lane-22,60,22),[(x+w+17,y+h/2),(x+w+17,lane),(X+W+25,lane),(X+W+25,Y+H/2)],('R','R'),dashed=True)
+  col=i%2;row=i//2
+  d.node(f'P{i+1}  {specs[a][0]} uses {specs[b][0]}: {label}',35+col*760,1320+row*38,735,34,font=14,shape='text',style='align=left;')
+ d.node('Interfaces: JSON REST /api; bearer JWT; scoped CSV report and material downloads. Data Access and provider adapters are never directly exposed to the browser.',35,1595,1490,45,font=16,shape='text',style='align=left;')
  return d
 
 def class_diagram(name,title,packages,classes,relations):
- d=Diagram(name,1640,1330);d.title(title,'Conceptual service stereotypes map to Python modules; entity names and attributes map to SQLAlchemy models. Multiplicities are shown on association labels.')
+ d=Diagram(name,1640,1860);d.title(title,'Entity attributes map to SQLAlchemy models; service stereotypes map to modules. Association identifiers correspond to the multiplicity catalogue below.')
  positions={}
  for col,(package,items) in enumerate(packages):
   X=30+col*540;Y=140
@@ -156,9 +136,13 @@ def class_diagram(name,title,packages,classes,relations):
    d.node(ops,x+8,y+112,424,54,font=15,shape='text',style='align=left;')
    positions[key]=ident
  for i,(a,b,label) in enumerate(relations):
-  # Route associations in package gutters, keeping class compartment text clear.
-  d.connect(positions[a],positions[b],label,font=13,dashed='uses' in label,offset=(0,-18 if i%2 else 18))
- d.node('Entity ownership is enforced by school_id, parent link, enrollment and assigned-course checks in the application service layer. IDs are foreign keys, not permission grants.',35,1270,1570,45,font=16,shape='text',style='align=left;')
+  x,y,w,h=d.boxes[positions[a]];X,Y,W,H=d.boxes[positions[b]];lane=1280+i*18
+  sx=x+w+20;tx=X+W+28
+  d.transition(positions[a],positions[b],'',None or (0,0,1,1),[(sx,y+h/2),(sx,lane),(tx,lane),(tx,Y+H/2)],('R','R'),dashed='uses' in label)
+  d.node(f'R{i+1}',(sx+tx)/2-28,lane-21,56,20,font=13,shape='text')
+  col=i%2;row=i//2
+  d.node(f'R{i+1}  {a} -> {b}: {label}',35+col*805,1530+row*43,780,40,font=14,shape='text',style='align=left;')
+ d.node('School, enrollment, parent-link and assigned-course checks enforce access. Association IDs identify links; the catalogue specifies the endpoint multiplicities.',35,1810,1570,35,font=16,shape='text',style='align=left;')
  return d
 
 def learning():
@@ -170,15 +154,16 @@ def learning():
  'course':('Course','id, school_id, subject, form','read materials(); assigned access()'),
  'enrollment':('Enrollment','student_id, course_id [unique pair]','enroll [same school]()'),
  'activity':('LearningActivity','student_id, course_id, action, created_at','record learning event()'),
- 'result':('Grade and Submission','score, feedback; student_id, assessment_id','aggregate recorded results()'),
+ 'submission':('Submission','student_id, assignment_id XOR quiz_id','submit one assessment attempt()'),
+ 'result':('Grade','submission_id, score, feedback, grader_id','aggregate recorded results()'),
  'rec':('Recommendation','student_id, course_id, status, version','generate(); regenerate(); view()'),
  'approval':('RecommendationApproval','teacher_id, decision, comment, version','record immutable decision()'),
  'engine':('<<module>> RecommendationEngine','ai/recommendations.py','generate(db, student_id, course_id)'),
  'risk':('<<module>> RiskPredictionService','services/performance.py [rule baseline]','risk_assessment(average, activity, count)'),
  'tutor':('<<module>> ChatbotTutor','ai/tutor.py; bilingual teaching corpus','retrieve(); answer(); persist history()')}
  return class_diagram('06_Learning_AI_Detailed_Package','Learning and AI Detailed Package Diagram',[
- ('Identity and School',['user','student','school','teacher']),('Learning Evidence',['course','enrollment','activity','result']),('AI Learning Services',['rec','approval','engine','risk','tutor'])],classes,[
- ('school','user','1 school : 0..* users'),('user','student','1 identity : 0..1 student'),('student','enrollment','1 student : 0..* enrollments'),('course','enrollment','1 course : 0..* enrollments'),('student','activity','1 student : 0..* activities'),('result','engine','<<uses>> evidence'),('engine','rec','creates 0..* drafts'),('rec','approval','1 recommendation : 0..* decisions'),('teacher','approval','1 teacher : 0..* reviews'),('risk','result','<<uses>> mean grades')])
+ ('Identity and School',['user','student','school','teacher']),('Learning Evidence',['course','enrollment','activity','submission','result']),('AI Learning Services',['rec','approval','engine','risk','tutor'])],classes,[
+ ('school','user','1 school : 0..* users'),('user','student','1 identity : 0..1 student'),('student','enrollment','1 student : 0..* enrollments'),('course','enrollment','1 course : 0..* enrollments'),('student','activity','1 student : 0..* activities'),('result','engine','<<uses>> evidence'),('engine','rec','creates 0..* drafts'),('rec','approval','1 recommendation : 0..* decisions'),('teacher','approval','1 teacher : 0..* reviews'),('risk','result','<<uses>> mean grades'),('submission','result','1 submission : 0..1 grade')])
 
 def assessment():
  classes={

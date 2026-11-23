@@ -49,6 +49,12 @@ class Diagram:
         attrs=dict(id=str(self.counter),value=label,edge='1',parent='1',style=style)
         if source: attrs['source']=source
         if target: attrs['target']=target
+        if source:
+            bx,by,bw,bh=self.boxes[source]
+            attrs['style']+=f'exitX={(x1-bx)/bw};exitY={(y1-by)/bh};exitPerimeter=0;'
+        if target:
+            bx,by,bw,bh=self.boxes[target]
+            attrs['style']+=f'entryX={(x2-bx)/bw};entryY={(y2-by)/bh};entryPerimeter=0;'
         c=ET.SubElement(self.root,'mxCell',**attrs)
         g=ET.SubElement(c,'mxGeometry',relative='1',**{'as':'geometry'})
         ET.SubElement(g,'mxPoint',x=str(x1),y=str(y1),**{'as':'sourcePoint'})
@@ -66,6 +72,14 @@ class Diagram:
         else:
             x1,y1,x2,y2=(x+w/2,y+h,X+W/2,Y) if Y>y else (x+w/2,y,X+W/2,Y+H)
         return self.line(x1,y1,x2,y2,label,source=a,target=b,**kw)
+
+    def transition(self,a,b,label,labelbox,via=(),ports=('R','L'),dashed=False):
+        def port(ident,p):
+            x,y,w,h=self.boxes[ident]
+            return {'R':(x+w,y+h/2),'L':(x,y+h/2),'T':(x+w/2,y),'B':(x+w/2,y+h)}[p]
+        x,y=port(a,ports[0]);X,Y=port(b,ports[1])
+        self.line(x,y,X,Y,points=list(via),source=a,target=b,dashed=dashed)
+        if label:self.node(label,*labelbox,font=14,shape='text')
 
     def title(self,text,subtitle):
         self.node(text,25,20,self.width-50,45,font=28,bold=True,shape='text')
@@ -148,8 +162,8 @@ def export(path, png_dir, pdf_dir):
                     draw.polygon(points,fill=fill,outline=stroke);p=out.beginPath();p.moveTo(x,H-y-26)
                     for X,Y in points[1:]:p.lineTo(X,H-Y)
                     out.drawPath(p,fill=1,stroke=1)
-                elif st.get('rounded')=='1':draw.rounded_rectangle((x,y,x+w,y+h),radius=12,fill=fill,outline=stroke,width=2);out.roundRect(x,H-y-h,w,h,12,stroke=1,fill=1)
-                else:draw.rectangle((x,y,x+w,y+h),fill=fill,outline=stroke,width=2);out.rect(x,H-y-h,w,h,stroke=1,fill=1)
+                elif st.get('rounded')=='1':draw.rounded_rectangle((x,y,x+w,y+h),radius=12,fill=None if fill=='none' else fill,outline=stroke,width=2);out.roundRect(x,H-y-h,w,h,12,stroke=1,fill=fill!='none')
+                else:draw.rectangle((x,y,x+w,y+h),fill=None if fill=='none' else fill,outline=stroke,width=2);out.rect(x,H-y-h,w,h,stroke=1,fill=fill!='none')
             if value:text(value,x,y,w,h,size,bold,st.get('align','center'))
         elif c.get('edge')=='1':
             src=g.find("mxPoint[@as='sourcePoint']");dst=g.find("mxPoint[@as='targetPoint']")
