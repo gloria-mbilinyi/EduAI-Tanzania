@@ -28,5 +28,15 @@
       1500,
       1120
     ]
+  },
+  {
+    "file": "04_Subscription_State_Machine.drawio",
+    "editable_vertices": 15,
+    "editable_edges": 14,
+    "xml_valid": true,
+    "pixels": [
+      1500,
+      1080
+    ]
   }
 ]
