@@ -1,0 +1,12 @@
+* text=auto
+*.pdf binary
+*.docx binary
+*.png binary
+*.jpg binary
+*.mp4 binary
+*.drawio text eol=lf
+*.py text eol=lf
+*.tsx text eol=lf
+*.ts text eol=lf
+*.md text eol=lf
+*.json text eol=lf
