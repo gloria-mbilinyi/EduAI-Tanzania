@@ -236,6 +236,13 @@ export function Materials() {
           }
         >
           <p className="detail-text">{m.content}</p>
+          {user?.role === "student" && (
+            <div className="mb-4">
+              <ActionButton onClick={() => post(`/materials/${m.id}/study`)}>
+                Mark as studied
+              </ActionButton>
+            </div>
+          )}
           {m.url && (
             <a
               className="button secondary"

@@ -52,10 +52,14 @@ class MaterialInput(Input):
 @router.get('/courses/{course_id}/materials')
 def materials(course_id: int, u: User = Depends(principal), db: Session = Depends(get_db)):
     course_access(db, u, course_id)
-    if role(db, u) == 'student':
-        db.add(LearningActivity(student_id=u.id, course_id=course_id, action='read_materials'))
-        db.commit()
     return [record(m, ['storage_key']) | {'downloadable': bool(m.storage_key)} for m in db.query(LearningMaterial).filter_by(course_id=course_id)]
+
+@router.post('/materials/{material_id}/study', status_code=201)
+def study(material_id: int, u: User = Depends(principal), db: Session = Depends(get_db)):
+    require(db, u, 'student')
+    m = get(db, LearningMaterial, material_id)
+    course_access(db, u, m.course_id)
+    return record(save(db, u, LearningActivity(student_id=u.id, course_id=m.course_id, action='studied_material'), 'learning.material_studied'))
 
 @router.post('/courses/{course_id}/materials', status_code=201)
 def add_material(course_id: int, data: MaterialInput, u: User = Depends(principal), db: Session = Depends(get_db)):
