@@ -1253,3 +1253,32 @@ td small {
     background: #fff;
   }
 }
+/* Assessment histories remain readable on narrow screens. */
+.attempt-card {
+  border: 1px solid #dce6df;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 14px 0;
+  overflow-wrap: anywhere;
+}
+.attempt-card summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.attempt-history progress {
+  width: 100%;
+  height: 10px;
+  accent-color: #14744d;
+}
+.math-answer {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.8;
+}
+.math-answer code {
+  font-family: Consolas, monospace;
+  font-size: 0.95em;
+}
+.chat-message {
+  overflow-wrap: anywhere;
+}
