@@ -1,9 +1,9 @@
 {
-  "snapshot_head": "39582149e30c41b48a48821e2d119c674b73fcb0",
-  "reachable_commits": 75,
+  "snapshot_head": "d5864f0a2a610b806c9a5765ac11f5427eb11817",
+  "reachable_commits": 76,
   "baseline_head": "b45aa529d53d735f9ab74108dd3b50e4dbda0e3f",
   "baseline_count": 58,
-  "enhancement_commits_at_snapshot": 17,
+  "enhancement_commits_at_snapshot": 18,
   "changed_files_since_baseline": [
     ".env.example",
     ".gitignore",
@@ -72,6 +72,9 @@
     "diagrams/png/08_Admin_Parent_Subscription_Detailed_Package.png",
     "diagrams/validation.json",
     "docs/KNOWN_LIMITATIONS.md",
+    "docs/agent-development-log/AGENT_CONTRIBUTION_REPORT.md",
+    "docs/agent-development-log/DEVELOPMENT_ACTIVITY.md",
+    "docs/agent-development-log/commit-snapshot.json",
     "docs/api/API_GUIDE.md",
     "docs/api/ROUTES.md",
     "docs/api/openapi.json",
@@ -129,6 +132,7 @@
     "frontend/src/styles.css",
     "frontend/src/tests/enhancements.test.tsx",
     "frontend/vite.config.ts",
+    "scripts/build_agent_report.py",
     "scripts/build_coverage.py",
     "scripts/build_proposal.py",
     "scripts/check_diagram_layout.py",
@@ -592,6 +596,12 @@
       "sha": "39582149e30c41b48a48821e2d119c674b73fcb0",
       "recorded_at": "2026-11-24T11:00:18+03:00",
       "subject": "docs(proposal): revise academic delivery with readable figures and current evidence",
+      "enhancement": true
+    },
+    {
+      "sha": "d5864f0a2a610b806c9a5765ac11f5427eb11817",
+      "recorded_at": "2026-11-24T11:03:25+03:00",
+      "subject": "docs(agent): record enhancement decisions tests and authentic commit evidence",
       "enhancement": true
     }
   ]

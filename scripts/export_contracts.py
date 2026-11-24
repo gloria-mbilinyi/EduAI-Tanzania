@@ -16,4 +16,4 @@ for t in Base.metadata.sorted_tables:
  ddl.append(str(CreateTable(t).compile(engine)).strip()+';')
  ddl.extend(str(CreateIndex(i).compile(engine))+';' for i in t.indexes)
 (ROOT/'docs/architecture/SCHEMA.sql').write_text('\n'.join(line.rstrip() for line in '\n\n'.join(ddl).splitlines())+'\n')
-print(json.dumps({'paths':len(schema['paths']),'operations':len(lines)-5,'tables':len(Base.metadata.tables)}))
+print(json.dumps({'paths':len(schema['paths']),'operations':sum(m in {'get','post','patch','put','delete'} for methods in schema['paths'].values() for m in methods),'tables':len(Base.metadata.tables)}))

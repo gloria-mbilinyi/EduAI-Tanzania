@@ -32,7 +32,7 @@ The tutor separates explicit language handling, subject/topic classification, in
 
 Ollama is local, optional and disabled by default. Model availability, bounded requests, limited context, source validation and graceful fallback are implemented. Prompt context is untrusted data; no grade/publication tools exist. No model was downloaded or evaluated. Quiz assistance supports reviewed typed drafts, parameterized numerical variants, secure objective/numeric grading and pending manual short-answer assessment.
 
-The agent added policy and attempt interfaces, review/reopen controls, math formatting, structured quiz editing and persistent language preference. Static text, API errors, notifications and report labels were localized. Teacher-entered content keeps its original language. The source/API/schema reference now lists 71 paths and 84 operations.
+The agent added policy and attempt interfaces, review/reopen controls, math formatting, structured quiz editing and persistent language preference. Static text, API errors, notifications and report labels were localized. Teacher-entered content keeps its original language. The source/API/schema reference now lists 71 paths and 83 operations.
 
 ## Migration preservation evidence
 

@@ -13,6 +13,9 @@ jobs:
       - run: python -m pip install -r backend/requirements.lock.txt
       - run: python -m pytest tests -q --junitxml=../docs/testing/pytest-results.xml
         working-directory: backend
+      - name: Verify generated API contract
+        run: python -c "import json,pathlib; from app.main import app; assert app.openapi()==json.loads(pathlib.Path('../docs/api/openapi.json').read_text())"
+        working-directory: backend
   interface:
     runs-on: ubuntu-latest
     steps:
@@ -26,6 +29,7 @@ jobs:
         working-directory: frontend
       - run: npm test
         working-directory: frontend
+      - run: node scripts/check_i18n.mjs
       - run: npm run build
         working-directory: frontend
   browser:

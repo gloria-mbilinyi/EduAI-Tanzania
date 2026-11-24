@@ -1,31 +1,42 @@
 {
   "tests": {
-    "backend": 48,
-    "browser": 8,
-    "frontend": 9
+    "backend": 95,
+    "browser": 12,
+    "frontend": 12
   },
-  "passing_total": 65,
+  "passing_total": 119,
   "functional_coverage": {
     "total_functional_requirements": 50,
-    "implemented_and_tested": 46,
-    "partial": 4,
+    "implemented_and_tested": 49,
+    "partial": 1,
     "unimplemented": 0,
-    "functional_coverage_percent": 92.0,
+    "functional_coverage_percent": 98.0,
     "method": "Complete requirements / all 50 functional requirements; partial items contribute zero."
   },
+  "api_paths": 71,
+  "api_operations": 83,
   "diagram_sources": 8,
   "diagram_png_exports": 8,
   "diagram_vector_pdf_exports": 8,
-  "diagram_xml_and_references_valid": true,
+  "editable_xml_and_references_valid": true,
+  "diagram_text_cells_checked": 737,
   "native_editor_opening_verified": false,
-  "native_editor_limit": "Online embed initialization timed out before loading source.",
-  "proposal_pdf_pages": 39,
-  "pdf_visual_review": "All 39 rendered pages reviewed; enlarged excerpts checked at full image size.",
+  "native_editor_limit": "Online embed initialization timed out before source load.",
+  "proposal_pdf_pages": 53,
+  "pdf_visual_review": "All 53 rendered pages reviewed in contact sheets; enlarged assignment figure and feature screenshots inspected.",
   "docx_structural_validation": true,
-  "docx_embedded_figures": 25,
+  "docx_embedded_figures": 39,
+  "proposal_required_sections": 31,
   "docx_pagination_verified": false,
-  "docx_renderer_limit": "Packaged render_docx.py failed: LibreOffice soffice.exe not found on PATH.",
-  "application_screenshots": 13,
-  "frontend_build": "Passed TypeScript and Vite; 766 kB JS chunk (229 kB gzip) warning retained.",
-  "remote_ci_verified": false
+  "docx_renderer_limit": "LibreOffice unavailable; Word COM Access denied; supported desktop launch exposed no Word window.",
+  "application_screenshots": 20,
+  "frontend_build": "Passed TypeScript/Vite; 805 kB raw / 240 kB gzip chunk warning.",
+  "baseline_commits_preserved": 58,
+  "baseline_file_paths_preserved": 147,
+  "source_snapshot_head": "d5864f0a2a610b806c9a5765ac11f5427eb11817",
+  "remote_ci_verified": false,
+  "sha256": {
+    "EduAI_Tanzania_Technical_Proposal.pdf": "e6be7dce83209aeb14a5fc1e2a4c25bebd6d792ad055e7396044f3aa077808c1",
+    "EduAI_Tanzania_Technical_Proposal.docx": "936156e6505fe7c39d754d391e5935bc98a3c14bc3adca33ca1a5ede160fc597"
+  }
 }

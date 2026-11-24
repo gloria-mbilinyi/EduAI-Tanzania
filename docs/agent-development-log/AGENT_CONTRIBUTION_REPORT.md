@@ -18,7 +18,7 @@ The tutor separates explicit language handling, subject/topic classification, in
 
 Ollama is local, optional and disabled by default. Model availability, bounded requests, limited context, source validation and graceful fallback are implemented. Prompt context is untrusted data; no grade/publication tools exist. No model was downloaded or evaluated. Quiz assistance supports reviewed typed drafts, parameterized numerical variants, secure objective/numeric grading and pending manual short-answer assessment.
 
-The agent added policy and attempt interfaces, review/reopen controls, math formatting, structured quiz editing and persistent language preference. Static text, API errors, notifications and report labels were localized. Teacher-entered content keeps its original language. The source/API/schema reference now lists 71 paths and 84 operations.
+The agent added policy and attempt interfaces, review/reopen controls, math formatting, structured quiz editing and persistent language preference. Static text, API errors, notifications and report labels were localized. Teacher-entered content keeps its original language. The source/API/schema reference now lists 71 paths and 83 operations.
 
 ## Migration preservation evidence
 
@@ -40,6 +40,6 @@ Native diagrams.net opening remains unverified because embed initialization time
 
 ## Authentic history and remaining boundaries
 
-At this snapshot `39582149e30c41b48a48821e2d119c674b73fcb0`, 75 commits are reachable, including 17 enhancement commits. The tables and JSON record actual SHAs and changed files. Report/release commits made afterward appear in Git and the external final synchronization report, avoiding a self-referential final SHA inside its own commit.
+At this snapshot `d5864f0a2a610b806c9a5765ac11f5427eb11817`, 76 commits are reachable, including 18 enhancement commits. The tables and JSON record actual SHAs and changed files. Report/release commits made afterward appear in Git and the external final synchronization report, avoiding a self-referential final SHA inside its own commit.
 
 Original functional coverage is 49/50 (98 percent); existing-role reassignment AD-02 remains partial. No real-model quality evaluation, curriculum certification, production deployment, real payment integration, accessibility certification, independent penetration test or learning-outcome study is claimed. One upstream deprecation warning and a large frontend bundle warning remain. Remote CI success is reported only if actually observed. Final push verification compares local and remote SHAs, complete history sets and artifact blob IDs without force-pushing.
