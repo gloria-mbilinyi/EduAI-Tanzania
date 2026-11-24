@@ -58,7 +58,7 @@ def eligibility(db, assignment, student_id):
     reason = None
     if number > limit: reason = 'Maximum attempts reached'
     elif rows and not p['allow_resubmission'] and not approval: reason = 'Resubmission is disabled'
-    elif rows and p['require_feedback'] and not rows[-1]['grade']: reason = 'Wait for teacher feedback'
+    elif rows and p['require_feedback'] and (not rows[-1]['grade'] or not rows[-1]['grade']['feedback'].strip()): reason = 'Wait for teacher feedback'
     elif rows and p['require_approval'] and not approval: reason = 'Teacher approval is required'
     elif assignment.due_at and assignment.due_at < now() and not p['allow_late'] and not (approval and approval.reopen_until):
         reason = 'Assignment deadline has passed'

@@ -14,7 +14,7 @@ from ..ai.tutor import retrieve
 router = APIRouter(prefix='/api/tutor', tags=['tutor'])
 class TutorInput(Input):
     question: str = Field(min_length=3, max_length=1500)
-    subject: str = Field(min_length=2, max_length=60)
+    subject: Literal['Mathematics','Biology','Chemistry','Physics','English','Kiswahili','Geography','History']
     language: Literal['en', 'sw'] = 'en'
     use_local_ai: bool = False
 

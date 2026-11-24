@@ -150,3 +150,25 @@ def equivalent(left,right):
         a,b=parse(str(left)),parse(str(right))
         return not (a.free_symbols|b.free_symbols) and sp.simplify(a-b)==0
     except (UnsupportedMath,ValueError,TypeError,RecursionError):return False
+
+def _compute_worker(channel,question,language):
+    try:channel.send(solve(question,language))
+    finally:channel.close()
+
+def solve_limited(question,language='en',seconds=5):
+    """API boundary: terminate slow symbolic work in a separate process."""
+    if not re.search(r'\d|[+*/^=]|\b[xyzt]\b',question):return None
+    import multiprocessing as mp
+    context=mp.get_context('spawn');reader,writer=context.Pipe(duplex=False)
+    process=context.Process(target=_compute_worker,args=(writer,question,language),daemon=True)
+    try:
+        process.start();writer.close()
+        if reader.poll(seconds):return reader.recv()
+    except (OSError,EOFError,RuntimeError):pass
+    finally:
+        if process.pid:
+            if process.is_alive():process.terminate()
+            process.join(timeout=1)
+        reader.close();writer.close()
+    return dict(answer='Hesabu imezidi muda wa usalama. Rahisisha swali.' if language=='sw' else 'Computation exceeded its safety limit. Please simplify the question.',
+                verified=False,source='No verified mathematical result',mode='math clarification',match_score=0)

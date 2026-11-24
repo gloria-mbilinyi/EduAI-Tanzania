@@ -1,7 +1,7 @@
 import re
 from .corpus import CORPUS
 from .topics import classify, output_language
-from .math_solver import solve
+from .math_solver import solve_limited
 
 STOP = {'what', 'is', 'the', 'a', 'an', 'how', 'do', 'i', 'to', 'of', 'and', 'in', 'explain', 'ni', 'nini', 'ya', 'na', 'kwa','need','solve','please','help','me','about'}
 def retrieve(question, subject):
@@ -23,7 +23,7 @@ def answer(question, subject, language, context=None):
     if context and not classified['topic'] and re.search(r'\b(?:more|again|that|another example|zaidi|tena|hilo)\b',question,re.I):
         resolved=context[-1]['question']
         classified=classify(resolved,subject)
-    computed=solve(resolved,language) if subject in {'Mathematics','Physics','Chemistry'} else None
+    computed=solve_limited(resolved,language) if subject in {'Mathematics','Physics','Chemistry'} else None
     if computed:return computed|classified|{'language':language}
     score, entry = retrieve(resolved, subject)
     if not entry or score < 0.15:

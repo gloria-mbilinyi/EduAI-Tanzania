@@ -17,7 +17,13 @@ def test_upgrade_preserves_every_legacy_row_and_is_idempotent(tmp_path,monkeypat
     with engine.connect() as conn:
         tables = inspect(conn).get_table_names()
         before = {t: list(conn.exec_driver_sql(f'SELECT * FROM "{t}"')) for t in tables}
-    migrate(engine)
+    import importlib.util
+    from pathlib import Path
+    spec=importlib.util.spec_from_file_location('upgrade',Path(__file__).resolve().parents[2]/'scripts/upgrade_database.py')
+    helper=importlib.util.module_from_spec(spec);spec.loader.exec_module(helper)
+    monkeypatch.setattr(helper,'engine',engine);monkeypatch.setattr(helper,'migrate',lambda:migrate(engine))
+    result=helper.upgrade(tmp_path/'private-backups')
+    assert Path(result['backup']).is_file() and result['backup_integrity']=='ok'
     migrate(engine)
     with engine.connect() as conn:
         for table, rows in before.items():
