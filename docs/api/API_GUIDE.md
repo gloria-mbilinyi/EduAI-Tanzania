@@ -27,17 +27,13 @@ materials are available through `/courses/{id}/materials`; uploads use multipart
 `title` and `file` at `/courses/{id}/upload`. Downloads remain authenticated.
 GET material lists are read-only; students explicitly POST `/materials/{id}/study`.
 
-Teachers POST assignments under a course. Students POST `{ "body": "..." }` to
-`/assignments/{id}/submit`. Assigned teachers list submissions and POST score and
-feedback to `/submissions/{id}/grade`. Scores must be 0-100. Text submissions are
-limited to one per student/assignment and cannot be submitted after the deadline.
+Teachers POST assignments with an optional policy: max_attempts (1-20), allow_resubmission, allow_late, require_feedback, require_approval and grading_policy first/best/latest/selected. Missing policies retain the original one-attempt behavior. Students POST body to `/assignments/{id}/submit`; the response preserves the stable submission ID and adds attempt_id and attempt_number. New attempts never replace earlier content.
 
-Quizzes contain title, status draft/published and questions with prompt, options,
-correct_index and explanation. Only assigned teachers create them. Students see
-published quizzes without keys. `/quizzes/{id}/attempt` accepts an answers object
-mapping every question ID to a valid zero-based option index. The server computes
-and persists the grade. A second attempt is rejected; manual quiz-grade override
-is not exposed.
+Assigned teachers grade `/attempts/{id}/grade`, inspect `/assignments/{id}/submissions`, and choose `/attempts/{id}/select-final` under selected policy. The original `/submissions/{id}/grade` remains compatible with attempt 1. `/assignments/{id}/history` returns authorized history and the official result; an approved parent can use student_id. Feedback revisions are append-only.
+
+Students request `/assignments/{id}/resubmission-requests`; teachers review `/resubmission-requests/{id}/review` or explicitly `/assignments/{id}/reopen` for an enrolled student and future date. Approval authorizes the specific next attempt and is consumed when used. Backend eligibility checks limits, enrollment, deadlines, feedback and approval; concurrent duplicate attempts return 409.
+
+Quizzes support MCQ, true_false, numerical and short_answer settings. Publication requires reviewed=true or the assigned teacher's `/quizzes/{id}/publish` action. Student question responses omit keys, rubrics and explanations before submission. `/quizzes/{id}/attempt` accepts every question ID mapped to a zero-based integer option or bounded text. Numerical equivalence is checked symbolically. Short answers keep the overall score pending until the assigned teacher posts only the manual component marks to `/quiz-submissions/{id}/grade`. Completed objective grades cannot be overwritten. Quizzes retain one attempt per student.
 
 ## Assistance and review
 
@@ -45,15 +41,14 @@ is not exposed.
 pending review draft but returns no draft content to a student. Assigned teachers
 review with decision approved/rejected and a non-empty comment. Rejected drafts
 can regenerate with an incremented version. Students/parents list only published
-or viewed records. `/history` is teacher-scoped. Approval decisions and important
+or viewed records. `/history` and immutable `/versions` snapshots are teacher-scoped. Approval decisions and important
 transitions produce history/audit records.
 
-`POST /tutor/ask` accepts question, subject and language en/sw. It returns a
-retrieved teaching passage, source, lexical match score and honest mode label.
-The score is not predictive confidence. Conversation history is private to the
-requesting user. Lesson and quiz draft endpoints require an assigned teacher
-and verified premium entitlement. Saving reviewed lessons and quizzes is a
-separate teacher action.
+`POST /tutor/ask` accepts question, one of eight supported subjects, language en/sw and optional use_local_ai. It routes bounded symbolic mathematics or topic-gated teaching notes, with explicit verified and mode labels. Explicit requests for English/Kiswahili override the selected output language. Match scores are retrieval signals, not confidence probabilities. Follow-ups use only the current user's recent same-subject context. `/tutor/provider-health` is authenticated and checks optional local model availability.
+
+Lesson and quiz draft endpoints require an assigned teacher and verified premium entitlement. Quiz draft inputs add objective, difficulty, count, language, kind and optional use_local_ai. A missing or invalid provider falls back to the bank. Limited bank counts are stated rather than filled with duplicate questions. Saving and publishing remain separate authorized teacher actions.
+
+Send `Accept-Language: sw` for localized errors and CSV headings; `/me/language` persists a language-only update without changing profile fields. Teacher-entered content and historical messages retain their original language.
 
 ## Family and billing workflows
 

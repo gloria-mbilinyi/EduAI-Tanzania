@@ -73,9 +73,9 @@ CREATE TABLE users (
 	FOREIGN KEY(school_id) REFERENCES schools (id)
 );
 
-CREATE UNIQUE INDEX ix_users_email ON users (email);
-
 CREATE INDEX ix_users_school_id ON users (school_id);
+
+CREATE UNIQUE INDEX ix_users_email ON users (email);
 
 CREATE TABLE assignments (
 	course_id INTEGER NOT NULL,
@@ -213,6 +213,23 @@ CREATE TABLE ai_recommendations (
 
 CREATE INDEX ix_ai_recommendations_student_id ON ai_recommendations (student_id);
 
+CREATE TABLE assignment_policies (
+	assignment_id INTEGER NOT NULL,
+	max_attempts INTEGER NOT NULL,
+	allow_resubmission BOOLEAN NOT NULL,
+	allow_late BOOLEAN NOT NULL,
+	require_feedback BOOLEAN NOT NULL,
+	require_approval BOOLEAN NOT NULL,
+	grading_policy VARCHAR(20) NOT NULL,
+	id INTEGER NOT NULL,
+	created_at DATETIME NOT NULL,
+	PRIMARY KEY (id),
+	CHECK (max_attempts BETWEEN 1 AND 20),
+	CHECK (grading_policy IN ('first','best','latest','selected')),
+	UNIQUE (assignment_id),
+	FOREIGN KEY(assignment_id) REFERENCES assignments (id)
+);
+
 CREATE TABLE enrollments (
 	student_id INTEGER NOT NULL,
 	course_id INTEGER NOT NULL,
@@ -291,6 +308,33 @@ CREATE TABLE questions (
 	FOREIGN KEY(quiz_id) REFERENCES quizzes (id)
 );
 
+CREATE TABLE quiz_reviews (
+	quiz_id INTEGER NOT NULL,
+	teacher_id INTEGER NOT NULL,
+	id INTEGER NOT NULL,
+	created_at DATETIME NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY(quiz_id) REFERENCES quizzes (id),
+	FOREIGN KEY(teacher_id) REFERENCES teachers (user_id)
+);
+
+CREATE TABLE resubmission_approvals (
+	assignment_id INTEGER NOT NULL,
+	student_id INTEGER NOT NULL,
+	attempt_number INTEGER NOT NULL,
+	status VARCHAR(20) NOT NULL,
+	reason TEXT NOT NULL,
+	teacher_id INTEGER,
+	comment TEXT NOT NULL,
+	reopen_until DATETIME,
+	id INTEGER NOT NULL,
+	created_at DATETIME NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY(assignment_id) REFERENCES assignments (id),
+	FOREIGN KEY(student_id) REFERENCES students (user_id),
+	FOREIGN KEY(teacher_id) REFERENCES teachers (user_id)
+);
+
 CREATE TABLE submissions (
 	student_id INTEGER NOT NULL,
 	assignment_id INTEGER,
@@ -334,6 +378,29 @@ CREATE TABLE grades (
 	FOREIGN KEY(grader_id) REFERENCES users (id)
 );
 
+CREATE TABLE question_settings (
+	question_id INTEGER NOT NULL,
+	kind VARCHAR(20) NOT NULL,
+	answer TEXT NOT NULL,
+	language VARCHAR(2) NOT NULL,
+	id INTEGER NOT NULL,
+	created_at DATETIME NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE (question_id),
+	FOREIGN KEY(question_id) REFERENCES questions (id)
+);
+
+CREATE TABLE quiz_responses (
+	submission_id INTEGER NOT NULL,
+	parts TEXT NOT NULL,
+	manual_marks TEXT NOT NULL,
+	id INTEGER NOT NULL,
+	created_at DATETIME NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE (submission_id),
+	FOREIGN KEY(submission_id) REFERENCES submissions (id)
+);
+
 CREATE TABLE recommendation_approvals (
 	recommendation_id INTEGER NOT NULL,
 	teacher_id INTEGER NOT NULL,
@@ -345,4 +412,69 @@ CREATE TABLE recommendation_approvals (
 	PRIMARY KEY (id),
 	FOREIGN KEY(recommendation_id) REFERENCES ai_recommendations (id),
 	FOREIGN KEY(teacher_id) REFERENCES teachers (user_id)
+);
+
+CREATE TABLE recommendation_revisions (
+	recommendation_id INTEGER NOT NULL,
+	version INTEGER NOT NULL,
+	content TEXT NOT NULL,
+	reasons TEXT NOT NULL,
+	id INTEGER NOT NULL,
+	created_at DATETIME NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE (recommendation_id, version),
+	FOREIGN KEY(recommendation_id) REFERENCES ai_recommendations (id)
+);
+
+CREATE TABLE submission_attempts (
+	submission_id INTEGER NOT NULL,
+	number INTEGER NOT NULL,
+	content TEXT NOT NULL,
+	id INTEGER NOT NULL,
+	created_at DATETIME NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE (submission_id, number),
+	CHECK (number > 0),
+	FOREIGN KEY(submission_id) REFERENCES submissions (id)
+);
+
+CREATE INDEX ix_submission_attempts_submission_id ON submission_attempts (submission_id);
+
+CREATE TABLE attempt_grades (
+	attempt_id INTEGER NOT NULL,
+	score FLOAT NOT NULL,
+	feedback TEXT NOT NULL,
+	grader_id INTEGER NOT NULL,
+	id INTEGER NOT NULL,
+	created_at DATETIME NOT NULL,
+	PRIMARY KEY (id),
+	CHECK (score >= 0 AND score <= 100),
+	UNIQUE (attempt_id),
+	FOREIGN KEY(attempt_id) REFERENCES submission_attempts (id),
+	FOREIGN KEY(grader_id) REFERENCES teachers (user_id)
+);
+
+CREATE TABLE final_grade_selections (
+	submission_id INTEGER NOT NULL,
+	attempt_id INTEGER NOT NULL,
+	teacher_id INTEGER NOT NULL,
+	id INTEGER NOT NULL,
+	created_at DATETIME NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE (submission_id),
+	FOREIGN KEY(submission_id) REFERENCES submissions (id),
+	FOREIGN KEY(attempt_id) REFERENCES submission_attempts (id),
+	FOREIGN KEY(teacher_id) REFERENCES teachers (user_id)
+);
+
+CREATE TABLE grade_history (
+	attempt_id INTEGER NOT NULL,
+	score FLOAT NOT NULL,
+	feedback TEXT NOT NULL,
+	grader_id INTEGER,
+	id INTEGER NOT NULL,
+	created_at DATETIME NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY(attempt_id) REFERENCES submission_attempts (id),
+	FOREIGN KEY(grader_id) REFERENCES users (id)
 );

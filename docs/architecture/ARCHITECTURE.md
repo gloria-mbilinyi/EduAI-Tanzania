@@ -17,8 +17,8 @@ Academic reads use enrollment or approved parent links; mutations use teacher
 assignments. Administrators are school administrators, never global superusers.
 
 AI modules implement deterministic data-based recommendations and risk rules,
-lexical retrieval over bilingual educational passages, and teacher-editable draft
-quizzes and lesson outlines. No trained ML model is shipped because no validated
+verified symbolic tools, topic-aware bilingual retrieval, optional local Ollama, and
+teacher-reviewed typed quizzes and lesson outlines. No trained ML model is shipped because no validated
 training data was supplied. Premium draft tools check entitlement on the server.
 
 Payments are an academic simulation. A server-side adapter records a deterministic
@@ -35,3 +35,9 @@ in browser session storage for the demo; hardened deployment should evaluate
 HttpOnly cookies and CSRF controls. Binary uploads are capped and served as
 attachments. The prototype has no malware scanner, real money processing,
 offline synchronization, SMS delivery or high-availability deployment.
+
+## Enhanced academic evidence
+
+Submission remains a stable assessment anchor. AssignmentPolicy and append-only SubmissionAttempt rows extend it, preserving first-attempt Grade IDs; later marks use AttemptGrade. Feedback revisions, approvals and teacher final selections are independent records. Performance counts one official mark per assessment. RecommendationRevision preserves immutable content and evidence for every new version. Migrations 2 and 3 add tables without rebuilding legacy data; see UPGRADE.md.
+
+The optional local provider accepts bounded untrusted context and has no academic mutation tools. Symbolic parsing constructs a whitelist of SymPy objects, and tutor computation runs in a separate timed process. Model output is labeled and source-checked; no installed model was evaluated.

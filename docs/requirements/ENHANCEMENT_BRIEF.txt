@@ -1,0 +1,973 @@
+# EDUAI TANZANIA — COMPLETE SYSTEM ENHANCEMENT, AI INTEGRATION, UML REFINEMENT AND FINAL ACADEMIC DELIVERY
+
+## YOUR ROLE
+
+Act as a senior software engineer, AI engineer, UML system architect, database engineer, UI/UX designer, QA engineer, technical documentation specialist, and autonomous software development agent.
+
+Your task is to professionally upgrade, test, document, and finalize the existing EduAI Tanzania Ltd. application.
+
+**IMPORTANT: MODIFY THE EXISTING PROJECT. DO NOT REBUILD IT FROM SCRATCH.**
+
+GitHub repository:
+
+https://github.com/gloria-mbilinyi/EduAI-Tanzania
+
+GitHub owner: `gloria-mbilinyi`
+
+Default branch: `main`
+
+The previous verified project baseline contained 58 commits, 46/50 complete functional requirements, 65 passing automated checks, eight editable draw.io diagrams, and a technical proposal.
+
+These figures are historical baseline evidence, not necessarily the current repository state. Inspect the current repository and calculate updated figures.
+
+Preserve all existing functionality, user accounts, school data, academic records, database history, source code, documentation, and authentic Git history.
+
+## 1. DEVELOPMENT OBJECTIVE
+
+Transform EduAI Tanzania into a more intelligent, flexible, secure, bilingual, professionally documented educational platform.
+
+The upgrade must address:
+
+1. AI Tutor intelligence and topic matching.
+2. Mathematical problem solving.
+3. Optional local generative AI integration.
+4. Assignment resubmissions and multiple attempts.
+5. AI-assisted quiz generation.
+6. Personalized learning recommendations.
+7. Comprehensive English and Kiswahili support.
+8. Teacher approval and academic supervision.
+9. UI/UX improvements.
+10. All eight UML diagrams.
+11. Academic technical proposal documentation.
+12. Database migrations.
+13. Functional and security testing.
+14. Agent development evidence.
+15. Meaningful incremental Git commits.
+16. Successful GitHub synchronization.
+
+Do not stop at planning. Implement and validate actual changes.
+
+## 2. AI TUTOR — MAJOR UPGRADE
+
+During real student testing, the following problems were observed.
+
+### Problem A: Incorrect topic matching
+
+Student question:
+
+"I need to solve calculus."
+
+The system returned a linear-equations teaching passage.
+
+This is not a suitable response.
+
+### Problem B: Mathematical expression handling
+
+Student question:
+
+`3x + 9 = 18`
+
+The system responded that no suitable teaching passage could be found, despite having linear-equation content.
+
+### Required AI architecture
+
+Implement a hybrid academic tutoring architecture:
+
+Student Question
+→ Language Detection
+→ Subject and Topic Classification
+→ Academic Intent Detection
+→ Tool Selection
+→ Retrieval / Symbolic Computation / Optional LLM
+→ Answer Validation
+→ Student-Friendly Explanation
+→ Conversation History
+
+Use clear service boundaries.
+
+### A. Mathematics Engine
+
+Integrate SymPy or a suitable open-source symbolic mathematics library.
+
+Support:
+
+- Arithmetic
+- Fractions
+- Linear equations
+- Quadratic equations
+- Simultaneous equations where practical
+- Simplification
+- Factorization
+- Exponents
+- Basic algebra
+- Differentiation
+- Integration
+- Substitution
+- Basic trigonometry where feasible
+
+Example:
+
+Input: `3x + 9 = 18`
+
+Expected:
+
+Subtract 9 from both sides.
+
+`3x = 9`
+
+Divide by 3.
+
+`x = 3`
+
+Another example:
+
+Input: `Differentiate x^3 + 2x`
+
+Expected: `3x² + 2`
+
+Another example:
+
+Input: `Integrate 2x`
+
+Expected: `x² + C`
+
+Use symbolic verification for mathematical results.
+
+Generate appropriate explanations for each supported problem type. Do not fabricate intermediate steps, and do not use unsafe evaluation of user input.
+
+Handle unsupported mathematical problems gracefully.
+
+### B. Optional Generative AI
+
+Introduce Ollama as an optional local inference provider.
+
+Requirements:
+
+- No mandatory paid API.
+- Configurable model.
+- Model availability detection.
+- Clear error handling.
+- Conversation context.
+- Curriculum-aware retrieval.
+- English and Kiswahili output.
+- Prompt-injection-resistant treatment of retrieved materials.
+- Reasonable request limits and timeouts.
+- No fabricated references.
+
+The core application must continue working even when Ollama is not installed.
+
+Avoid requiring large model downloads without checking available hardware resources.
+
+Clearly distinguish actual model-generated responses from retrieval-only responses.
+
+### C. Academic Subject Support
+
+Improve tutoring in:
+
+- Mathematics
+- Biology
+- Chemistry
+- Physics
+- English
+- Kiswahili
+- Geography
+- History
+
+Use topic-aware educational retrieval rather than matching questions using isolated keywords alone.
+
+Expand the educational knowledge library with appropriate, original content.
+
+Where curriculum alignment is claimed, reference verified Tanzanian secondary-school curriculum materials.
+
+Do not invent curriculum approval or certification.
+
+### D. Conversation Quality
+
+Support:
+
+- Follow-up questions
+- Relevant explanations
+- Step-by-step examples
+- Student-friendly language
+- Question clarification where essential
+- Conversation history
+- Source references where applicable
+- Appropriate no-answer responses
+
+Do not return unrelated teaching passages simply to avoid an unanswered question.
+
+## 3. ASSIGNMENT MANAGEMENT — MULTIPLE ATTEMPTS
+
+The current system allows only one assignment submission.
+
+After submission, students cannot submit again.
+
+Improve this functionality.
+
+### Teacher Controls
+
+Allow teachers to configure:
+
+- Maximum attempts
+- Allow resubmission
+- Assignment deadline
+- Late submissions
+- Resubmission after feedback
+- Resubmission requiring teacher approval
+- Grading policy
+
+Support policies such as:
+
+- First attempt only
+- Best attempt
+- Latest attempt
+- Teacher-selected final score
+
+### Student Features
+
+Students must be able to:
+
+1. Submit an assignment.
+2. View submission status.
+3. View marks.
+4. Read teacher feedback.
+5. View remaining attempts.
+6. Resubmit when permitted.
+7. Review previous attempts.
+8. Track academic improvement.
+9. See the score used in official performance calculations.
+
+### Teacher Features
+
+Teachers must be able to:
+
+1. Create assignments.
+2. Configure attempt limits.
+3. Review every attempt.
+4. Grade submissions separately.
+5. Provide feedback.
+6. Reopen submissions for specific students.
+7. Approve resubmission requests.
+8. Compare performance across attempts.
+9. Select or calculate final scores according to the configured policy.
+
+### Example
+
+Student first attempt: 45%.
+
+Teacher feedback: Review your calculation steps.
+
+Student second attempt: 80%.
+
+Teacher feedback: Good improvement.
+
+Student third attempt: 100%.
+
+The system must preserve the history of all three attempts.
+
+### Database Requirements
+
+Introduce suitable schema changes for:
+
+- Assignment policies
+- Attempt numbers
+- Submission history
+- Feedback history
+- Resubmission authorization
+- Final grade selection
+- Audit trails
+
+Use versioned migrations.
+
+Preserve existing submissions and their grades.
+
+Do not reset or delete the demonstration database.
+
+Enforce attempt limits and authorization on the backend.
+
+## 4. PERSONALIZED AI LEARNING RECOMMENDATIONS
+
+Improve the recommendation system to use:
+
+- Assessment scores
+- Assignment grades
+- Submission attempts
+- Repeated mistakes
+- Learning activity
+- Subject weaknesses
+- Student interests
+- Learning preferences
+- Topic mastery
+- Learning progress over time
+
+Example:
+
+A student scores 45% in Mathematics.
+
+The system recommends reviewing relevant worked examples and completing guided exercises.
+
+After improvement to 80%, the system recommends intermediate practice.
+
+After improvement to 100%, the system recommends advanced work where appropriate.
+
+Ensure the explanations describe the actual evidence used.
+
+### Teacher Approval
+
+Preserve the business rule:
+
+**No AI-generated learning recommendation may be released to students without authorized teacher approval.**
+
+Maintain draft creation, pending review, rejection, revision, approval, publication, viewing and archival.
+
+Preserve version history and audit logs.
+
+Do not automatically publish recommendations when grades change.
+
+## 5. AI-ASSISTED QUIZ GENERATION
+
+Improve the existing question-bank-assisted quiz builder.
+
+Allow teachers to specify:
+
+- Subject
+- Topic
+- Learning objective
+- Difficulty
+- Number of questions
+- Language
+- Question type
+
+Support:
+
+- Multiple-choice
+- True/false
+- Numerical
+- Short-answer
+
+Generate draft questions through an optional local AI model.
+
+Require teachers to review and approve questions and answer keys before publication.
+
+For objective questions, continue using secure backend grading.
+
+For supported numerical questions, use verified symbolic mathematics.
+
+Do not permit arbitrary AI responses to overwrite official student marks.
+
+If the LLM is unavailable, retain the reviewed question-bank workflow.
+
+## 6. COMPLETE BILINGUAL SUPPORT
+
+Improve English and Kiswahili support across:
+
+- Public pages
+- Student dashboard
+- Teacher dashboard
+- Parent dashboard
+- Administrator dashboard
+- Assignments
+- Quizzes
+- Learning pathways
+- Reports
+- AI Tutor
+- Notifications
+- Authentication messages
+- Subscription management
+
+Use structured translation dictionaries.
+
+Persist language preferences.
+
+Make sure the AI Tutor answers in the selected language unless explicitly requested otherwise.
+
+Avoid partially translated pages.
+
+## 7. UI/UX ENHANCEMENT
+
+Review the application on desktop and mobile.
+
+Improve:
+
+- Dashboard layouts
+- Navigation
+- Form readability
+- Status feedback
+- Loading indicators
+- Error messages
+- Accessibility
+- Mobile responsiveness
+- Assignment attempt history
+- AI Tutor conversation display
+- Mathematics formatting
+- Performance visualizations
+- Teacher approval interfaces
+
+Preserve the existing EduAI branding unless a change is necessary for usability.
+
+Use consistent colors, typography and component styles.
+
+Do not introduce unnecessary visual complexity.
+
+## 8. UML DIAGRAMS — COMPLETE PROFESSIONAL REFINEMENT
+
+There are eight existing editable draw.io diagrams.
+
+All eight must remain editable using diagrams.net.
+
+I have visually inspected the existing PNG exports and identified problems:
+
+- Small text
+- Crowded messages
+- Excessively long connectors
+- Some overlapping labels
+- Difficult-to-follow dependencies
+- Associations identified mainly through separate catalogues
+- State transitions that need clearer routing
+- Layouts that may be difficult to read when inserted into A4 proposal pages
+
+Correct these issues.
+
+### Diagram 1 — Sequence Diagram
+
+File:
+
+`01_EduAI_Sequence_Diagram.drawio`
+
+Preserve all four business processes:
+
+1. Student Learning and AI Recommendation
+2. Teacher Course and Assignment Management
+3. Parent Monitoring and Notification
+4. Subscription Payment and Service Activation
+
+Show:
+
+- Actors
+- Objects
+- Lifelines
+- Activation bars
+- Synchronous/asynchronous messages where appropriate
+- Return messages
+- Guard conditions
+- `alt`, `opt`, and `loop` fragments
+
+Improve text readability and message spacing.
+
+Update the teacher-assignment workflow to reflect multiple submissions and grading attempts.
+
+Update AI recommendation messages where the new architecture affects the workflow.
+
+Keep the required deliverable as one comprehensive sequence diagram, even if supplementary enlarged process diagrams are exported for readability.
+
+### Diagram 2 — Communication Diagram
+
+File:
+
+`02_EduAI_Communication_Diagram.drawio`
+
+Preserve consistency with the sequence diagram.
+
+Show:
+
+- Participating objects
+- Object links
+- Message directions
+- Numbered messages
+- Nested message numbering
+- Guard conditions
+
+Avoid depending entirely on a separate text catalogue to explain relationships.
+
+Make numbered messages readable directly on the diagram wherever practical.
+
+### Diagram 3 — AI Recommendation State Machine
+
+File:
+
+`03_AI_Recommendation_State_Machine.drawio`
+
+Ensure appropriate states such as:
+
+Initial
+→ Created
+→ Analysis Pending
+→ Generated
+→ Pending Teacher Review
+→ Approved
+→ Published
+→ Viewed
+→ Archived
+→ Final
+
+Include:
+
+Rejected
+→ Revision Required
+→ Regenerated
+→ Pending Teacher Review
+
+Also represent failure and cancellation where relevant.
+
+Ensure there is no path that bypasses teacher approval.
+
+Improve transition routing and labels.
+
+### Diagram 4 — Subscription State Machine
+
+File:
+
+`04_Subscription_State_Machine.drawio`
+
+Model:
+
+- Created
+- Pending Payment
+- Payment Verification
+- Active
+- Expiring Soon
+- Expired
+- Renewed
+- Payment Failed
+- Payment Rejected
+- Suspended
+- Cancelled
+
+Clearly distinguish persistent subscription states from derived UI conditions and events that create new subscription objects.
+
+Ensure verified payment precedes premium activation.
+
+Improve arrow direction and eliminate overlapping labels.
+
+### Diagram 5 — Overview Package Diagram
+
+File:
+
+`05_EduAI_Overview_Package_Diagram.drawio`
+
+Show the logical organization of:
+
+- Student Management
+- Teacher Management
+- Parent Management
+- Authentication
+- Course Management
+- Assignment and Quiz Management
+- AI Learning Engine
+- Performance Analytics
+- Notifications
+- School Administration
+- Subscription and Payment
+- Reporting
+- Shared Services
+- Data Access
+
+Improve dependency arrows.
+
+Avoid routing many connectors across the entire page where a cleaner arrangement is possible.
+
+Use UML package dependency notation correctly.
+
+### Diagram 6 — Learning and AI Detailed Package
+
+File:
+
+`06_Learning_AI_Detailed_Package.drawio`
+
+Include appropriate classes and services such as:
+
+- Student
+- Teacher
+- School
+- Course
+- Enrollment
+- LearningActivity
+- Submission
+- Grade
+- Recommendation
+- RecommendationApproval
+- RecommendationEngine
+- RiskPredictionService
+- ChatbotTutor
+- MathSolver
+- TopicClassifier
+- RetrievalService
+
+Update the classes according to the implementation actually completed.
+
+Show key attributes, operations, associations and multiplicities.
+
+### Diagram 7 — Course and Assessment Detailed Package
+
+File:
+
+`07_Course_Assessment_Detailed_Package.drawio`
+
+This diagram must be updated to reflect the assignment improvements.
+
+Include:
+
+- Teacher
+- TeacherCourseAssignment
+- Course
+- Lesson
+- LearningMaterial
+- Assignment
+- AssignmentPolicy
+- Submission
+- SubmissionAttempt
+- Grade
+- ResubmissionApproval
+- Quiz
+- Question
+- AutoGradingService
+
+Use implementation-accurate class names or document conceptual mappings where appropriate.
+
+Show the relationship between assignments, attempts, grades and teachers.
+
+Preserve the multiplicity of one assignment to many student attempts.
+
+Avoid representing old single-attempt restrictions after the database model changes.
+
+### Diagram 8 — Parent, Administrator and Subscription Detailed Package
+
+File:
+
+`08_Admin_Parent_Subscription_Detailed_Package.drawio`
+
+Preserve:
+
+- Parent
+- ParentStudentLink
+- Student
+- Notification
+- Message
+- SchoolAdministrator
+- School
+- Subscription
+- SubscriptionPlan
+- Payment
+- PaymentVerificationService
+- ReportService
+- AuditLog
+
+Ensure relationships, attributes, operations and multiplicities are consistent with implementation.
+
+### UML Quality Requirements
+
+All diagrams must:
+
+1. Be editable in draw.io.
+2. Use appropriate UML notation.
+3. Have clear labels.
+4. Avoid overlapping text.
+5. Avoid disconnected or ambiguous arrows.
+6. Show meaningful multiplicities where appropriate.
+7. Match implemented business rules.
+8. Use consistent visual styling.
+9. Remain readable in the final PDF proposal.
+10. Export to high-resolution PNG and vector PDF.
+
+Open and inspect every diagram in the actual draw.io editor where environment support permits.
+
+If native editor validation is unavailable, explicitly report that limitation rather than claiming success.
+
+## 9. TECHNICAL PROPOSAL UPDATE
+
+Update both:
+
+`EduAI_Tanzania_Technical_Proposal.docx`
+
+`EduAI_Tanzania_Technical_Proposal.pdf`
+
+Ensure the document includes:
+
+1. Cover Page
+2. Abstract
+3. Introduction
+4. Background
+5. Problem Statement
+6. Objectives
+7. Scope
+8. Stakeholder Analysis
+9. Functional Requirements
+10. Non-Functional Requirements
+11. Business Rules
+12. Feasibility Study
+13. Technology Stack
+14. System Architecture
+15. Database Design
+16. Sequence Diagram
+17. Communication Diagram
+18. AI Recommendation State Machine
+19. Subscription State Machine
+20. Overview Package Diagram
+21. Detailed Package Diagrams
+22. AI Methodology
+23. Security and Privacy
+24. Development Methodology
+25. Implementation Plan
+26. Testing Strategy
+27. Risks and Mitigations
+28. Expected Outcomes
+29. Conclusion
+30. References
+31. Appendices
+
+Insert updated UML diagrams with readable captions.
+
+Use landscape pages or enlarged supplementary diagrams where needed.
+
+Check:
+- Page numbering
+- Headings
+- Table formatting
+- Diagram readability
+- References
+- Consistency
+- Technical accuracy
+
+Distinguish implemented features from future plans.
+
+Do not claim completed AI model training or real deployment where those activities were not performed.
+
+## 10. SECURITY REQUIREMENTS
+
+Preserve existing business rules.
+
+Ensure:
+
+- Authentication is mandatory for protected resources.
+- Parents only access verified linked students.
+- Students belong to registered schools.
+- Teachers only manage assigned courses.
+- Student grades cannot be changed by students.
+- AI recommendations require teacher approval.
+- Premium tools require verified subscriptions.
+- Assignment attempts cannot exceed authorized limits.
+- Cross-school data remains isolated.
+- User inputs are validated.
+- Audit logs record sensitive actions.
+
+Implement suitable protections against unsafe mathematical parsing, prompt injection, broken authorization and data leakage.
+
+## 11. DATABASE MIGRATIONS
+
+Inspect the existing schema and migration mechanism before making changes.
+
+Create additive, versioned migrations.
+
+Preserve existing:
+
+- Users
+- Password hashes
+- Schools
+- Courses
+- Assignments
+- Submissions
+- Grades
+- Recommendations
+- Teacher approvals
+- Notifications
+- Subscriptions
+- Payments
+
+Do not delete or recreate the database.
+
+Write tests that demonstrate migration compatibility with the existing schema.
+
+Document how to perform safe backups and upgrades through PowerShell.
+
+## 12. AUTOMATED TESTING
+
+Preserve the existing tests and add new tests for every major feature.
+
+Test:
+
+### AI Tutor
+
+- Linear equations
+- Quadratic equations
+- Differentiation
+- Integration
+- Topic classification
+- Bilingual answers
+- Conversation context
+- Irrelevant passage rejection
+- Malformed expressions
+- Symbolic computation safety
+- Missing Ollama model fallback
+
+### Assignments
+
+- Assignment creation
+- Attempt limits
+- First submission
+- Second submission
+- Third submission
+- Maximum attempt enforcement
+- Teacher grading
+- Teacher resubmission approval
+- Deadline enforcement
+- Historical grade preservation
+- Unauthorized student actions
+
+### Recommendations
+
+- Evidence-based pathways
+- Progress-sensitive recommendations
+- Teacher approval
+- Rejection and regeneration
+- Hidden unpublished drafts
+- Version history
+
+### Quizzes
+
+- Draft generation
+- Teacher review
+- Objective grading
+- Numerical validation
+- Answer-key protection
+
+### System
+
+- Role-based access
+- School isolation
+- Parent-student privacy
+- Payment verification
+- English/Kiswahili switching
+- Frontend build
+- Responsive browser tests
+- API documentation consistency
+
+Run tests, record actual results and fix regressions.
+
+## 13. GIT COMMITS — MANDATORY
+
+The existing Git history must be preserved.
+
+Make meaningful incremental commits throughout the upgrade.
+
+Target approximately 15–25 new commits if the implementation genuinely justifies them.
+
+Example commit messages:
+
+- `feat(ai): integrate safe symbolic mathematics engine`
+- `feat(ai): add differentiation and integration support`
+- `feat(ai): improve topic classification and retrieval`
+- `feat(ai): add optional local Ollama provider`
+- `feat(ai): improve bilingual tutoring`
+- `feat(assignments): add submission policy model`
+- `feat(database): migrate assignment attempts`
+- `feat(assignments): implement student resubmission`
+- `feat(teachers): add attempt review and grading`
+- `feat(performance): track academic improvement`
+- `feat(ai): refine personalized learning pathways`
+- `feat(quizzes): implement reviewed AI drafts`
+- `feat(i18n): complete bilingual UI coverage`
+- `test(ai): verify symbolic problem solving`
+- `test(assignments): verify attempt permissions`
+- `test(security): cover role and school restrictions`
+- `docs(uml): improve sequence and communication diagrams`
+- `docs(uml): refine state machine diagrams`
+- `docs(uml): update detailed package diagrams`
+- `docs: revise technical proposal and requirements`
+- `chore: validate final application and artifacts`
+
+Do not create fake or empty commits.
+
+Run relevant tests before committing.
+
+Push to:
+
+https://github.com/gloria-mbilinyi/EduAI-Tanzania
+
+Use authorized GitHub authentication.
+
+Do not force-push or replace the existing history.
+
+Verify the latest remote commit SHA after pushing.
+
+## 14. SOFTWARE AGENT EVIDENCE
+
+Update the agent contribution report.
+
+Record:
+
+- Human instructions
+- Requirements identified
+- Agent architecture decisions
+- Modules changed
+- Files modified
+- Database migrations
+- Tests executed
+- Bugs discovered
+- Bugs corrected
+- UML improvements
+- Documentation changes
+- Actual Git commit SHAs
+- Remaining limitations
+
+Preserve the distinction between human guidance and AI agent work.
+
+Do not fabricate testing evidence or development activities.
+
+## 15. FINAL ACCEPTANCE CRITERIA
+
+Do not declare completion until:
+
+- Existing application functionality is preserved.
+- Improved AI Tutor solves supported mathematical problems.
+- Topic matching has been improved and tested.
+- Optional LLM integration fails gracefully when unavailable.
+- Assignment resubmission works according to teacher policies.
+- Submission history and grades are preserved.
+- Personalized learning recommendations use actual student evidence.
+- Teacher approval remains mandatory.
+- Quiz assistance works with reviewed drafts.
+- English/Kiswahili coverage is improved and verified.
+- All eight diagrams are updated and editable.
+- UML diagrams match the updated system.
+- Technical proposal PDF and DOCX are updated.
+- Database migrations preserve previous records.
+- Automated tests pass.
+- Frontend production build succeeds.
+- Git commits are authentic.
+- GitHub remote synchronization is verified.
+
+## 16. FINAL DELIVERY REPORT
+
+Provide:
+
+1. Updated GitHub repository URL.
+2. Summary of completed improvements.
+3. New AI capabilities.
+4. Assignment resubmission workflow.
+5. Updated database models.
+6. Migration results.
+7. Updated UML files.
+8. Proposal PDF/DOCX.
+9. Test results.
+10. Functional coverage percentage.
+11. Number of new commits.
+12. Total Git commits.
+13. Latest commit SHA.
+14. GitHub push verification.
+15. Screenshots of updated features.
+16. Remaining limitations.
+17. PowerShell commands for local testing.
+
+## EXECUTION DIRECTIVE
+
+Start by inspecting the current repository, its branch history, implementation, existing database and tests.
+
+Develop incrementally, preserving working behavior and creating genuine commits after tested milestones.
+
+Prioritize the assignment resubmission workflow, AI Tutor mathematical reasoning, topic-aware retrieval and UML readability.
+
+Then complete the remaining AI, interface, testing and documentation improvements.
+
+Do not stop after generating a plan, and do not present unfinished functionality as complete.
+
+**The objective is a fully demonstrable, academically credible and technically well-engineered EduAI Tanzania platform, accompanied by professional UML diagrams, a consistent technical proposal, verified tests and genuine Git development evidence.**

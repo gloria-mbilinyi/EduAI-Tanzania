@@ -2,13 +2,13 @@
 
 AI-Powered Learning and School Management Platform for Tanzanian Secondary Schools
 
-A locally runnable React/TypeScript and FastAPI prototype with 28 relational
+A locally runnable React/TypeScript and FastAPI prototype with 38 relational
 tables, four role workspaces, teacher-supervised learning assistance, protected
 academic records and verified **simulated** payments. Every demo person and
 school is fictional. No paid model, payment gateway or hosting is required.
 
-**Verified functional coverage: 46/50 requirements (92%); four partial items are
-excluded.** Tests: 48 API/service checks, 9 component/client checks and 8 local
+**Verified original functional coverage: 49/50 requirements (98%); one partial item is
+excluded.** Tests: 95 API/service checks, 12 component/client checks and 12 local
 Chrome browser scenarios pass. This is an academic prototype, not a validated
 predictor of educational outcomes or a production-ready service.
 
@@ -74,8 +74,8 @@ before students can access them. Administrator provisioning is out of band.
 
 1. Student: read a material, mark it studied, submit a teacher-created assignment,
    attempt a published quiz, inspect feedback, ask the tutor and view a reviewed
-   pathway. Switch navigation/tutor to Kiswahili from the header.
-2. Teacher: create an assignment in an assigned course, grade a submitted response,
+   pathway. Switch the interface and tutor to Kiswahili from the header.
+2. Teacher: create an assignment in an assigned course, configure policies, grade each attempt, approve resubmission requests,
    inspect scoped student evidence, reject/regenerate/approve a pathway and save
    an edited lesson draft. Quizzes can be manually authored or assembled from the
    small bank; every answer key must be reviewed before publishing.
@@ -91,7 +91,7 @@ For payment failure, select a failed/rejected demo scenario and verify it.
 The server reads an internal ledger; a frontend success flag cannot activate
 premium access. No real money moves. Renewing an expired plan creates a new
 transaction/subscription. Premium applies to teacher draft assistance; basic
-learning, reviewed pathways and the retrieval tutor remain available.
+learning, reviewed pathways and the hybrid tutor remain available.
 
 ## Run the executed checks
 
@@ -103,28 +103,37 @@ npm test
 npm run build
 ```
 
-For optional browser checks, start both servers, use a fresh fictional seed, then
+For optional browser checks, start both servers, use a dedicated fictional QA database, then
 set `EDUAI_DEMO_PASSWORD` to the chosen demo password in the test terminal and run
 `npm run test:e2e`. Chrome is selected locally. To use Playwright's bundled
 Chromium instead, install it with `npx playwright install chromium` and set
 `PLAYWRIGHT_BROWSER_CHANNEL=chromium`. Browser tests create fictional records,
-save screenshots and overwrite their evidence files. No tests touch real data.
+save screenshots and overwrite their evidence files. Do not point the browser suite at real school records.
 
 See [test evidence and limitations](docs/testing/TESTING_REPORT.md). CI is
 configured under `.github/workflows/ci.yml`; no remote CI success is assumed.
 
-## Assistance capabilities
+## Enhanced learning workflows
 
-- Recommendations and risk: deterministic, explainable rules using real demo
-  grades, explicit recorded activity, preferences and interests. No trained model
-  or model accuracy claim. An assigned teacher must approve publication.
-- Tutor: lexical retrieval over 11 original English/Kiswahili teaching passages
-  in eight subjects, with sources and honest no-match handling. No generative LLM.
-- Lesson assistance: retrieved content plus an editable template, saved only by
-  the teacher. Quiz assistance assembles existing bank items, which is reported
-  as partial generation capability.
-- Alerts and communication: in-app only, scoped to approved families and assigned
-  teachers. No SMS/email service is connected.
+- Tutor: verified symbolic math, topic-aware retrieval over 25 original bilingual notes, scoped conversation history and optional local Ollama. Try `3x + 9 = 18`, `Differentiate x^3 + 2x`, `Integrate 2x` or `Explain calculus`. Unsafe, excessive and unsupported expressions receive clarification. No model is required or automatically downloaded.
+- Assignments: teachers configure maximum attempts, resubmission, deadlines/late work, feedback and approval gates, and first/best/latest/selected official grading. Students retain all attempts and feedback. Authorized teachers can reopen for an enrolled student or approve one next attempt. An ungraded latest attempt makes the official result pending under latest policy.
+- Recommendations: one official mark per assessment, attempt progress, weaker feedback, recorded activity, preferences and interests inform explainable drafts. Content/evidence snapshots and teacher review history are retained. Grading never automatically publishes a recommendation.
+- Quizzes: teacher-reviewed MCQ, true/false, numerical and short-answer drafts. Numerical variants and optional model drafts are validated; objective/numerical marks are computed on the server, and short answers wait for the assigned teacher. Limited bank counts are stated explicitly.
+- Language: structured English/Kiswahili interface text, saved account preference, localized API validation, new notifications and CSV headings. User-authored course titles, historical messages and teacher feedback retain their original language.
+
+## Upgrade an existing installation safely
+
+Do not reset or delete its database. Stop its servers, install the updated lock, and run:
+
+```powershell
+.\scripts\upgrade.ps1 -BackupDirectory 'C:\EduAI-private-backups'
+```
+
+The helper makes a consistent SQLite backup and verifies that every pre-existing row remains unchanged. See [the migration and backup guide](docs/architecture/UPGRADE.md). Migrations add tables without altering or rebuilding legacy ones. Keep the same `DATABASE_URL`, uploads and signing secret. Backups and databases must remain private.
+
+Ollama is optional and disabled by default. Check available RAM, VRAM and disk before choosing and separately installing a model. Set `OLLAMA_ENABLED=true` and `OLLAMA_MODEL` to the exact installed tag, then inspect `/api/tutor/provider-health`. No real model inference was exercised in this delivery; provider success/failure and validation are tested with mocks. The core application works when the provider is absent.
+
+For isolated browser QA, `EDUAI_BASE_URL` selects the frontend URL and `EDUAI_API_TARGET` selects Vite's backend proxy. The enhanced browser run used ports 5181 and 8011 to avoid an older server. Use a dedicated fictional QA database; tests append records and do not reset existing data.
 
 ## Deliverables and technical reference
 

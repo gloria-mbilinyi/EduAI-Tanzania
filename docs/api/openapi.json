@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "EduAI Tanzania API",
-    "version": "1.0.0"
+    "version": "2.0.0"
   },
   "paths": {
     "/api/schools": {
@@ -136,6 +136,50 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ProfileInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/me/language": {
+      "patch": {
+        "tags": [
+          "identity"
+        ],
+        "summary": "Language",
+        "operationId": "language_api_me_language_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LanguageInput"
               }
             }
           },
@@ -885,6 +929,375 @@
         }
       }
     },
+    "/api/attempts/{attempt_id}/grade": {
+      "post": {
+        "tags": [
+          "assignments"
+        ],
+        "summary": "Grade Attempt",
+        "operationId": "grade_attempt_api_attempts__attempt_id__grade_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "attempt_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Attempt Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GradeInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assignments/{assignment_id}/history": {
+      "get": {
+        "tags": [
+          "assignments"
+        ],
+        "summary": "Attempt History",
+        "operationId": "attempt_history_api_assignments__assignment_id__history_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assignment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Assignment Id"
+            }
+          },
+          {
+            "name": "student_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Student Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/attempts/{attempt_id}/select-final": {
+      "post": {
+        "tags": [
+          "assignments"
+        ],
+        "summary": "Select Final",
+        "operationId": "select_final_api_attempts__attempt_id__select_final_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "attempt_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Attempt Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assignments/{assignment_id}/resubmission-requests": {
+      "post": {
+        "tags": [
+          "assignments"
+        ],
+        "summary": "Request Resubmission",
+        "operationId": "request_resubmission_api_assignments__assignment_id__resubmission_requests_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assignment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Assignment Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "assignments"
+        ],
+        "summary": "Requests",
+        "operationId": "requests_api_assignments__assignment_id__resubmission_requests_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assignment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Assignment Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/resubmission-requests/{request_id}/review": {
+      "post": {
+        "tags": [
+          "assignments"
+        ],
+        "summary": "Review Request",
+        "operationId": "review_request_api_resubmission_requests__request_id__review_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "request_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Request Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApprovalInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assignments/{assignment_id}/reopen": {
+      "post": {
+        "tags": [
+          "assignments"
+        ],
+        "summary": "Reopen",
+        "operationId": "reopen_api_assignments__assignment_id__reopen_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assignment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Assignment Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReopenInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/courses/{course_id}/quizzes": {
       "get": {
         "tags": [
@@ -1083,6 +1496,161 @@
         }
       }
     },
+    "/api/quizzes/{quiz_id}/publish": {
+      "post": {
+        "tags": [
+          "quizzes"
+        ],
+        "summary": "Publish",
+        "operationId": "publish_api_quizzes__quiz_id__publish_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "quiz_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Quiz Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Publish"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/quizzes/{quiz_id}/submissions": {
+      "get": {
+        "tags": [
+          "quizzes"
+        ],
+        "summary": "Submissions",
+        "operationId": "submissions_api_quizzes__quiz_id__submissions_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "quiz_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Quiz Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/quiz-submissions/{submission_id}/grade": {
+      "post": {
+        "tags": [
+          "quizzes"
+        ],
+        "summary": "Manual Grade",
+        "operationId": "manual_grade_api_quiz_submissions__submission_id__grade_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManualMarks"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/students/{student_id}/performance": {
       "get": {
         "tags": [
@@ -1148,6 +1716,16 @@
             "schema": {
               "type": "integer",
               "title": "Student Id"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en",
+              "title": "Accept-Language"
             }
           }
         ],
@@ -1603,6 +2181,51 @@
         }
       }
     },
+    "/api/recommendations/{recommendation_id}/versions": {
+      "get": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Versions",
+        "operationId": "versions_api_recommendations__recommendation_id__versions_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recommendation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Recommendation Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/recommendations/{recommendation_id}/view": {
       "post": {
         "tags": [
@@ -1761,6 +2384,30 @@
         ]
       }
     },
+    "/api/tutor/provider-health": {
+      "get": {
+        "tags": [
+          "tutor"
+        ],
+        "summary": "Provider Health",
+        "operationId": "provider_health_api_tutor_provider_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/api/teacher-tools/quiz-draft": {
       "post": {
         "tags": [
@@ -1772,7 +2419,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Draft"
+                "$ref": "#/components/schemas/QuizDraft"
               }
             }
           },
@@ -2888,7 +3535,14 @@
         "properties": {
           "answers": {
             "additionalProperties": {
-              "type": "integer"
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             },
             "type": "object",
             "title": "Answers"
@@ -2900,6 +3554,43 @@
           "answers"
         ],
         "title": "Answers"
+      },
+      "ApprovalInput": {
+        "properties": {
+          "decision": {
+            "type": "string",
+            "enum": [
+              "approved",
+              "rejected"
+            ],
+            "title": "Decision"
+          },
+          "comment": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 3,
+            "title": "Comment"
+          },
+          "reopen_until": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reopen Until"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "decision",
+          "comment"
+        ],
+        "title": "ApprovalInput"
       },
       "Body_upload_api_courses__course_id__upload_post": {
         "properties": {
@@ -3083,6 +3774,24 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "LanguageInput": {
+        "properties": {
+          "language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "sw"
+            ],
+            "title": "Language"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "language"
+        ],
+        "title": "LanguageInput"
+      },
       "LessonInput": {
         "properties": {
           "course_id": {
@@ -3165,6 +3874,30 @@
           "password"
         ],
         "title": "Login"
+      },
+      "ManualMarks": {
+        "properties": {
+          "marks": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Marks"
+          },
+          "feedback": {
+            "type": "string",
+            "maxLength": 3000,
+            "minLength": 3,
+            "title": "Feedback"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "marks",
+          "feedback"
+        ],
+        "title": "ManualMarks"
       },
       "MaterialInput": {
         "properties": {
@@ -3279,6 +4012,51 @@
         ],
         "title": "PlanInput"
       },
+      "PolicyInput": {
+        "properties": {
+          "max_attempts": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": 1.0,
+            "title": "Max Attempts",
+            "default": 1
+          },
+          "allow_resubmission": {
+            "type": "boolean",
+            "title": "Allow Resubmission",
+            "default": false
+          },
+          "allow_late": {
+            "type": "boolean",
+            "title": "Allow Late",
+            "default": false
+          },
+          "require_feedback": {
+            "type": "boolean",
+            "title": "Require Feedback",
+            "default": false
+          },
+          "require_approval": {
+            "type": "boolean",
+            "title": "Require Approval",
+            "default": false
+          },
+          "grading_policy": {
+            "type": "string",
+            "enum": [
+              "first",
+              "best",
+              "latest",
+              "selected"
+            ],
+            "title": "Grading Policy",
+            "default": "latest"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "PolicyInput"
+      },
       "ProfileInput": {
         "properties": {
           "name": {
@@ -3320,6 +4098,21 @@
         ],
         "title": "ProfileInput"
       },
+      "Publish": {
+        "properties": {
+          "reviewed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Reviewed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "reviewed"
+        ],
+        "title": "Publish"
+      },
       "QuestionInput": {
         "properties": {
           "prompt": {
@@ -3334,30 +4127,136 @@
             },
             "type": "array",
             "maxItems": 6,
-            "minItems": 2,
             "title": "Options"
           },
           "correct_index": {
             "type": "integer",
             "minimum": 0.0,
-            "title": "Correct Index"
+            "title": "Correct Index",
+            "default": 0
           },
           "explanation": {
             "type": "string",
             "maxLength": 2000,
             "minLength": 2,
             "title": "Explanation"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "mcq",
+              "true_false",
+              "numerical",
+              "short_answer"
+            ],
+            "title": "Kind",
+            "default": "mcq"
+          },
+          "answer": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Answer",
+            "default": ""
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "sw"
+            ],
+            "title": "Language",
+            "default": "en"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": [
           "prompt",
-          "options",
-          "correct_index",
           "explanation"
         ],
         "title": "QuestionInput"
+      },
+      "QuizDraft": {
+        "properties": {
+          "course_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Course Id"
+          },
+          "topic": {
+            "type": "string",
+            "maxLength": 150,
+            "minLength": 3,
+            "title": "Topic"
+          },
+          "subject": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subject"
+          },
+          "objective": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 5,
+            "title": "Objective",
+            "default": "Understand and apply the selected topic"
+          },
+          "difficulty": {
+            "type": "string",
+            "enum": [
+              "easy",
+              "medium",
+              "hard"
+            ],
+            "title": "Difficulty",
+            "default": "medium"
+          },
+          "count": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": 1.0,
+            "title": "Count",
+            "default": 3
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "sw"
+            ],
+            "title": "Language",
+            "default": "en"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "mcq",
+              "true_false",
+              "numerical",
+              "short_answer"
+            ],
+            "title": "Kind",
+            "default": "mcq"
+          },
+          "use_local_ai": {
+            "type": "boolean",
+            "title": "Use Local Ai",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "course_id",
+          "topic"
+        ],
+        "title": "QuizDraft"
       },
       "QuizInput": {
         "properties": {
@@ -3384,6 +4283,11 @@
             "maxItems": 30,
             "minItems": 1,
             "title": "Questions"
+          },
+          "reviewed": {
+            "type": "boolean",
+            "title": "Reviewed",
+            "default": false
           }
         },
         "additionalProperties": false,
@@ -3448,6 +4352,50 @@
           "role"
         ],
         "title": "Registration"
+      },
+      "ReopenInput": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 3,
+            "title": "Reason"
+          },
+          "student_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Student Id"
+          },
+          "reopen_until": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Reopen Until"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "reason",
+          "student_id",
+          "reopen_until"
+        ],
+        "title": "ReopenInput"
+      },
+      "RequestInput": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 3,
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "RequestInput"
       },
       "Review": {
         "properties": {
@@ -3542,8 +4490,16 @@
           },
           "subject": {
             "type": "string",
-            "maxLength": 60,
-            "minLength": 2,
+            "enum": [
+              "Mathematics",
+              "Biology",
+              "Chemistry",
+              "Physics",
+              "English",
+              "Kiswahili",
+              "Geography",
+              "History"
+            ],
             "title": "Subject"
           },
           "language": {
@@ -3554,6 +4510,11 @@
             ],
             "title": "Language",
             "default": "en"
+          },
+          "use_local_ai": {
+            "type": "boolean",
+            "title": "Use Local Ai",
+            "default": false
           }
         },
         "additionalProperties": false,
@@ -3656,6 +4617,9 @@
               }
             ],
             "title": "Due At"
+          },
+          "policy": {
+            "$ref": "#/components/schemas/PolicyInput"
           }
         },
         "additionalProperties": false,

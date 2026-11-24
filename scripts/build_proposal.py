@@ -89,17 +89,19 @@ def table(headers,rows,widths=None):
  grid.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),colors.HexColor('#17384D')),('GRID',(0,0),(-1,-1),.5,colors.HexColor('#D9D9D9')),('VALIGN',(0,0),(-1,-1),'MIDDLE'),('LEFTPADDING',(0,0),(-1,-1),8),('RIGHTPADDING',(0,0),(-1,-1),8),('TOPPADDING',(0,0),(-1,-1),7),('BOTTOMPADDING',(0,0),(-1,-1),7),('ROWBACKGROUNDS',(0,1),(-1,-1),[colors.white,colors.HexColor('#F0F4F7')])]))
  story.extend([grid,Spacer(1,10)])
 
-def figure(path,title,caption,explanation=None,anchor=None):
+def figure(path,title,caption,explanation=None,anchor=None,portrait=False):
  global diagram_mode
- story.extend(([PageBreak()] if diagram_mode else [NextPageTemplate('diagram'),PageBreak()]))
- section_size(doc.add_section(WD_SECTION.NEW_PAGE),landscape(A3));diagram_mode=True
+ story.extend([NextPageTemplate('diagramPortrait' if portrait else 'diagram'),PageBreak()])
+ section_size(doc.add_section(WD_SECTION.NEW_PAGE),A3 if portrait else landscape(A3));diagram_mode=True
+ max_width=737 if portrait else 1075
+ max_height=965 if portrait else 622
  doc.add_heading(title,level=1)
  title_flow=Paragraph((f'<a name="{anchor}"/>' if anchor else '')+escape(title),styles['h1']);title_flow.bookmark=anchor;story.append(title_flow)
  extra_height=0
  for value in explanation or []:
-  doc.add_paragraph(value);flow=Paragraph(escape(value),styles['body']);extra_height+=flow.wrap(1075,10000)[1]+styles['body'].spaceAfter;story.append(flow)
+  doc.add_paragraph(value);flow=Paragraph(escape(value),styles['body']);extra_height+=flow.wrap(max_width,10000)[1]+styles['body'].spaceAfter;story.append(flow)
  with PILImage.open(path) as image:w,h=image.size
- scale=min(1075/w,(622-extra_height)/h);width,height=w*scale,h*scale
+ scale=min(max_width/w,(max_height-extra_height)/h);width,height=w*scale,h*scale
  p=doc.add_paragraph();p.alignment=WD_ALIGN_PARAGRAPH.CENTER;p.add_run().add_picture(str(path),width=Pt(width),height=Pt(height))
  doc.add_paragraph(caption,style='Caption')
  story.extend([Image(str(path),width=width,height=height),Paragraph(escape(caption),styles['caption'])])
@@ -107,10 +109,10 @@ def figure(path,title,caption,explanation=None,anchor=None):
 # Cover and navigation
 doc.add_paragraph('EduAI Tanzania Ltd',style='Title');doc.add_paragraph('Technical software engineering proposal',style='Subtitle')
 doc.add_paragraph('Bilingual learning support and secondary school management')
-doc.add_paragraph('Prepared for academic software engineering review\n23 November 2026')
+doc.add_paragraph('Prepared for academic software engineering review\n24 November 2026')
 doc.add_paragraph('This proposal presents the design and reference prototype for a teacher-supervised education platform. Educational effectiveness and production readiness remain subjects for future evaluation.')
 doc.add_paragraph('Delivery context: local demonstration using fictional schools and users. No real payments or personal student datasets are included.')
-story += [Spacer(1,85),Paragraph('EduAI Tanzania Ltd',styles['title']),Paragraph('Technical software engineering proposal',styles['h1']),Spacer(1,18),Paragraph('Bilingual learning support and secondary school management',styles['body']),Spacer(1,32),Paragraph('Prepared for academic software engineering review<br/>23 November 2026',styles['body']),Spacer(1,28),Paragraph('This proposal presents the design and reference prototype for a teacher-supervised education platform. Educational effectiveness and production readiness remain subjects for future evaluation.',styles['body']),Paragraph('Delivery context: local demonstration using fictional schools and users. No real payments or personal student datasets are included.',styles['body'])]
+story += [Spacer(1,85),Paragraph('EduAI Tanzania Ltd',styles['title']),Paragraph('Technical software engineering proposal',styles['h1']),Spacer(1,18),Paragraph('Bilingual learning support and secondary school management',styles['body']),Spacer(1,32),Paragraph('Prepared for academic software engineering review<br/>24 November 2026',styles['body']),Spacer(1,28),Paragraph('This proposal presents the design and reference prototype for a teacher-supervised education platform. Educational effectiveness and production readiness remain subjects for future evaluation.',styles['body']),Paragraph('Delivery context: local demonstration using fictional schools and users. No real payments or personal student datasets are included.',styles['body'])]
 doc.add_page_break();story.append(PageBreak());heading('Contents')
 for n,(title,_) in enumerate(SECTIONS,start=2):
  doc.add_paragraph(f'{n} {title}')
@@ -128,32 +130,58 @@ for n,(title,paragraphs) in enumerate(SECTIONS,start=2):
  if n==8:
   table(['Stakeholder','Main responsibility','Required protection'],[['Student','Study and submit own work','Own records and enrolled courses'],['Teacher','Teach assigned courses and review drafts','Assigned-course scope'],['Parent','Support a verified linked student','Approved links only'],['Administrator','Manage the registered school','Own-school scope']], [91,185,215])
  if n==9:
-  table(['Requirement group','Total','Complete','Partial'],[['Student ST','12','11','1'],['Teacher TC','11','10','1'],['Parent PR','7','7','0'],['Administrator AD','10','9','1'],['AI assistance AI','10','9','1'],['All groups','50','46','4']], [212,93,93,93])
+  table(['Requirement group','Total','Complete','Partial'],[['Student ST','12','12','0'],['Teacher TC','11','11','0'],['Parent PR','7','7','0'],['Administrator AD','10','9','1'],['AI assistance AI','10','10','0'],['All groups','50','49','1']], [212,93,93,93])
  if n==25:
   table(['Stage','Current evidence','Next acceptance decision'],[['Local reference prototype','Executable source and automated checks','Educator review of workflows'],['Presentation preparation','Diagrams, proposal and role scenarios','Verify artifacts on submission machine'],['Later pilot','Not yet conducted','Governance, consent and field evaluation'],['Production','Not yet undertaken','Operational and deployment readiness']], [113,190,188])
  if n==26:
-  table(['Executed check','Result','Practical limit'],[['Pytest API/service checks','48 passed','SQLite only; one upstream deprecation warning'],['Vitest component/client checks','9 passed','Network behavior is mocked in client unit tests'],['Playwright local browser checks','8 passed','Headless Chrome; selected desktop/mobile workflows'],['Frontend production build','Passed','No remote deployment or capacity claim']], [161,89,241])
+  table(['Executed check','Result','Practical limit'],[['Pytest API/service checks','95 passed','SQLite only; one upstream deprecation warning'],['Vitest component/client checks','12 passed','Network behavior is mocked in client unit tests'],['Playwright local browser checks','12 passed','Headless Chrome; selected desktop/mobile workflows'],['Frontend production build','Passed','No remote deployment or capacity claim']], [161,89,241])
  for name in FIGURES.get(n,[]):
   title=name.split('_',1)[1].replace('_',' ')
   figure(ROOT/'diagrams/png'/f'{name}.png',f'Diagram {name[:2]} {title}',f'Actual diagram export. Editable source: {name}.drawio. Full-size vector PDF is supplied separately. Enlarged interaction and package extracts follow in the appendices.')
 
-# Enlarged extracts preserve the same source content and make small labels readable.
-heading('Appendix A Enlarged interaction frames')
-paragraph('These extracts retain the source message numbering and authorization guards. Consult the complete diagram for the relationship between frames.')
-for prefix,kind,step,h in [('01','Sequence',1000,965),('02','Communication',1300,1150)]:
+# Enlarged extracts preserve native content; participant headers repeat on continuation pages.
+interaction_intro='The comprehensive source retains all four processes. Continuation views repeat participant headers while preserving message text and numbering. Complete connector paths remain in the full source.'
+figure_count=8
+for prefix,kind in [('01','Sequence'),('02','Communication')]:
  source=next((ROOT/'diagrams/png').glob(prefix+'*.png'))
  with PILImage.open(source) as image:
   for i in range(4):
-   x=30+(i%2)*1490;y=125+(i//2)*step;target=WORK/f'{prefix}-scenario-{i+1}.png'
-   image.crop((x,y,x+1450,y+h)).save(target)
-   figure(target,f'{kind} interaction frame {i+1}',f'Enlarged extract of Diagram {prefix}. Each object, lifeline, message and label remains separately editable in the supplied draw.io source.')
-package_titles={6:['Identity and School','Learning Evidence','AI Learning Services'],7:['Teaching and Courses','Learning and Assessment','Submission and Grading'],8:['Family and Communication','School Administration','Subscription and Payment']}
+   x=30+(i%2)*1840;y=125+(i//2)*1800;frame=image.crop((x,y,x+1800,y+1760))
+   from interaction_uml import SCENARIOS
+   groups={}
+   for msg in SCENARIOS[i][2]:groups[(msg[0],msg[1],msg[3])]=groups.get((msg[0],msg[1],msg[3]),0)+1
+   used_end=190+sum(max(2,count)*27+20 for count in groups.values())
+   parts=(1,) if prefix=='02' and used_end<=930 else (1,2)
+   for part in parts:
+    if part==1:
+     first=frame.crop((0,0,1800,930));tail=frame.crop((0,1600,1800,1760)) if prefix=='02' else None
+     if tail:
+      target_image=PILImage.new('RGB',(1800,1090),'white');target_image.paste(first,(0,0));target_image.paste(tail,(0,930))
+     else:target_image=first
+    else:
+     head=frame.crop((0,0,1800,175));tail=frame.crop((0,930,1800,1760));target_image=PILImage.new('RGB',(1800,1005),'white');target_image.paste(head,(0,0));target_image.paste(tail,(0,175))
+    target=WORK/f'{prefix}-process-{i+1}-part-{part}.png';target_image.save(target)
+    first=prefix=='01' and i==0 and part==1
+    figure(target,('Appendix A ' if first else '')+f'{kind} process {i+1} part {part}',f'Enlarged actual Diagram {prefix} content. Participant headers repeat on continuation pages. Full connector paths remain in the complete editable source and vector PDF.',[interaction_intro] if first else None)
+    figure_count+=1
+for prefix in ('03','04'):
+ source=next((ROOT/'diagrams/png').glob(prefix+'*.png'))
+ with PILImage.open(source) as image:
+  for part in (1,2):
+   if part==1:tile=image.crop((0,0,2000,900))
+   else:
+    tile=PILImage.new('RGB',(2000,940),'white');tile.paste(image.crop((0,0,2000,210)),(0,0));tile.paste(image.crop((0,850,2000,1580)),(0,210))
+   target=WORK/f'{prefix}-state-part-{part}.png';tile.save(target)
+   figure(target,('Appendix B ' if prefix=='03' and part==1 else '')+f'Diagram {prefix} lifecycle detail {part}',f'Actual lifecycle content from Diagram {prefix}. Read the complete vector view for transitions continuing across the extract boundary.')
+   figure_count+=1
+package_titles={6:['Identity and learning evidence','Official assessment evidence','Reviewed recommendation lifecycle','Hybrid tutor service boundaries'],7:['Teaching and course access','Assignment policies and attempts','Separate marks and final selection','Reviewed quiz and secure grading'],8:['Verified family communication','School administration and audit','Subscription and payment records','Protected reporting and entitlements']}
 for n in (6,7,8):
  source=next((ROOT/'diagrams/png').glob(f'{n:02}*.png'))
  with PILImage.open(source) as image:
-  for col,label in enumerate(package_titles[n]):
-   x=30+col*540;target=WORK/f'{n:02}-package-{col+1}.png';image.crop((x,140,x+510,1260)).save(target)
-   figure(target,('Appendix B ' if n==6 and col==0 else '')+f'Diagram {n:02} {label}',f'Enlarged actual package compartment from Diagram {n:02}. Module stereotypes describe implemented Python services; associations and endpoint multiplicities appear in the full diagram catalogue.')
+  for j,label in enumerate(package_titles[n]):
+   x=30+(j%2)*1160;y=145+(j//2)*1190;target=WORK/f'{n:02}-package-{j+1}.png';image.crop((x,y,x+1120,y+1120)).save(target)
+   figure(target,f'Diagram {n:02} {label}',f'Enlarged actual package from Diagram {n:02}. Endpoint multiplicities and module mappings remain visible. The complete editable source contains all four packages.',portrait=True)
+   figure_count+=1
 heading('Appendix C Reproducible demonstration evidence')
 table(['Role','Fictional login','Demonstration path'],[['Student','amina@demo.eduai.test','Courses, quizzes, tutor and approved pathways'],['Teacher','neema@demo.eduai.test','Assignments, student evidence, review and lesson draft'],['Parent','parent@demo.eduai.test','Linked Amina report, alerts and teacher messages'],['Administrator','admin@demo.eduai.test','School users, assignments, links, reports and payments']], [91,180,220])
 paragraph('Choose the shared fictional password when running python -m app.seed. The seed script skips an existing populated database instead of overwriting it. The README gives separate backend and frontend terminal commands and the optional PowerShell setup workflow.')
@@ -168,11 +196,11 @@ def page_number(c,document):
  c.setFont('EduArial',9);c.setFillColor(colors.HexColor('#62736a'));w,h=c._pagesize;c.drawCentredString(w/2,27,str(document.page))
 
 pdf=ProposalPDF(str(OUT/'EduAI_Tanzania_Technical_Proposal.pdf'),pagesize=A4,title='EduAI Tanzania Technical Software Engineering Proposal',author='EduAI Tanzania project team',leftMargin=52,rightMargin=52,topMargin=50,bottomMargin=50)
-pdf.addPageTemplates([PageTemplate(id='body',frames=[Frame(52,50,A4[0]-104,A4[1]-100,leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)],pagesize=A4,onPage=page_number),PageTemplate(id='diagram',frames=[Frame(50,50,landscape(A3)[0]-100,landscape(A3)[1]-100,leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)],pagesize=landscape(A3),onPage=page_number)])
+pdf.addPageTemplates([PageTemplate(id='body',frames=[Frame(52,50,A4[0]-104,A4[1]-100,leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)],pagesize=A4,onPage=page_number),PageTemplate(id='diagram',frames=[Frame(50,50,landscape(A3)[0]-100,landscape(A3)[1]-100,leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)],pagesize=landscape(A3),onPage=page_number),PageTemplate(id='diagramPortrait',frames=[Frame(52,50,A3[0]-104,A3[1]-100,leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)],pagesize=A3,onPage=page_number)])
 pdf.build(story)
 doc.save(OUT/'EduAI_Tanzania_Technical_Proposal.docx')
 from pypdf import PdfReader
 reader=PdfReader(OUT/'EduAI_Tanzania_Technical_Proposal.pdf')
 assert len(reader.pages)>20
 assert all(len((p.extract_text() or '').strip())>5 for p in reader.pages)
-print(json.dumps({'pdf_pages':len(reader.pages),'docx_sections':len(doc.sections),'sections':len(SECTIONS)+1,'embedded_figures':8+8+9,'pdf_exists':True,'docx_exists':True}))
+print(json.dumps({'pdf_pages':len(reader.pages),'docx_sections':len(doc.sections),'sections':len(SECTIONS)+1,'embedded_figures':figure_count,'pdf_exists':True,'docx_exists':True}))

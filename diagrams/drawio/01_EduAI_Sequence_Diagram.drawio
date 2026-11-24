@@ -108,7 +108,7 @@
             <mxPoint x="0" y="-10" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="23" value=":Recommendation" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#eaf3ed;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=20;fontStyle=1;spacing=6;" vertex="1" parent="1">
+        <mxCell id="23" value=":Recommendation" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#eaf3ed;strokeColor=#365b4b;fontColor=#19382e;fontFamily=Arial;fontSize=18;fontStyle=1;spacing=6;" vertex="1" parent="1">
           <mxGeometry x="1221.8333333333335" y="195" width="171.88888888888889" height="65" as="geometry" />
         </mxCell>
         <mxCell id="24" value="" edge="1" parent="1" style="edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize=15;fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow=none;endFill=0;dashed=1;whiteSpace=wrap;labelWidth=460;eduLabelHeight=44;">

@@ -1,61 +1,19 @@
-# Known limitations and next work
+# Known limitations and further validation
 
-## Partially implemented functional requirements
+The enhanced original functional coverage is 49/50 (98%). AD-02 remains partial: existing identity roles cannot be reassigned. Administrators can create role-assigned users, activate/deactivate them, and manage course assignments. Historical profile transitions require a deliberate migration design.
 
-- ST-12: English/Kiswahili navigation, primary labels and tutor retrieval work.
-  Some explanatory copy, server validation messages and teaching-tool drafts
-  remain in English. Full localization is not complete.
-- TC-09 and AI-07: Quiz assistance selects and assembles reviewed question-bank
-  items. Teachers can edit the JSON and publish reviewed quizzes. Novel question
-  generation by a language model is not implemented.
-- AD-02: Administrators create role-assigned accounts and manage activation.
-  Changing the role of an existing identity is not implemented. This avoids
-  ambiguous transitions of historical student/teacher records.
+The 25 original teaching passages are illustrative, not a certified national curriculum. Topic-aware retrieval and verified bounded mathematics work without a model. Ollama is optional and disabled by default. Its adapter and draft schemas are tested with mocked success/failure responses; no installed model, real inference quality, latency, memory use or hardware suitability was evaluated. The application never downloads a model.
 
-These four requirements are excluded from complete functional coverage.
+Mathematics is limited to short whitelisted expressions, real solutions, practical linear systems, polynomial calculus and basic trigonometric forms. Symbolic checks do not constitute general proof verification. Arbitrary generated prose may be inaccurate even with a valid source ID. Teacher review remains necessary. Score-based mastery and risk are explainable rules, not trained predictions or item-level diagnoses.
 
-## Academic and operational limits
+Assignment attempts accept text. First-attempt grades retain their old IDs; later grades use an additive table. Earlier recommendation versions overwritten before the enhancement cannot be recovered; current and future versions are snapshotted. Quizzes retain one student attempt; written responses require teacher grading. If a topic bank cannot meet the requested count, the UI states the shortage and permits manual additions.
 
-The tutor has 11 original illustrative teaching passages covering eight subjects.
-It is lexical retrieval, not generative AI or a formally certified curriculum.
-Risk is a deterministic rule baseline, not a trained model, clinical label or
-validated predictor. No accuracy statistic or real student training data is used.
-Offline study is not captured; users can explicitly mark a material as studied.
+Machine-controlled interface text, API errors, new notifications and report headings have structured English/Kiswahili support and saved preferences. Teacher-authored content, historical messages and feedback retain their original language.
 
-All users, records, school names and payment transactions are fictional. Payments
-are simulated; no money moves and no mobile-money provider is integrated.
-Subscriptions are per user; a future school-wide billing entitlement is not
-implemented. Renewal creates a new subscription object rather than changing an
-expired object's history. Alerts and messages are in-app only.
+Native draw.io opening is unverified: the online embed initialization timed out before any file loaded. Native XML structure, editable cells, endpoint references, text bounds and local PNG/vector PDF exports are checked. Open the eight sources in diagrams.net on the presentation computer.
 
-Assignments accept text submissions. File uploads support teaching materials up
-to 5 MB, including downloadable MP4 files; there is no streaming/transcoding or
-malware scanning. Objective quizzes allow one attempt. New courses require an
-administrator to enroll students. Course deletion and global multi-school
-administration are deliberately outside this prototype's school-admin scope.
+The 53-page PDF proposal was rendered and visually reviewed. DOCX structure, sections, page fields and 39 embedded figures were checked, but native Word pagination remains unverified. The bundled renderer lacks LibreOffice; installed Word COM activation returned Access denied, and supported desktop launching exposed no targetable Word window. The PDF is an independently rendered counterpart of the same content, not a claimed Word conversion.
 
-No real-school field study, scalability benchmark, independent penetration test,
-accessibility certification, offline synchronization or formal curriculum review
-has been completed. PostgreSQL configuration is provided but only SQLite has
-been exercised. Migration 001 is a baseline; future schema changes need explicit
-versioned migration revisions and backups. Concurrent submission races rely on
-database uniqueness constraints and are not yet translated into a friendly 409
-in every path. Production needs rate limiting, TLS, secret management, backups,
-recovery procedures, monitoring, audit retention and a cookie/session review.
+Only SQLite has been exercised. PostgreSQL deployment, backup restoration drills, production load, independent penetration testing, accessibility certification, low-bandwidth studies, offline synchronization, real-school evaluation and formal privacy compliance review remain future work. The frontend bundle is about 805 kB raw (240 kB gzip), and one upstream Starlette/httpx deprecation warning remains.
 
-## Delivery verification limits
-
-Local API, component, production-build and headless Chrome browser checks have
-been executed; exact results are in docs/testing. GitHub Actions is configured
-but has not been observed running remotely. The connected GitHub account has no
-write access and local Git Credential Manager cannot enumerate Windows stored
-accounts in this environment. No push success is claimed.
-
-Native draw.io XML structure and the local vector/raster exports are validated.
-An attempt to load the online native editor through its documented embed API
-timed out while waiting for initialization. Native editor opening is therefore
-not yet verified. The diagrams contain independent editable cells, not screenshots.
-
-The technical proposal PDF is rendered and checked separately. The packaged
-DOCX renderer is attempted; if the host lacks its LibreOffice converter, Word
-pagination remains unverified. The final validation report records that result.
+Payments are fictional and per-user. No mobile-money/banking integration, pooled school billing, SMS or email delivery exists. No real student dataset or training is used. The final local/remote synchronization report is recorded separately; authentication is verified as gloria-mbilinyi, and no force push is used. Remote CI success is not assumed from local checks.

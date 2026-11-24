@@ -1,10 +1,10 @@
 {
   "summary": {
     "total_functional_requirements": 50,
-    "implemented_and_tested": 46,
-    "partial": 4,
+    "implemented_and_tested": 49,
+    "partial": 1,
     "unimplemented": 0,
-    "functional_coverage_percent": 92.0,
+    "functional_coverage_percent": 98.0,
     "method": "Complete requirements / all 50 functional requirements; partial items contribute zero."
   },
   "requirements": [
@@ -46,21 +46,21 @@
       "Implementation Status": "Implemented and tested",
       "Source Files": "backend/app/api/tutor.py; frontend/src/pages/AI.tsx; backend/app/ai/tutor.py",
       "Test Evidence": "backend/tests/test_ai.py::test_bilingual_retrieval_sources_history_and_no_match",
-      "Notes": "Small cited teaching corpus, not a generative LLM"
+      "Notes": "Safe symbolic mathematics; topic-gated retrieval; optional bounded local provider"
     },
     {
       "Requirement ID": "ST-06",
       "Description": "Online assignment submission",
       "Implementation Status": "Implemented and tested",
-      "Source Files": "backend/app/api/assignments.py; frontend/src/pages/Academics.tsx",
+      "Source Files": "backend/app/api/assignments.py; frontend/src/pages/Academics.tsx; frontend/src/pages/AssignmentWorkflows.tsx",
       "Test Evidence": "backend/tests/test_academics.py::test_assignment_submission_grading_and_alerts",
-      "Notes": "Text submissions; one per assignment"
+      "Notes": "Stable submissions with append-only policy-controlled attempts"
     },
     {
       "Requirement ID": "ST-07",
       "Description": "Online quizzes",
       "Implementation Status": "Implemented and tested",
-      "Source Files": "backend/app/api/quizzes.py; frontend/src/pages/Academics.tsx",
+      "Source Files": "backend/app/api/quizzes.py; frontend/src/pages/Academics.tsx; frontend/src/pages/QuizWorkflows.tsx",
       "Test Evidence": "backend/tests/test_academics.py::test_objective_quiz_hides_keys_validates_and_grades",
       "Notes": "One objective attempt per quiz"
     },
@@ -68,7 +68,7 @@
       "Requirement ID": "ST-08",
       "Description": "Automatic grading of objective assessments",
       "Implementation Status": "Implemented and tested",
-      "Source Files": "backend/app/api/quizzes.py; frontend/src/pages/Academics.tsx",
+      "Source Files": "backend/app/api/quizzes.py; frontend/src/pages/Academics.tsx; frontend/src/pages/QuizWorkflows.tsx",
       "Test Evidence": "backend/tests/test_academics.py::test_objective_quiz_hides_keys_validates_and_grades",
       "Notes": "Server-side answer keys and persisted grade"
     },
@@ -99,10 +99,10 @@
     {
       "Requirement ID": "ST-12",
       "Description": "English/Kiswahili switching",
-      "Implementation Status": "Partial",
+      "Implementation Status": "Implemented and tested",
       "Source Files": "backend/app/api/auth.py; frontend/src/pages/Public.tsx; frontend/src/pages/Performance.tsx",
       "Test Evidence": "frontend/src/tests/ui.test.tsx \u2014 switches navigation labels and the document language",
-      "Notes": "Navigation and core labels translated; explanatory and API text still partly English"
+      "Notes": "Structured dictionaries; role workflows, API errors, notifications and report labels; persisted preferences"
     },
     {
       "Requirement ID": "TC-01",
@@ -156,7 +156,7 @@
       "Requirement ID": "TC-07",
       "Description": "Assignment creation and management",
       "Implementation Status": "Implemented and tested",
-      "Source Files": "backend/app/api/assignments.py; frontend/src/pages/Academics.tsx",
+      "Source Files": "backend/app/api/assignments.py; frontend/src/pages/Academics.tsx; frontend/src/pages/AssignmentWorkflows.tsx",
       "Test Evidence": "backend/tests/test_academics.py::test_assignment_submission_grading_and_alerts",
       "Notes": "Create/edit assignments and grade submissions"
     },
@@ -171,10 +171,10 @@
     {
       "Requirement ID": "TC-09",
       "Description": "AI-assisted quiz generation",
-      "Implementation Status": "Partial",
+      "Implementation Status": "Implemented and tested",
       "Source Files": "backend/app/api/teacher_tools.py; frontend/src/pages/AI.tsx",
-      "Test Evidence": "backend/tests/test_ai.py::test_teacher_tools_are_entitled_drafts_and_persist_reviewed_lesson",
-      "Notes": "Curated question-bank assembly; no novel question generation"
+      "Test Evidence": "backend/tests/test_quiz_types.py::test_local_quiz_schema_validates_drafts_without_writing_marks",
+      "Notes": "Reviewed typed drafts, parameterized numeric templates and optional validated local generation"
     },
     {
       "Requirement ID": "TC-10",
@@ -379,10 +379,10 @@
     {
       "Requirement ID": "AI-07",
       "Description": "AI-assisted quiz generation",
-      "Implementation Status": "Partial",
+      "Implementation Status": "Implemented and tested",
       "Source Files": "backend/app/api/teacher_tools.py; frontend/src/pages/AI.tsx",
-      "Test Evidence": "backend/tests/test_ai.py::test_teacher_tools_are_entitled_drafts_and_persist_reviewed_lesson",
-      "Notes": "Question bank selection and assembly only"
+      "Test Evidence": "backend/tests/test_quiz_types.py::test_bank_drafts_types_language_limits_and_no_auto_publication",
+      "Notes": "Reviewed typed bank drafts, new numerical variants and optional local generation"
     },
     {
       "Requirement ID": "AI-08",

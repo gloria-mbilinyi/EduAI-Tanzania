@@ -28,5 +28,10 @@ passwords, JWTs or sensitive request payloads.
 All primary keys are integers. Foreign keys are enabled in SQLite. Timestamps use
 UTC, rendering uses the browser locale. Indexes cover user email, school-scoped
 courses, student records, recommendations and message recipients. Migration 001
-creates the baseline schema with a schema version ledger; future revisions must
-add explicit migrations rather than relying on create_all to alter tables.
+creates the baseline schema with a schema version ledger; versions 2 and 3 add ten extension tables without altering or rebuilding any legacy table.
+
+## Additive enhancement tables
+
+AssignmentPolicy, SubmissionAttempt, AttemptGrade, GradeHistory, ResubmissionApproval, FinalGradeSelection and RecommendationRevision are added by version 2. QuestionSettings, QuizReview and QuizResponse are added by version 3. There are 38 ORM tables plus the migration ledger. Every legacy submission and grade ID is retained. First-attempt grades remain in grades; later assignment marks are in attempt_grades. Official aggregation and selection are service rules; all attempts remain reviewable.
+
+The actual version-1 DDL is frozen in backend/tests/fixtures/001_schema.sql. Migration tests populate it, back it up, compare every old row, and run migration again. No existing database is reset. See UPGRADE.md for PowerShell commands and recovery boundaries.

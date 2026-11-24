@@ -38,7 +38,7 @@ def number(n,i,messages):
 
 def actor(d,name,x,y,w):
  if name.startswith(':'):
-  d.node(name,x-w/2,y,w,65,font=20,bold=True,fill='#eaf3ed')
+  d.node(name,x-w/2,y,w,65,font=18 if 'Recommendation' in name else 20,bold=True,fill='#eaf3ed')
  else:
   d.node('',x-10,y,20,20,shape='ellipse',fill='white');d.line(x,y+20,x,y+50,arrow=False);d.line(x-18,y+31,x+18,y+31,arrow=False)
   d.line(x,y+50,x-17,y+65,arrow=False);d.line(x,y+50,x+17,y+65,arrow=False)

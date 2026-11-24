@@ -48,14 +48,14 @@ def class_view(name,title,panels):
     if xx>x:s=(x+w,y+h/2);t=(xx,yy+hh/2)
     else:s=(x,y+h/2);t=(xx+ww,yy+hh/2)
     via=[];cx=(s[0]+t[0])/2;cy=s[1]-40
-    d.node(m1,s[0]-35 if xx<x else s[0]+2,s[1]+8,35,28,font=18,shape='text')
-    d.node(m2,t[0]+2 if xx<x else t[0]-40,t[1]+8,40,28,font=18,shape='text')
+    d.node(m1,s[0]-55 if xx<x else s[0]+2,s[1]+8,55,28,font=18,shape='text')
+    d.node(m2,t[0]+2 if xx<x else t[0]-55,t[1]+8,55,28,font=18,shape='text')
    else:
     down=yy>y;s=(x+w/2,y+h if down else y);t=(xx+ww/2,yy if down else yy+hh)
     mid=(s[1]+t[1])/2;via=[(s[0],mid),(t[0],mid)] if x!=xx else []
     cx=(s[0]+t[0])/2+100;cy=mid
-    d.node(m1,s[0]-45,s[1]+3 if down else s[1]-31,40,28,font=18,shape='text')
-    d.node(m2,t[0]-45,t[1]-31 if down else t[1]+3,40,28,font=18,shape='text')
+    d.node(m1,s[0]-65,s[1]+3 if down else s[1]-31,55,28,font=18,shape='text')
+    d.node(m2,t[0]-65,t[1]-31 if down else t[1]+3,55,28,font=18,shape='text')
    dependency=label.startswith('uses') or label.startswith('creates')
    d.line(*s,*t,label,source=src,target=dst,points=via,dashed=dependency,arrow=dependency,font=18,
           offset=(cx-(s[0]+t[0])/2,cy-(s[1]+t[1])/2),label_width=185,label_height=55)
