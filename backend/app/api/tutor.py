@@ -17,8 +17,9 @@ class TutorInput(Input):
 
 @router.post('/ask')
 def ask(data: TutorInput, u: User = Depends(principal), db: Session = Depends(get_db)):
-    result = answer(data.question, data.subject, data.language)
-    save(db, u, TutorMessage(user_id=u.id, subject=data.subject, language=data.language, question=data.question, answer=result['answer'], source=result['source']), 'tutor.retrieval')
+    prior=db.query(TutorMessage).filter_by(user_id=u.id,subject=data.subject).order_by(TutorMessage.id.desc()).limit(4).all()
+    result = answer(data.question, data.subject, data.language,context=[record(m) for m in reversed(prior)])
+    save(db, u, TutorMessage(user_id=u.id, subject=data.subject, language=result['language'], question=data.question, answer=result['answer'], source=result['source']), 'tutor.'+result['mode'].split(';')[0])
     return result
 
 @router.get('/history')
