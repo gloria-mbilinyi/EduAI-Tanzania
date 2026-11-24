@@ -41,42 +41,42 @@
   },
   {
     "file": "05_EduAI_Overview_Package_Diagram.drawio",
-    "editable_vertices": 71,
-    "editable_edges": 13,
+    "editable_vertices": 47,
+    "editable_edges": 11,
     "xml_valid": true,
     "pixels": [
-      1560,
-      1660
+      1800,
+      1450
     ]
   },
   {
     "file": "06_Learning_AI_Detailed_Package.drawio",
-    "editable_vertices": 87,
-    "editable_edges": 39,
+    "editable_vertices": 152,
+    "editable_edges": 69,
     "xml_valid": true,
     "pixels": [
-      1640,
-      1860
+      2340,
+      2540
     ]
   },
   {
     "file": "07_Course_Assessment_Detailed_Package.drawio",
-    "editable_vertices": 77,
-    "editable_edges": 34,
+    "editable_vertices": 150,
+    "editable_edges": 68,
     "xml_valid": true,
     "pixels": [
-      1640,
-      1860
+      2340,
+      2540
     ]
   },
   {
     "file": "08_Admin_Parent_Subscription_Detailed_Package.drawio",
-    "editable_vertices": 83,
-    "editable_edges": 37,
+    "editable_vertices": 148,
+    "editable_edges": 67,
     "xml_valid": true,
     "pixels": [
-      1640,
-      1860
+      2340,
+      2540
     ]
   }
 ]
