@@ -4,12 +4,14 @@ from app.migrate import migrate
 from app.seed import seed
 from sqlalchemy.orm import Session
 
-def test_upgrade_preserves_every_legacy_row_and_is_idempotent(tmp_path):
+def test_upgrade_preserves_every_legacy_row_and_is_idempotent(tmp_path,monkeypatch):
     old_schema = subprocess.check_output(['git', 'show', 'b45aa52:docs/architecture/SCHEMA.sql'], text=True)
     engine = create_engine('sqlite:///' + str(tmp_path / 'existing.db'))
     with engine.begin() as conn:
         for statement in old_schema.split(';'):
             if statement.strip(): conn.exec_driver_sql(statement)
+    # A legacy fixture cannot call the upgraded performance service before migration.
+    monkeypatch.setattr('app.seed.generate',lambda *args:('Preserved original recommendation',['Original evidence']))
     with Session(engine) as db:
         seed(db, 'Migration-only-fictional-password')
     with engine.connect() as conn:
@@ -22,4 +24,4 @@ def test_upgrade_preserves_every_legacy_row_and_is_idempotent(tmp_path):
             assert list(conn.exec_driver_sql(f'SELECT * FROM "{table}"')) == rows
         assert conn.execute(text('SELECT COUNT(*) FROM submission_attempts')).scalar() > 0
         assert conn.execute(text('SELECT MIN(score) FROM grade_history')).scalar() == 45
-        assert conn.execute(text('SELECT COUNT(*) FROM schema_migrations')).scalar() == 2
+        assert conn.execute(text('SELECT COUNT(*) FROM schema_migrations')).scalar() == 3

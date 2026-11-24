@@ -24,6 +24,9 @@ def migrate(bind=None):
             conn.execute(text('''INSERT INTO recommendation_revisions (recommendation_id, version, content, reasons, created_at)
                 SELECT id, version, content, reasons, created_at FROM ai_recommendations'''))
             conn.execute(text("INSERT INTO schema_migrations VALUES (2, 'Add policies attempts feedback history and recommendation snapshots')"))
+        if conn.execute(text('SELECT version FROM schema_migrations WHERE version=3')).first() is None:
+            Base.metadata.create_all(conn)
+            conn.execute(text("INSERT INTO schema_migrations VALUES (3, 'Typed quiz answers review evidence and pending manual assessment')"))
 
 if __name__ == '__main__':
     migrate()

@@ -60,3 +60,21 @@ class RecommendationRevision(Entity, Base):
     content = Column(Text, nullable=False)
     reasons = Column(Text, nullable=False)
     __table_args__ = (UniqueConstraint('recommendation_id', 'version'),)
+
+class QuestionSettings(Entity, Base):
+    __tablename__ = 'question_settings'
+    question_id = Column(Integer, ForeignKey('questions.id'), nullable=False, unique=True)
+    kind = Column(String(20), nullable=False)
+    answer = Column(Text, nullable=False, default='')
+    language = Column(String(2), nullable=False, default='en')
+
+class QuizReview(Entity, Base):
+    __tablename__ = 'quiz_reviews'
+    quiz_id = Column(Integer, ForeignKey('quizzes.id'), nullable=False)
+    teacher_id = Column(Integer, ForeignKey('teachers.user_id'), nullable=False)
+
+class QuizResponse(Entity, Base):
+    __tablename__ = 'quiz_responses'
+    submission_id = Column(Integer, ForeignKey('submissions.id'), nullable=False, unique=True)
+    parts = Column(Text, nullable=False)
+    manual_marks = Column(Text, nullable=False, default='{}')

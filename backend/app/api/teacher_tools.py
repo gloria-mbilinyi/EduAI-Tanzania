@@ -1,4 +1,5 @@
 from pydantic import Field
+from typing import Literal
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from ..core.database import get_db
@@ -9,22 +10,31 @@ from ..services.access import course_access, save, record
 from ..services.billing import premium
 from ..ai.corpus import CORPUS
 from ..ai.tutor import retrieve
+from ..ai.quiz_builder import draft as build_quiz
+from .quizzes import QuestionInput
 
 router = APIRouter(prefix='/api/teacher-tools', tags=['teacher draft assistance'])
 class Draft(Input):
     course_id: int = Field(gt=0)
     topic: str = Field(min_length=3, max_length=150)
 
+class QuizDraft(Draft):
+    subject:str|None=None
+    objective:str=Field(default='Understand and apply the selected topic',min_length=5,max_length=500)
+    difficulty:Literal['easy','medium','hard']='medium'
+    count:int=Field(default=3,ge=1,le=20)
+    language:Literal['en','sw']='en'
+    kind:Literal['mcq','true_false','numerical','short_answer']='mcq'
+    use_local_ai:bool=False
+
 @router.post('/quiz-draft')
-def quiz_draft(data: Draft, u: User = Depends(principal), db: Session = Depends(get_db)):
+def quiz_draft(data: QuizDraft, u: User = Depends(principal), db: Session = Depends(get_db)):
     c = course_access(db, u, data.course_id, manage=True)
     premium(db, u.id)
-    entries = [e for e in CORPUS if e['subject'].lower() == c.subject.lower()]
-    if not entries: raise HTTPException(422, 'No reviewed question bank for this subject; create questions manually')
-    _, best = retrieve(data.topic, c.subject)
-    entries.sort(key=lambda x: x['id'] != best['id'] if best else False)
-    return {'title': data.topic + ' practice', 'status': 'draft', 'mode': 'question-bank assembly, not generative AI; teacher review required',
-            'questions': [{'prompt': e['question'], 'options': e['options'], 'correct_index': e['correct'], 'explanation': e['en']} for e in entries[:3]]}
+    try:questions,mode,warning=build_quiz(data,c.subject,QuestionInput)
+    except ValueError as exc:raise HTTPException(422,str(exc))
+    return {'title':data.topic+' practice','status':'draft','mode':mode,'warning':warning,'objective':data.objective,
+            'difficulty':data.difficulty,'requested_count':data.count,'questions':questions}
 
 @router.post('/lesson-draft')
 def lesson(data: Draft, u: User = Depends(principal), db: Session = Depends(get_db)):
