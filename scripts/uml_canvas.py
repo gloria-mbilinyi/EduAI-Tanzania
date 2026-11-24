@@ -81,7 +81,7 @@ class Diagram:
             return {'R':(x+w,y+h/2),'L':(x,y+h/2),'T':(x+w/2,y),'B':(x+w/2,y+h)}[p]
         x,y=port(a,ports[0]);X,Y=port(b,ports[1])
         self.line(x,y,X,Y,points=list(via),source=a,target=b,dashed=dashed)
-        if label:self.node(label,*labelbox,font=14,shape='text')
+        if label:self.node(label,*labelbox,font=17,shape='text')
 
     def title(self,text,subtitle):
         self.node(text,25,20,self.width-50,45,font=28,bold=True,shape='text')

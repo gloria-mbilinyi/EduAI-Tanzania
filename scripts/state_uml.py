@@ -1,64 +1,63 @@
-"""Lifecycle diagrams with explicit orthogonal routes and editable text labels."""
+"""Readable lifecycle diagrams with persisted and conceptual states distinguished."""
 from uml_canvas import Diagram
 
+def scaffold(name,title,note):
+ d=Diagram(name,2000,1580);d.title(title,'Guards precede protected transitions. Persisted statuses are distinguished from conceptual processing steps.')
+ d.node(note,35,115,1930,90,font=20,shape='text',style='align=left;')
+ return d
+
 def state_ai():
-    d=Diagram('03_AI_Recommendation_State_Machine',1800,1210)
-    d.title('AI Recommendation State Machine','A recommendation can reach Published only through an authorized teacher approval and its persisted decision record.')
-    d.node('Persisted statuses: pending_review, rejected, published, viewed and archived. Other states describe transient steps inside a request or transaction. Failed generation rolls back. Cancellation before persistence leaves no published object.',30,115,1740,70,font=16,shape='text',style='align=left;')
-    specs=[('Created',120,230),('Analysis Pending',480,230),('Generated',840,230),('Pending Teacher Review',1240,230),('Approved',1240,485),('Published',840,485),('Viewed by Student',480,485),('Archived',120,485),('Rejected',1240,725),('Revision Required',840,725),('Regenerated',480,725),('Generation Failed',840,965),('Cancelled',120,965)]
-    ids={name:d.node(name,x,y,250 if name in {'Pending Teacher Review','Approved','Rejected'} else 220,80,shape='round',fill='#eaf3ed' if name in {'Published','Approved'} else '#fff',font=19,bold=True) for name,x,y in specs}
-    initial=d.node('',35,255,28,28,shape='ellipse',fill='#19382e')
-    final=d.node('',390,1130,34,34,shape='final')
-    d.node('',398,1138,18,18,shape='ellipse',fill='#19382e')
-    def e(a,b,label,box,via=(),ports=None):
-        source,target=ids.get(a,a),ids.get(b,b)
-        ports=ports or (('R','L') if d.boxes[target][0]>d.boxes[source][0] else ('L','R'))
-        d.transition(source,target,label,box,via,ports)
-    e(initial,'Created','request / validate scope',(15,195,250,35))
-    e('Created','Analysis Pending','generate / collect evidence',(300,180,250,40))
-    e('Analysis Pending','Generated','analysis succeeds / build draft',(665,180,280,40))
-    e('Generated','Pending Teacher Review','persist pending_review draft',(1005,315,300,40))
-    e('Pending Teacher Review','Approved','approve [assigned teacher]\n/ record approval',(1460,355,300,60),ports=('B','T'))
-    e('Approved','Published','same transaction / publish',(1050,575,260,40))
-    e('Published','Viewed by Student','view [own student] / audit',(665,575,260,40))
-    e('Viewed by Student','Archived','archive [assigned teacher]',(300,575,260,40))
-    e('Pending Teacher Review','Rejected','reject [assigned teacher]\n/ record decision and comment',(1485,620,290,65),[(1680,270),(1680,765)],('R','R'))
-    e('Rejected','Revision Required','request regeneration',(1050,815,260,40))
-    e('Revision Required','Regenerated','regenerate / increment version',(665,815,280,40))
-    e('Regenerated','Pending Teacher Review','new draft / require review again',(760,620,360,40),[(590,665),(1150,665),(1150,200),(1365,200)],('T','T'))
-    e('Analysis Pending','Generation Failed','exception / rollback; no publication',(510,355,280,60),[(590,380),(780,380),(780,1005)],('B','L'))
-    e('Generation Failed','Analysis Pending','retry [scope valid] / collect evidence',(1100,1070,430,40),[(1760,1005),(1760,195),(590,195)],('R','T'))
-    e('Created','Cancelled','invalid scope or withdrawn request\n/ no persisted publication',(10,845,330,60),[(75,270),(75,1005)],('L','L'))
-    e('Archived',final,'retained for audit / lifecycle ends',(30,660,300,40),[(350,600),(350,1100),(407,1100)],('B','T'))
-    e('Cancelled',final,'no published object',(85,1060,250,35),[(230,1110),(407,1110)],('B','T'))
-    return d
+ d=scaffold('03_AI_Recommendation_State_Machine','AI Recommendation State Machine',
+ 'Stored: pending_review, rejected, published, viewed, archived. Created, Analysis Pending, Generated, Approved, Revision Required and Regenerated are conceptual request steps. Generation failure rolls back. Cancellation abandons an unpersisted request; no cancel API or published bypass is claimed.')
+ specs=[('Created',90,250),('Analysis Pending',570,250),('Generated',1050,250),('Pending Teacher Review',1530,250),('Approved',1530,610),('Published',1050,610),('Viewed',570,610),('Archived',90,610),('Rejected',1530,970),('Revision Required',1050,970),('Regenerated',570,970),('Generation Failed',90,970),('Cancelled',90,1250)]
+ ids={s:d.node(s,x,y,300,90,shape='round',font=23,bold=True,fill='#e7f1eb' if s in {'Approved','Published'} else 'white') for s,x,y in specs}
+ start=d.node('',35,280,28,28,shape='ellipse',fill='#19382e');end=d.node('',1040,1460,36,36,shape='final')
+ d.node('',1048,1468,20,20,shape='ellipse',fill='#19382e')
+ def e(a,b,label,box,via=(),ports=None):
+  a=ids.get(a,a);b=ids.get(b,b)
+  ports=ports or (('R','L') if d.boxes[b][0]>d.boxes[a][0] else ('L','R'))
+  d.transition(a,b,label,box,via,ports)
+ e(start,'Created','request',(20,210,220,35))
+ e('Created','Analysis Pending','validate scope / collect evidence',(390,205,180,65))
+ e('Analysis Pending','Generated','analysis succeeds / build draft',(870,205,180,65))
+ e('Generated','Pending Teacher Review','persist draft + immutable snapshot',(1350,205,180,65))
+ e('Pending Teacher Review','Approved','approve [assigned teacher] / save decision',(1840,430,145,100),ports=('B','T'))
+ e('Approved','Published','same transaction / publish',(1350,565,180,65))
+ e('Published','Viewed','view [own student]',(870,565,180,65))
+ e('Viewed','Archived','archive [assigned teacher]',(390,565,180,65))
+ e('Pending Teacher Review','Rejected','reject [assigned teacher] / retain comment',(1570,820,350,65),[(1950,295),(1950,1015)],('R','R'))
+ e('Rejected','Revision Required','regeneration requested',(1350,925,180,65))
+ e('Revision Required','Regenerated','new evidence / increment version',(870,925,180,65))
+ e('Regenerated','Pending Teacher Review','new snapshot / require review again',(900,815,520,55),[(720,890),(1450,890),(1450,210),(1680,210)],('T','T'))
+ e('Analysis Pending','Generation Failed','exception / rollback; never publish',(120,400,550,55),[(720,470),(45,470),(45,1015)],('B','L'))
+ e('Generation Failed','Cancelled','abandon failed request',(400,1140,260,60),ports=('B','T'))
+ e('Archived',end,'retain audit evidence / final',(500,1380,450,50),[(480,655),(480,1478)],('R','L'))
+ e('Cancelled',end,'no published object',(500,1240,450,50),[(1058,1295)],('R','T'))
+ return d
 
 def state_subscription():
-    d=Diagram('04_Subscription_State_Machine',1800,1210)
-    d.title('Subscription State Machine','The server verifies its provider ledger before activation. Every renewal is a new per-user subscription and payment object.')
-    d.node('Entitlement = active status + premium flag + future expiry + verified payment. Expiring Soon is a derived view, not a stored status. Failed or rejected transactions require a new checkout. No real money is transferred.',30,115,1740,70,font=16,shape='text',style='align=left;')
-    specs=[('Created',120,230),('Pending Payment',480,230),('Payment Verification',840,230),('Active',1240,230),('Expiring Soon',1240,485),('Expired',840,485),('Renewed',480,485),('Payment Failed',840,725),('Payment Rejected',1240,725),('Suspended',1240,965),('Cancelled',120,965)]
-    ids={name:d.node(name,x,y,250 if x==1240 else 220,80,shape='round',fill='#eaf3ed' if name=='Active' else '#fff',font=19,bold=True) for name,x,y in specs}
-    initial=d.node('',35,255,28,28,shape='ellipse',fill='#19382e')
-    final=d.node('',390,1130,34,34,shape='final')
-    d.node('',398,1138,18,18,shape='ellipse',fill='#19382e')
-    def e(a,b,label,box,via=(),ports=None):
-        source,target=ids.get(a,a),ids.get(b,b)
-        ports=ports or (('R','L') if d.boxes[target][0]>d.boxes[source][0] else ('L','R'))
-        d.transition(source,target,label,box,via,ports)
-    e(initial,'Created','select plan',(20,195,230,35))
-    e('Created','Pending Payment','checkout / persist transaction',(300,180,280,40))
-    e('Pending Payment','Payment Verification','verify / read server ledger',(660,180,290,40))
-    e('Payment Verification','Active','[verified amount and currency]\n/ set active status and expiry',(1050,315,320,60))
-    e('Active','Expiring Soon','time remaining <= 7 days\n/ derived state',(1480,355,280,60),ports=('B','T'))
-    e('Expiring Soon','Expired','now >= expiry / deny premium',(1050,575,300,40))
-    e('Expired','Renewed','checkout / create NEW object',(650,575,300,40))
-    e('Renewed','Pending Payment','new transaction\n/ require verification again',(295,355,280,60),ports=('T','B'))
-    e('Payment Verification','Payment Failed','[provider failure]\n/ keep premium disabled',(865,620,300,60),[(1150,270),(1150,765)],('R','R'))
-    e('Payment Verification','Payment Rejected','[rejected or amount/currency mismatch]\n/ keep premium disabled',(1440,625,330,65),[(950,380),(1610,380),(1610,765)],('B','R'))
-    e('Active','Suspended','admin suspend / deny premium',(1470,870,300,40),[(1720,270),(1720,1005)],('R','R'))
-    e('Suspended','Active','admin restore [verified AND unexpired]',(1000,895,450,45),[(1180,1005),(1180,270)],('L','L'))
-    e('Pending Payment','Cancelled','admin cancel / stop activation',(265,840,310,50),[(410,270),(410,1005)],('L','R'))
-    e('Active','Cancelled','admin cancel / deny premium',(575,1080,400,40),[(1120,270),(1120,1100),(230,1100)],('L','B'))
-    e('Cancelled',final,'no restoration; start a new checkout',(140,1130,240,40),[(230,1147)],('B','L'))
-    return d
+ d=scaffold('04_Subscription_State_Machine','Subscription State Machine',
+ 'Stored: pending_payment, active, expired, payment_failed, payment_rejected, suspended, cancelled. Created and Payment Verification are request steps. Expiring Soon is a derived time condition. Renewed creates a NEW Subscription and Payment; the old object remains expired. Entitlement also checks verified payment and future expiry on every premium request.')
+ specs=[('Created',90,250),('Pending Payment',570,250),('Payment Verification',1050,250),('Active',1530,250),('Expiring Soon\n[derived]',1530,610),('Expired',1050,610),('Renewed\n<<new object event>>',570,610),('Payment Failed',1050,970),('Payment Rejected',1530,970),('Suspended',1530,1250),('Cancelled',90,1250)]
+ ids={s:d.node(s,x,y,300,90,shape='round',font=23,bold=True,fill='#e7f1eb' if s=='Active' else 'white') for s,x,y in specs}
+ initial=d.node('',35,280,28,28,shape='ellipse',fill='#19382e');final=d.node('',580,1460,36,36,shape='final')
+ d.node('',588,1468,20,20,shape='ellipse',fill='#19382e')
+ def e(a,b,label,box,via=(),ports=None,dashed=False):
+  a=ids.get(a,a);b=ids.get(b,b);ports=ports or (('R','L') if d.boxes[b][0]>d.boxes[a][0] else ('L','R'))
+  d.transition(a,b,label,box,via,ports,dashed=dashed)
+ e(initial,'Created','select plan',(15,210,230,35))
+ e('Created','Pending Payment','checkout / save server price',(390,205,180,65))
+ e('Pending Payment','Payment Verification','verify / read provider ledger',(870,205,180,65))
+ e('Payment Verification','Active','[success + amount + currency match] / expiry',(1350,195,180,90))
+ e('Active','Expiring Soon\n[derived]','remaining time <= 7 days / UI condition',(1840,420,145,95),ports=('B','T'))
+ e('Expiring Soon\n[derived]','Expired','now >= expiry / deny premium',(1350,565,180,65))
+ e('Expired','Renewed\n<<new object event>>','new checkout [active plan]',(870,565,180,65),dashed=True)
+ e('Renewed\n<<new object event>>','Pending Payment','<<create>> NEW transaction; verification required',(390,440,250,90),ports=('T','B'),dashed=True)
+ e('Payment Verification','Payment Failed','[provider failure] / premium disabled',(1060,800,350,70),[(1200,400),(990,400),(990,1015)],('B','L'))
+ e('Payment Verification','Payment Rejected','[rejected / ledger mismatch] / deny premium',(1570,800,350,70),[(1200,430),(1920,430),(1920,1015)],('B','R'))
+ e('Active','Suspended','admin suspend / deny premium',(1600,1130,350,60),[(1980,295),(1980,1295)],('R','R'))
+ e('Suspended','Active','restore [verified AND unexpired]',(1270,1140,250,70),[(1450,1295),(1450,295)],('L','L'))
+ e('Pending Payment','Cancelled','admin cancel / stop activation',(100,800,400,70),[(450,295),(450,1295)],('L','R'))
+ e('Active','Cancelled','admin cancel / deny premium',(600,1345,600,50),[(1680,390),(1880,390),(1880,1410),(240,1410)],('B','B'))
+ e('Cancelled',final,'retained; no restoration',(390,1450,180,65),[(240,1478)],('B','L'))
+ return d
