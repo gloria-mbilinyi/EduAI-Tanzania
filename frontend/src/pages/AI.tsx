@@ -14,32 +14,60 @@ import {
 } from "../components/UI";
 import { Heading, CoursePicker, useCourse } from "./Academics";
 
+export function MathAnswer({ text }: { text: string }) {
+  return (
+    <div className="math-answer">
+      {text.split("\n").map((line, i) => (
+        <div key={i}>
+          {line
+            .split(/(\^[0-9]+)/)
+            .map((part, j) =>
+              part.startsWith("^") ? (
+                <sup key={j}>{part.slice(1)}</sup>
+              ) : (
+                <span key={j}>{part.replaceAll("*", " × ")}</span>
+              ),
+            )}
+        </div>
+      ))}
+    </div>
+  );
+}
 export function Tutor() {
   const { lang, t } = useI18n(),
-    { data, error } = useLoad<Row[]>("/tutor/history");
+    { data, error } = useLoad<Row[]>("/tutor/history"),
+    { data: provider } = useLoad<Row>("/tutor/provider-health"),
+    [question, setQuestion] = useState(""),
+    [status, setStatus] = useState("");
   return (
     <>
       <Heading
         title="AI tutor"
-        description={t("Choose a subject and ask about a topic.")}
+        description={t(
+          "Ask a specific question, solve an expression or continue a conversation.",
+        )}
       />
       <Notice>
-        Bilingual passage retrieval · 11 illustrative teaching passages · no
-        generative language model. Responses cite their source. Ask your teacher
-        to verify learning content.
+        {t(
+          "Verified symbolic mathematics and topic-aware teaching notes. Local AI is optional. Ask your teacher to check learning advice.",
+        )}
       </Notice>
       <Notice error>{error}</Notice>
+      <Notice>{status}</Notice>
       <div className="two-columns">
         <Panel title={t("Ask a question")}>
           <ActionForm
             label="Ask tutor"
-            onSubmit={(f) =>
-              post("/tutor/ask", {
+            onSubmit={async (f) => {
+              const r = await post("/tutor/ask", {
                 subject: f.get("subject"),
-                question: f.get("question"),
+                question,
                 language: lang,
-              })
-            }
+                use_local_ai: f.has("use_local_ai"),
+              });
+              setStatus(t(r.provider_status || r.mode));
+              setQuestion("");
+            }}
           >
             <Field label="Subject">
               <select name="subject">
@@ -53,7 +81,9 @@ export function Tutor() {
                   "English",
                   "Kiswahili",
                 ].map((s) => (
-                  <option key={s}>{s}</option>
+                  <option key={s} value={s}>
+                    {t(s)}
+                  </option>
                 ))}
               </select>
             </Field>
@@ -63,32 +93,60 @@ export function Tutor() {
                 required
                 minLength={3}
                 maxLength={1500}
-                placeholder={
-                  lang === "sw"
-                    ? "Eleza mlinganyo wa mstari"
-                    : "How do I solve a linear equation?"
-                }
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+                placeholder="3x + 9 = 18"
               />
             </Field>
+            <label className="radio-option">
+              <input type="checkbox" name="use_local_ai" />
+              {t("Use optional local AI")}
+            </label>
+            <small>
+              {t(provider?.reason || "Checking local AI availability")}
+            </small>
           </ActionForm>
-          <p className="text-sm mt-6">
-            Try linear equations, photosynthesis, cells, the water cycle or
-            ngeli za nomino. A low match produces an honest no-answer response.
-          </p>
+          <p className="text-sm mt-4">{t("Try a worked example")}</p>
+          <div className="actions">
+            {[
+              "3x + 9 = 18",
+              "Differentiate x^3 + 2x",
+              "Integrate 2x",
+              "Explain calculus",
+            ].map((q) => (
+              <button
+                key={q}
+                className="button secondary"
+                onClick={() => setQuestion(q)}
+              >
+                {q}
+              </button>
+            ))}
+          </div>
         </Panel>
-        <Panel title="Your conversations">
+        <Panel title={t("Your conversations")}>
           {data?.length ? (
             data.map((m) => (
               <article key={m.id}>
                 <div className="chat-message question">
                   <span className="message-meta">
-                    {m.subject} · {m.language.toUpperCase()}
+                    {t(m.subject)} · {m.language.toUpperCase()}
                   </span>
                   <p>{m.question}</p>
                 </div>
                 <div className="chat-message">
-                  <Badge>Retrieved teaching passage</Badge>
-                  <p>{m.answer}</p>
+                  <Badge>
+                    {t(
+                      m.source.startsWith("SymPy")
+                        ? "Verified mathematics"
+                        : m.source.startsWith("Ollama")
+                          ? "Local AI generated"
+                          : m.source.startsWith("No ")
+                            ? "Clarification"
+                            : "Teaching passage",
+                    )}
+                  </Badge>
+                  <MathAnswer text={m.answer} />
                   <span className="message-meta">{m.source}</span>
                 </div>
               </article>
