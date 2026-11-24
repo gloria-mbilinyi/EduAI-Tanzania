@@ -41,10 +41,12 @@ class Diagram:
         self.boxes[ident] = (x,y,w,h)
         return ident
 
-    def line(self, x1,y1,x2,y2,label='',dashed=False,arrow=True,points=None,font=15,source=None,target=None,offset=(0,-10),start=False):
+    def line(self, x1,y1,x2,y2,label='',dashed=False,arrow=True,points=None,font=15,source=None,target=None,offset=(0,-10),start=False,sync=False,label_width=460,label_height=44):
         self.counter+=1
         style=f'edgeStyle=none;rounded=0;html=0;fontFamily=Arial;fontSize={font};fontColor=#19382e;strokeColor=#456353;labelBackgroundColor=#ffffff;endArrow={"open" if arrow else "none"};endFill=0;'
         if dashed: style+='dashed=1;'
+        if sync:style+='endArrow=block;endFill=1;'
+        style+=f'whiteSpace=wrap;labelWidth={label_width};eduLabelHeight={label_height};'
         if start: style+='startArrow=open;startFill=0;'
         attrs=dict(id=str(self.counter),value=label,edge='1',parent='1',style=style)
         if source: attrs['source']=source
@@ -170,13 +172,17 @@ def export(path, png_dir, pdf_dir):
             pts=[(float(src.get('x')),float(src.get('y')))]+[(float(p.get('x')),float(p.get('y'))) for p in g.findall('./Array/mxPoint')]+[(float(dst.get('x')),float(dst.get('y')))]
             polyline(pts,dash=st.get('dashed')=='1')
             def arrow(a,b):
-                angle=math.atan2(b[1]-a[1],b[0]-a[0]);arms=[(b[0]-12*math.cos(angle+sgn*.45),b[1]-12*math.sin(angle+sgn*.45)) for sgn in (-1,1)];polyline([arms[0],b,arms[1]])
+                angle=math.atan2(b[1]-a[1],b[0]-a[0]);arms=[(b[0]-12*math.cos(angle+sgn*.45),b[1]-12*math.sin(angle+sgn*.45)) for sgn in (-1,1)]
+                if st.get('endArrow')=='block':
+                    draw.polygon([arms[0],b,arms[1]],fill='#456353');out.setFillColor('#456353');p=out.beginPath();p.moveTo(*[arms[0][0],H-arms[0][1]]);p.lineTo(b[0],H-b[1]);p.lineTo(arms[1][0],H-arms[1][1]);p.close();out.drawPath(p,stroke=1,fill=1)
+                else:polyline([arms[0],b,arms[1]])
             if st.get('endArrow')!='none':arrow(pts[-2],pts[-1])
             if st.get('startArrow')=='open':arrow(pts[1],pts[0])
             if value:
                 offset=g.find("mxPoint[@as='offset']");ox=float(offset.get('x','0'));oy=float(offset.get('y','-10'))
                 X=(pts[0][0]+pts[-1][0])/2+ox;Y=(pts[0][1]+pts[-1][1])/2+oy
-                text(value,X-230,Y-22,460,44,size,bold,background=True)
+                lw=float(st.get('labelWidth',460));lh=float(st.get('eduLabelHeight',44))
+                text(value,X-lw/2,Y-lh/2,lw,lh,size,bold,background=True)
     meta=PngImagePlugin.PngInfo();meta.add_text('mxfile',path.read_text(encoding='utf-8'))
     img.save(png_dir/(path.stem+'.png'),pnginfo=meta)
     out.showPage();out.save()

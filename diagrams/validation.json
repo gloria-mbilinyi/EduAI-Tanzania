@@ -1,22 +1,22 @@
 [
   {
     "file": "01_EduAI_Sequence_Diagram.drawio",
-    "editable_vertices": 107,
-    "editable_edges": 87,
+    "editable_vertices": 137,
+    "editable_edges": 134,
     "xml_valid": true,
     "pixels": [
-      3000,
-      2160
+      3700,
+      3750
     ]
   },
   {
     "file": "02_EduAI_Communication_Diagram.drawio",
-    "editable_vertices": 99,
-    "editable_edges": 44,
+    "editable_vertices": 41,
+    "editable_edges": 51,
     "xml_valid": true,
     "pixels": [
-      3000,
-      2760
+      3700,
+      3750
     ]
   },
   {
