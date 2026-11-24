@@ -1,3 +1,4 @@
+import { Trans, tr } from "../i18n";
 import { useState } from "react";
 import { useLoad } from "../hooks/useLoad";
 import { useAuth } from "../contexts/Auth";
@@ -42,7 +43,7 @@ export function Tutor() {
   return (
     <>
       <Heading
-        title="AI tutor"
+        title={tr("AI tutor")}
         description={t(
           "Ask a specific question, solve an expression or continue a conversation.",
         )}
@@ -95,7 +96,7 @@ export function Tutor() {
                 maxLength={1500}
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
-                placeholder="3x + 9 = 18"
+                placeholder={tr("3x + 9 = 18")}
               />
             </Field>
             <label className="radio-option">
@@ -119,7 +120,7 @@ export function Tutor() {
                 className="button secondary"
                 onClick={() => setQuestion(q)}
               >
-                {q}
+                {t(q)}
               </button>
             ))}
           </div>
@@ -175,9 +176,11 @@ export function Recommendations() {
         description="Evidence-based next steps, reviewed by an assigned teacher."
       />
       <Notice>
-        Explainable rules use grades, activity, interests and learning
-        preferences. No validated prediction model is used. Drafts stay hidden
-        from students until teacher approval.
+        <Trans
+          value={
+            " Explainable rules use grades, activity, interests and learning preferences. No validated prediction model is used. Drafts stay hidden from students until teacher approval. "
+          }
+        />
       </Notice>
       <Notice error>{error}</Notice>
       <Panel title={t("Generate pathway")}>
@@ -221,7 +224,8 @@ export function Recommendations() {
             <p className="detail-text">{r.content}</p>
             <details>
               <summary className="text-sm cursor-pointer">
-                Why this pathway? · Version {r.version}
+                <Trans value={" Why this pathway? · Version "} />
+                {r.version}
               </summary>
               <ul className="review-reasons">
                 {r.reasons.map((x: string, i: number) => (
@@ -295,14 +299,15 @@ function ReviewHistory({ id }: { id: number }) {
   return (
     <div>
       <button className="button secondary" onClick={() => setOpen((x) => !x)}>
-        Review history
+        <Trans value={" Review history "} />
       </button>
       {open && (
         <>
           <Notice error>{error}</Notice>
           {data?.map((h) => (
             <p key={h.id} className="text-sm mt-3">
-              v{h.version} · {h.decision}: {h.comment}
+              <Trans value={" v"} />
+              {h.version} · {h.decision}: {h.comment}
             </p>
           ))}
         </>
@@ -321,12 +326,15 @@ export function LessonPlans() {
   return (
     <>
       <Heading
-        title="Lesson planning"
+        title={tr("Lesson planning")}
         description="Prepare a structured outline, then adapt it for your learners."
       />
       <Notice>
-        Premium assistance combines retrieved teaching passages with a lesson
-        template. Teacher review is required. No generative model is connected.
+        <Trans
+          value={
+            " Premium assistance combines retrieved teaching passages with a lesson template. Teacher review is required. No generative model is connected. "
+          }
+        />
       </Notice>
       <CoursePicker
         value={id}
@@ -356,7 +364,7 @@ export function LessonPlans() {
                 name="topic"
                 required
                 minLength={3}
-                placeholder="Linear equations"
+                placeholder={tr("Linear equations")}
               />
             </Field>
           </ActionForm>
@@ -390,8 +398,8 @@ export function LessonPlans() {
                 />
               </Field>
               <label className="text-sm">
-                <input type="checkbox" required /> I reviewed and adapted this
-                lesson.
+                <input type="checkbox" required />
+                <Trans value={" I reviewed and adapted this lesson. "} />
               </label>
             </ActionForm>
           )}

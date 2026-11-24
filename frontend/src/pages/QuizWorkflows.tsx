@@ -1,3 +1,4 @@
+import { Trans, tr } from "../i18n";
 import { useState } from "react";
 import { useLoad } from "../hooks/useLoad";
 import { useAuth } from "../contexts/Auth";
@@ -230,8 +231,12 @@ function QuizEditor({ courseId }: { courseId: number }) {
         </Field>
         <Field label="Language">
           <select name="language" defaultValue={lang}>
-            <option value="en">English</option>
-            <option value="sw">Kiswahili</option>
+            <option value="en">
+              <Trans value={"English"} />
+            </option>
+            <option value="sw">
+              <Trans value={"Kiswahili"} />
+            </option>
           </select>
         </Field>
         <label className="radio-option">
@@ -399,7 +404,7 @@ export function Quizzes() {
   return (
     <>
       <Heading
-        title="Quizzes"
+        title={tr("Quizzes")}
         description={t(
           "Objective answers are checked securely. Written reasoning is graded by your teacher.",
         )}

@@ -37,8 +37,13 @@ def performance(db, student_id, viewer=None):
         all_scores.extend(scores)
     average = round(sum(all_scores)/len(all_scores), 1) if all_scores else None
     risk = risk_assessment(average, sum(x['activities_30d'] for x in courses), len(all_scores))
+    sw=viewer and viewer.language=='sw'
+    if sw:
+        activities=sum(x['activities_30d'] for x in courses)
+        risk['reasons']=[f'Wastani wa alama rasmi ni {average}% katika tathmini {len(all_scores)}.',f'Shughuli {activities} zimerekodiwa katika siku 30; masomo nje ya mfumo hayajarekodiwa.'] if average is not None else ['Fanya tathmini kabla ya kutoa hitimisho la maendeleo ya masomo.']
+        risk['mode']='Kanuni zinazoelezeka; si modeli ya ML iliyofundishwa au kuthibitishwa'
     return {'student_id': student_id, 'courses': courses, 'average': average, 'graded_assessments': len(all_scores), 'risk': risk,
-            'summary': f'{len(all_scores)} graded assessments. ' + (f'Average {average}%. ' if average is not None else 'No graded evidence yet. ') + risk['reasons'][0]}
+            'summary': (f'Tathmini zenye alama: {len(all_scores)}. '+(f'Wastani {average}%. ' if average is not None else 'Hakuna ushahidi wenye alama bado. ') if sw else f'{len(all_scores)} graded assessments. ' + (f'Average {average}%. ' if average is not None else 'No graded evidence yet. ')) + risk['reasons'][0]}
 
 def risk_assessment(average, activities, count):
     if average is None: return {'level': 'insufficient_data', 'reasons': ['Complete an assessment before drawing academic conclusions.'], 'mode': 'explainable rules, not a trained or validated ML model'}

@@ -17,6 +17,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const update = (u: Row) => {
     setUser(u);
     sessionStorage.setItem("eduai-user", JSON.stringify(u));
+    if (u.language) {
+      localStorage.setItem("eduai-language", u.language);
+      window.dispatchEvent(new Event("eduai-language"));
+    }
   };
   async function login(email: string, password: string) {
     const r = await post("/auth/login", { email, password });

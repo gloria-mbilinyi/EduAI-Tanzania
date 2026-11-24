@@ -1,6 +1,6 @@
 import csv
 import io
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Header
 from fastapi.responses import Response
 from sqlalchemy.orm import Session
 from ..core.database import get_db
@@ -17,11 +17,11 @@ def report(student_id: int, u: User = Depends(principal), db: Session = Depends(
     return performance(db, student_id, u) | {'name': s.name}
 
 @router.get('/students/{student_id}/report.csv')
-def export(student_id: int, u: User = Depends(principal), db: Session = Depends(get_db)):
+def export(student_id: int, u: User = Depends(principal), db: Session = Depends(get_db), language:str=Header(default='en',alias='Accept-Language')):
     data = report(student_id, u, db)
     stream = io.StringIO()
     writer = csv.writer(stream)
-    writer.writerow(['Student ID', 'Subject', 'Assessment', 'Score percent', 'Feedback'])
+    writer.writerow(['Namba ya mwanafunzi','Somo','Tathmini','Alama kwa asilimia','Mrejesho'] if language.startswith('sw') else ['Student ID', 'Subject', 'Assessment', 'Score percent', 'Feedback'])
     # Escape spreadsheet formula prefixes in free text.
     safe = lambda s: "'" + s if s.startswith(('=', '+', '-', '@', '\t', '\r')) else s
     for c in data['courses']:

@@ -1,3 +1,4 @@
+import { Trans, tr } from "../i18n";
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { BookOpen, FileText, Video, Download } from "lucide-react";
@@ -27,7 +28,7 @@ export function Heading({
     <div className="page-heading">
       <div>
         <h1>{t(title)}</h1>
-        {description && <p>{description}</p>}
+        {description && <p>{t(description)}</p>}
       </div>
     </div>
   );
@@ -112,7 +113,10 @@ function CourseFields({ course = {} }: { course?: Row }) {
       <Field label="Form">
         <select name="form" defaultValue={course.form || "Form 2"}>
           {[1, 2, 3, 4, 5, 6].map((n) => (
-            <option key={n}>Form {n}</option>
+            <option key={n}>
+              <Trans value={"Form "} />
+              {n}
+            </option>
           ))}
         </select>
       </Field>
@@ -178,7 +182,7 @@ export function Courses() {
               {user?.role === "teacher" && (
                 <details className="mt-4">
                   <summary className="text-sm cursor-pointer">
-                    Manage course
+                    <Trans value={" Manage course "} />
                   </summary>
                   <ActionForm
                     label="Save changes"
@@ -216,7 +220,7 @@ export function Materials() {
   return (
     <>
       <Heading
-        title="Learning materials"
+        title={tr("Learning materials")}
         description="Lightweight teaching notes and resources for your subjects."
       />
       <Notice error>{error || loadError}</Notice>
@@ -239,7 +243,7 @@ export function Materials() {
           {user?.role === "student" && (
             <div className="mb-4">
               <ActionButton onClick={() => post(`/materials/${m.id}/study`)}>
-                Mark as studied
+                <Trans value={" Mark as studied "} />
               </ActionButton>
             </div>
           )}
@@ -250,7 +254,8 @@ export function Materials() {
               rel="noopener noreferrer"
               href={m.url}
             >
-              {t("Video")} / resource
+              {t("Video")}
+              <Trans value={" / resource "} />
             </a>
           )}
           {m.downloadable && (
@@ -288,19 +293,26 @@ export function Materials() {
               </Field>
               <Field label="Video">
                 <select name="kind">
-                  <option value="notes">Notes</option>
-                  <option value="video">Video link</option>
+                  <option value="notes">
+                    <Trans value={"Notes"} />
+                  </option>
+                  <option value="video">
+                    <Trans value={"Video link"} />
+                  </option>
                 </select>
               </Field>
               <Field label="HTTPS resource URL">
-                <input name="url" type="url" placeholder="https://…" />
+                <input name="url" type="url" placeholder={tr("https://…")} />
               </Field>
             </ActionForm>
           </Panel>
-          <Panel title="Upload educational file">
+          <Panel title={tr("Upload educational file")}>
             <p className="text-sm">
-              PDF, TXT, PNG, JPG or MP4. Maximum 5 MB; downloads require course
-              access.
+              <Trans
+                value={
+                  " PDF, TXT, PNG, JPG or MP4. Maximum 5 MB; downloads require course access. "
+                }
+              />
             </p>
             <ActionForm
               label="Add material"

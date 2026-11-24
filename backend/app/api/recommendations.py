@@ -9,6 +9,7 @@ from ..models import *
 from ..schemas.common import Input
 from ..services.access import *
 from ..ai.recommendations import generate
+from ..services.i18n import translate
 
 router = APIRouter(prefix='/api', tags=['recommendations'])
 class Generate(Input):
@@ -55,7 +56,9 @@ def review(recommendation_id: int, data: Review, u: User = Depends(principal), d
     if r.status != 'pending_review': raise HTTPException(409, 'Recommendation is not pending review')
     db.add(RecommendationApproval(recommendation_id=r.id, teacher_id=u.id, decision=data.decision, comment=data.comment, version=r.version))
     r.status = 'published' if data.decision == 'approved' else 'rejected'
-    if r.status == 'published': db.add(Notification(user_id=r.student_id, title='Your learning pathway is ready', body='Your teacher has approved a personalized recommendation.'))
+    if r.status == 'published':
+        lang=db.get(User,r.student_id).language
+        db.add(Notification(user_id=r.student_id,title=translate('Your learning pathway is ready',lang),body=translate('Your teacher has approved a personalized recommendation.',lang)))
     return record(save(db, u, r, 'recommendation.' + data.decision))
 
 @router.post('/recommendations/{recommendation_id}/regenerate')

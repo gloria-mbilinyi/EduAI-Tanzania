@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
+from typing import Literal
 from sqlalchemy.orm import Session
 from ..core.database import get_db
 from ..core.security import *
 from ..models import *
-from ..schemas.common import Registration, Login, ProfileInput
+from ..schemas.common import Registration, Login, ProfileInput, Input
 from ..services.access import get, save, record, audit
 
 router = APIRouter(prefix='/api', tags=['identity'])
@@ -42,6 +43,15 @@ def login(data: Login, db: Session = Depends(get_db)):
 def me(u: User = Depends(principal), db: Session = Depends(get_db)):
     s = db.get(Student, u.id)
     return public_user(db, u) | {'profile': record(s) if s else {}}
+
+class LanguageInput(Input):
+    language: Literal['en','sw']
+
+@router.patch('/me/language')
+def language(data:LanguageInput,u:User=Depends(principal),db:Session=Depends(get_db)):
+    u.language=data.language
+    save(db,u,u,'profile.language')
+    return public_user(db,u)
 
 @router.patch('/me')
 def profile(data: ProfileInput, u: User = Depends(principal), db: Session = Depends(get_db)):

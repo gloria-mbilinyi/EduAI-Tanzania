@@ -11,9 +11,10 @@ import {
 import { useI18n } from "../i18n";
 import { refresh } from "../services/api";
 export function Badge({ children }: { children: ReactNode }) {
+  const { t } = useI18n();
   return (
     <span className={`badge ${String(children).replaceAll(" ", "-")}`}>
-      {children}
+      {typeof children === "string" ? t(children) : children}
     </span>
   );
 }
@@ -26,11 +27,12 @@ export function Panel({
   children: ReactNode;
   action?: ReactNode;
 }) {
+  const { t } = useI18n();
   return (
     <section className="panel">
       {title && (
         <div className="panel-heading">
-          <h2>{title}</h2>
+          <h2>{t(title)}</h2>
           {action}
         </div>
       )}
@@ -45,12 +47,13 @@ export function Notice({
   children: ReactNode;
   error?: boolean;
 }) {
+  const { t } = useI18n();
   return children ? (
     <div
       className={`notice ${error ? "error" : ""}`}
       role={error ? "alert" : "status"}
     >
-      {children}
+      {typeof children === "string" ? t(children) : children}
     </div>
   ) : null;
 }

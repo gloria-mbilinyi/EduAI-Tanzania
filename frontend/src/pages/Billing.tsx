@@ -1,3 +1,4 @@
+import { Trans, tr } from "../i18n";
 import { useAuth } from "../contexts/Auth";
 import { useI18n } from "../i18n";
 import { useLoad } from "../hooks/useLoad";
@@ -21,13 +22,15 @@ export function Billing() {
   return (
     <>
       <Heading
-        title="Subscriptions"
+        title={tr("Subscriptions")}
         description="Core learning is free. Explore premium teacher tools through a verified demo subscription."
       />
       <Notice>
-        Academic simulation only. No M-Pesa, Airtel Money, Mixx by Yas, banking
-        or real-money integration is connected. The backend checks its simulated
-        provider ledger before activation.
+        <Trans
+          value={
+            " Academic simulation only. No M-Pesa, Airtel Money, Mixx by Yas, banking or real-money integration is connected. The backend checks its simulated provider ledger before activation. "
+          }
+        />
       </Notice>
       <Notice error>{error}</Notice>
       <Panel
@@ -55,33 +58,51 @@ export function Billing() {
                   )
                   .map((p) => (
                     <option key={p.id} value={p.id}>
-                      {p.name} · TZS {p.price_tzs.toLocaleString()} / {p.days}{" "}
-                      days
+                      {p.name}
+                      <Trans value={" · TZS "} />
+                      {p.price_tzs.toLocaleString()} / {p.days}{" "}
+                      <Trans value={" days "} />
                     </option>
                   ))}
               </select>
             </Field>
             <Field label="Demo provider outcome">
               <select name="scenario">
-                <option value="success">Successful simulation</option>
-                <option value="failed">Failed simulation</option>
-                <option value="rejected">Rejected simulation</option>
+                <option value="success">
+                  <Trans value={"Successful simulation"} />
+                </option>
+                <option value="failed">
+                  <Trans value={"Failed simulation"} />
+                </option>
+                <option value="rejected">
+                  <Trans value={"Rejected simulation"} />
+                </option>
               </select>
             </Field>
           </div>
         </ActionForm>
       </Panel>
-      <Panel title="Transaction history">
+      <Panel title={tr("Transaction history")}>
         {data?.subscriptions?.length ? (
           <div className="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Plan</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Expires</th>
-                  <th>Action</th>
+                  <th>
+                    <Trans value={"Plan"} />
+                  </th>
+                  <th>
+                    <Trans value={"Amount"} />
+                  </th>
+                  <th>
+                    <Trans value={"Status"} />
+                  </th>
+                  <th>
+                    <Trans value={"Expires"} />
+                  </th>
+                  <th>
+                    <Trans value={"Action"} />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -91,10 +112,16 @@ export function Billing() {
                       {s.plan}
                       <small>{s.payment?.provider_reference}</small>
                     </td>
-                    <td>TZS {s.payment?.amount_tzs.toLocaleString()}</td>
+                    <td>
+                      <Trans value={"TZS "} />
+                      {s.payment?.amount_tzs.toLocaleString()}
+                    </td>
                     <td>
                       <Badge>{s.status}</Badge>
-                      <small>Payment: {s.payment?.status}</small>
+                      <small>
+                        <Trans value={"Payment: "} />
+                        {s.payment?.status}
+                      </small>
                     </td>
                     <td>
                       {s.expires_at

@@ -1,3 +1,4 @@
+import { Trans, tr } from "../i18n";
 import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../contexts/Auth";
 import { useI18n } from "../i18n";
@@ -20,7 +21,7 @@ export function LinkedStudents() {
   return (
     <>
       <Heading
-        title="Linked students"
+        title={tr("Linked students")}
         description="Access is granted only after your school verifies the family link."
       />
       <Notice error>{error}</Notice>
@@ -47,8 +48,11 @@ export function LinkedStudents() {
       </div>
       <Panel title={t("Request link")}>
         <p className="text-sm">
-          Ask your school for the student identifier. Submitting a request does
-          not grant academic access; a school administrator must verify it.
+          <Trans
+            value={
+              " Ask your school for the student identifier. Submitting a request does not grant academic access; a school administrator must verify it. "
+            }
+          />
         </p>
         <ActionForm
           label="Request link"
@@ -70,7 +74,7 @@ export function Notifications() {
   return (
     <>
       <Heading
-        title="Notifications"
+        title={tr("Notifications")}
         description="Academic updates and school conversations."
       />
       <Notice error>{error}</Notice>
@@ -125,7 +129,7 @@ export function Messages() {
   return (
     <>
       <Heading
-        title="Messages"
+        title={tr("Messages")}
         description="Private conversations between approved parents and assigned teachers."
       />
       <Notice error>{error}</Notice>
@@ -182,16 +186,24 @@ export function Messages() {
           )}
           {!contacts?.length && (
             <p className="text-sm mt-4">
-              No approved parent-teacher contact is available for this student.
+              <Trans
+                value={
+                  " No approved parent-teacher contact is available for this student. "
+                }
+              />
             </p>
           )}
         </Panel>
-        <Panel title="Conversation history">
+        <Panel title={tr("Conversation history")}>
           {messages?.length ? (
             messages.map((m) => (
               <article key={m.id} className="chat-message">
                 <span className="message-meta">
-                  {m.sender_name} to {m.recipient_name} · Student {m.student_id}
+                  {m.sender_name}
+                  <Trans value={" to "} />
+                  {m.recipient_name}
+                  <Trans value={" · Student "} />
+                  {m.student_id}
                 </span>
                 <p>{m.body}</p>
                 <small>{new Date(m.created_at + "Z").toLocaleString()}</small>

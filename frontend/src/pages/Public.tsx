@@ -1,3 +1,4 @@
+import { Trans, tr } from "../i18n";
 import {
   Link,
   NavLink,
@@ -58,15 +59,23 @@ export function Public() {
           <section className="landing-hero">
             <div>
               <span className="eyebrow">
-                <span className="mini-square" /> BUILT FOR TANZANIAN SCHOOLS
+                <span className="mini-square" />
+                <Trans value={" BUILT FOR TANZANIAN SCHOOLS "} />
               </span>
               <h1>
-                Every learner.
-                <br />A brighter <em>possibility.</em>
+                <Trans value={" Every learner. "} />
+                <br />
+                <Trans value={"A brighter "} />
+                <em>
+                  <Trans value={"possibility."} />
+                </em>
               </h1>
               <p>
-                Learning support that meets you where you are. Connect students,
-                teachers and families through one thoughtful school workspace.
+                <Trans
+                  value={
+                    " Learning support that meets you where you are. Connect students, teachers and families through one thoughtful school workspace. "
+                  }
+                />
               </p>
               <div className="hero-buttons">
                 <Link to="/register" className="button">
@@ -78,21 +87,26 @@ export function Public() {
               </div>
               <div className="hero-proof">
                 <span>
-                  <Check size={17} /> English & Kiswahili
+                  <Check size={17} />
+                  <Trans value={" English & Kiswahili "} />
                 </span>
                 <span>
-                  <Check size={17} /> Designed for low bandwidth
+                  <Check size={17} />
+                  <Trans value={" Designed for low bandwidth "} />
                 </span>
               </div>
             </div>
             <div className="learning-art">
               <div className="art-caption">
-                <Sparkles size={18} /> A little guidance goes a long way
+                <Sparkles size={18} />
+                <Trans value={" A little guidance goes a long way "} />
               </div>
               <svg
                 viewBox="0 0 500 340"
                 role="img"
-                aria-label="Illustration of learning books and a growing plant"
+                aria-label={tr(
+                  "Illustration of learning books and a growing plant",
+                )}
               >
                 <circle cx="260" cy="167" r="145" fill="#e1eee4" />
                 <path d="M155 250L350 210L395 237L201 281Z" fill="#e1b143" />
@@ -133,7 +147,11 @@ export function Public() {
                 </span>
                 <div>
                   <strong>{t("Reviewed learning, connected schools.")}</strong>
-                  <small>Guided by teachers. Built around learners.</small>
+                  <small>
+                    <Trans
+                      value={"Guided by teachers. Built around learners."}
+                    />
+                  </small>
                 </div>
               </div>
             </div>
@@ -169,13 +187,18 @@ export function Public() {
         </>
       ) : (
         <section className="public-section">
-          <span className="eyebrow">EDUAI TANZANIA</span>
+          <span className="eyebrow">
+            <Trans value={"EDUAI TANZANIA"} />
+          </span>
           <h1>{t(section.charAt(0).toUpperCase() + section.slice(1))}</h1>
           {section === "plans" ? (
             <>
               <p>
-                Academic demonstration prices in Tanzanian shillings. No real
-                money is collected.
+                <Trans
+                  value={
+                    " Academic demonstration prices in Tanzanian shillings. No real money is collected. "
+                  }
+                />
               </p>
               <div className="card-grid">
                 {plans?.map((p) => (
@@ -183,13 +206,30 @@ export function Public() {
                     <BadgeText />
                     <h2>{p.name}</h2>
                     <strong className="price">
-                      TZS {p.price_tzs.toLocaleString()}
+                      <Trans value={" TZS "} />
+                      {p.price_tzs.toLocaleString()}
                     </strong>
-                    <p>per {p.days} days</p>
+                    <p>
+                      <Trans value={"per "} />
+                      {p.days}
+                      <Trans value={" days"} />
+                    </p>
                     <ul>
-                      <li>Teacher quiz and lesson draft assistance</li>
-                      <li>Server-verified premium entitlement</li>
-                      <li>Core learning and retrieval tutor remain free</li>
+                      <li>
+                        <Trans
+                          value={"Teacher quiz and lesson draft assistance"}
+                        />
+                      </li>
+                      <li>
+                        <Trans value={"Server-verified premium entitlement"} />
+                      </li>
+                      <li>
+                        <Trans
+                          value={
+                            "Core learning and retrieval tutor remain free"
+                          }
+                        />
+                      </li>
                     </ul>
                     <Link className="button" to="/login">
                       {t("Choose plan")}
@@ -201,9 +241,11 @@ export function Public() {
           ) : section === "contact" ? (
             <>
               <p>
-                For this academic demonstration, contact your school
-                administrator directly. This form creates a message for you to
-                copy; it does not send email.
+                <Trans
+                  value={
+                    " For this academic demonstration, contact your school administrator directly. This form creates a message for you to copy; it does not send email. "
+                  }
+                />
               </p>
               <ActionForm
                 label="Create"
@@ -224,36 +266,42 @@ export function Public() {
           ) : section === "about" ? (
             <>
               <p>
-                EduAI Tanzania is an academic secondary-school prototype
-                connecting school administration with everyday learning. It
-                explores how affordable browser access, bilingual content and
-                teacher-supervised assistance can support schools in Tanzania.
+                <Trans
+                  value={
+                    " EduAI Tanzania is an academic secondary-school prototype connecting school administration with everyday learning. It explores how affordable browser access, bilingual content and teacher-supervised assistance can support schools in Tanzania. "
+                  }
+                />
               </p>
               <p>
-                The prototype uses fictional schools and users. Classroom
-                effectiveness, curriculum alignment and operational readiness
-                require further evaluation with educators before any real
-                deployment.
+                <Trans
+                  value={
+                    " The prototype uses fictional schools and users. Classroom effectiveness, curriculum alignment and operational readiness require further evaluation with educators before any real deployment. "
+                  }
+                />
               </p>
             </>
           ) : (
             <>
               <p>
-                Students study notes, submit assignments, complete automatically
-                graded quizzes and follow teacher-approved learning pathways.
-                Teachers manage assigned courses, review recommendations and
-                prepare editable draft teaching content.
+                <Trans
+                  value={
+                    " Students study notes, submit assignments, complete automatically graded quizzes and follow teacher-approved learning pathways. Teachers manage assigned courses, review recommendations and prepare editable draft teaching content. "
+                  }
+                />
               </p>
               <p>
-                Parents access only approved linked students, receive in-app
-                alerts and communicate with assigned teachers. School
-                administrators manage local accounts, enrollments, reports and
-                demonstration subscriptions.
+                <Trans
+                  value={
+                    " Parents access only approved linked students, receive in-app alerts and communicate with assigned teachers. School administrators manage local accounts, enrollments, reports and demonstration subscriptions. "
+                  }
+                />
               </p>
               <p>
-                AI assistance combines explainable performance rules with
-                bilingual passage retrieval. It does not use a paid API or a
-                validated predictive model.
+                <Trans
+                  value={
+                    " AI assistance combines explainable performance rules with bilingual passage retrieval. It does not use a paid API or a validated predictive model. "
+                  }
+                />
               </p>
             </>
           )}
@@ -262,8 +310,11 @@ export function Public() {
       <footer className="public-footer">
         <Brand />
         <p>
-          A secondary-school software engineering prototype. All demo records
-          are fictional.
+          <Trans
+            value={
+              " A secondary-school software engineering prototype. All demo records are fictional. "
+            }
+          />
         </p>
         <Link to="/login">{t("Sign in")}</Link>
       </footer>
@@ -271,7 +322,11 @@ export function Public() {
   );
 }
 function BadgeText() {
-  return <span className="eyebrow">LEARNING PLUS</span>;
+  return (
+    <span className="eyebrow">
+      <Trans value={"LEARNING PLUS"} />
+    </span>
+  );
 }
 export function AuthPage({ register = false }: { register?: boolean }) {
   const { login, user } = useAuth(),
@@ -284,32 +339,43 @@ export function AuthPage({ register = false }: { register?: boolean }) {
       <PublicHeader />
       <main className="auth-grid">
         <div className="auth-intro">
-          <span className="eyebrow">A CONNECTED SCHOOL COMMUNITY</span>
+          <span className="eyebrow">
+            <Trans value={"A CONNECTED SCHOOL COMMUNITY"} />
+          </span>
           <h1>
-            {register
-              ? "Start your next chapter."
-              : "A little progress, every day."}
+            {t(
+              register
+                ? "Start your next chapter."
+                : "A little progress, every day.",
+            )}
           </h1>
           <p>
-            One place for your learning, your teaching and the conversations
-            that help students grow.
+            <Trans
+              value={
+                " One place for your learning, your teaching and the conversations that help students grow. "
+              }
+            />
           </p>
           <div className="auth-quote">
             <BookOpen size={40} />
             <p>
-              English and Kiswahili.
+              <Trans value={" English and Kiswahili. "} />
               <br />
-              Accessible on your phone or computer.
+              <Trans value={" Accessible on your phone or computer. "} />
             </p>
           </div>
         </div>
         <section className="auth-card">
-          <span className="eyebrow">EDUAI WORKSPACE</span>
+          <span className="eyebrow">
+            <Trans value={"EDUAI WORKSPACE"} />
+          </span>
           <h2>{t(register ? "Register" : "Welcome back")}</h2>
           <p>
-            {register
-              ? "Choose your registered school to begin."
-              : "Sign in with your school account."}
+            {t(
+              register
+                ? "Choose your registered school to begin."
+                : "Sign in with your school account.",
+            )}
           </p>
           <ActionForm
             label={register ? "Register" : "Sign in"}
@@ -324,7 +390,7 @@ export function AuthPage({ register = false }: { register?: boolean }) {
                   language: lang,
                 });
                 if (!r.user.active) {
-                  alert(r.message);
+                  alert(t(r.message));
                   navigate("/login");
                   return;
                 }
@@ -346,7 +412,7 @@ export function AuthPage({ register = false }: { register?: boolean }) {
                 <Field label="School">
                   <select name="school_id" required defaultValue="">
                     <option value="" disabled>
-                      Select a registered school
+                      <Trans value={" Select a registered school "} />
                     </option>
                     {schools?.map((s) => (
                       <option key={s.id} value={s.id}>
@@ -370,7 +436,7 @@ export function AuthPage({ register = false }: { register?: boolean }) {
                 type="email"
                 required
                 autoComplete="username"
-                placeholder="amina@demo.eduai.test"
+                placeholder={tr("amina@demo.eduai.test")}
               />
             </Field>
             <Field label="Password">
@@ -385,13 +451,16 @@ export function AuthPage({ register = false }: { register?: boolean }) {
             </Field>
             {register && (
               <Notice>
-                New teachers require school administrator activation. Parent
-                links require school verification.
+                <Trans
+                  value={
+                    " New teachers require school administrator activation. Parent links require school verification. "
+                  }
+                />
               </Notice>
             )}
           </ActionForm>
           <p className="auth-switch">
-            {register ? "Already registered?" : "New to EduAI?"}{" "}
+            {t(register ? "Already registered?" : "New to EduAI?")}{" "}
             <Link to={register ? "/login" : "/register"}>
               {t(register ? "Sign in" : "Register")}
             </Link>

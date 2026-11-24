@@ -1,3 +1,4 @@
+import { Trans, tr } from "../i18n";
 import { Link } from "react-router-dom";
 import {
   BookOpen,
@@ -24,14 +25,17 @@ import { Panel, Badge, Notice, Empty } from "../components/UI";
 import { Row } from "../services/api";
 
 export function PerformanceChart({ courses }: { courses: Row[] }) {
+  const { t } = useI18n();
   return (
     <div
       className="chart-container"
-      aria-label="Average recorded score by subject"
+      aria-label={tr("Average recorded score by subject")}
     >
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
-          data={courses.filter((c) => c.average !== null)}
+          data={courses
+            .filter((c) => c.average !== null)
+            .map((c) => ({ ...c, subject: t(c.subject) }))}
           margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
         >
           <CartesianGrid
@@ -52,10 +56,15 @@ export function PerformanceChart({ courses }: { courses: Row[] }) {
             tick={{ fontSize: 11, fill: "#667c72" }}
           />
           <Tooltip
-            formatter={(v) => [`${v}%`, "Average score"]}
+            formatter={(v) => [`${v}%`, t("Average score")]}
             cursor={{ fill: "#f4f8f5" }}
           />
-          <Bar dataKey="average" isAnimationActive={false} radius={[5, 5, 0, 0]} maxBarSize={40}>
+          <Bar
+            dataKey="average"
+            isAnimationActive={false}
+            radius={[5, 5, 0, 0]}
+            maxBarSize={40}
+          >
             {courses
               .filter((c) => c.average !== null)
               .map((_, i) => (
@@ -78,14 +87,15 @@ function Stat({
   note: string;
   icon: typeof BookOpen;
 }) {
+  const { t } = useI18n();
   return (
     <article className="stat-card">
       <div className="stat-label">
-        {label}
+        {t(label)}
         <Icon size={18} />
       </div>
       <strong className="stat-value">{value}</strong>
-      <div className="stat-note">{note}</div>
+      <div className="stat-note">{t(note)}</div>
     </article>
   );
 }
@@ -119,7 +129,9 @@ export function Overview() {
     <>
       <div className="page-heading">
         <div>
-          <span className="eyebrow">YOUR EDUCATION WORKSPACE</span>
+          <span className="eyebrow">
+            <Trans value={"YOUR EDUCATION WORKSPACE"} />
+          </span>
           <h1>
             {t("Welcome back")}, {user?.name.split(" ")[0]}.
           </h1>
@@ -337,11 +349,16 @@ export function Overview() {
             {perf?.risk && (
               <>
                 <p className="mt-4">
-                  Recorded learning risk <Badge>{perf.risk.level}</Badge>
+                  <Trans value={" Recorded learning risk "} />
+                  <Badge>{perf.risk.level}</Badge>
                 </p>
                 <p className="text-sm">{perf.risk.reasons[0]}</p>
                 <small>
-                  Explainable baseline. Offline study is not captured.
+                  <Trans
+                    value={
+                      " Explainable baseline. Offline study is not captured. "
+                    }
+                  />
                 </small>
               </>
             )}

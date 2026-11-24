@@ -1,3 +1,4 @@
+import { Trans, tr } from "../i18n";
 import { useLoad } from "../hooks/useLoad";
 import { useAuth } from "../contexts/Auth";
 import { useI18n } from "../i18n";
@@ -307,7 +308,7 @@ export function Assignments() {
   return (
     <>
       <Heading
-        title="Assignments"
+        title={tr("Assignments")}
         description={t(
           "Practise, review feedback and improve with each attempt.",
         )}

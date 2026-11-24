@@ -5,6 +5,7 @@ export async function api<T = any>(
   options: RequestInit = {},
 ): Promise<T> {
   const headers: Record<string, string> = {
+    "Accept-Language": localStorage.getItem("eduai-language") || "en",
     ...(token() ? { Authorization: `Bearer ${token()}` } : {}),
     ...(options.body && !(options.body instanceof FormData)
       ? { "Content-Type": "application/json" }
@@ -40,7 +41,10 @@ export function refresh() {
 }
 export async function download(path: string, name: string) {
   const response = await fetch(`/api${path}`, {
-    headers: { Authorization: `Bearer ${token()}` },
+    headers: {
+      Authorization: `Bearer ${token()}`,
+      "Accept-Language": localStorage.getItem("eduai-language") || "en",
+    },
   });
   if (!response.ok) throw new Error("Download unavailable or access denied");
   const url = URL.createObjectURL(await response.blob());

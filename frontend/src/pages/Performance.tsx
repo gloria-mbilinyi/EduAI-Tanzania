@@ -1,3 +1,4 @@
+import { Trans, tr } from "../i18n";
 import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../contexts/Auth";
 import { useI18n } from "../i18n";
@@ -40,7 +41,7 @@ export function Performance() {
   return (
     <>
       <Heading
-        title="Performance"
+        title={tr("Performance")}
         description="Recorded assessments and explainable next steps."
       />
       {user?.role === "teacher" && (
@@ -93,21 +94,29 @@ export function Performance() {
               <div className="stat-note">{t("Average score")}</div>
             </div>
             <div className="stat-card">
-              <div className="stat-label">Graded assessments</div>
+              <div className="stat-label">
+                <Trans value={"Graded assessments"} />
+              </div>
               <strong className="stat-value">{data.graded_assessments}</strong>
-              <div className="stat-note">Persisted results</div>
+              <div className="stat-note">
+                <Trans value={"Persisted results"} />
+              </div>
             </div>
             <div className="stat-card">
-              <div className="stat-label">Recorded learning risk</div>
+              <div className="stat-label">
+                <Trans value={"Recorded learning risk"} />
+              </div>
               <Badge>{data.risk.level}</Badge>
-              <div className="stat-note">Explainable rule baseline</div>
+              <div className="stat-note">
+                <Trans value={"Explainable rule baseline"} />
+              </div>
             </div>
           </div>
           <div className="two-columns">
             <Panel title={t("Performance")}>
               <PerformanceChart courses={data.courses} />
             </Panel>
-            <Panel title="Learning evidence">
+            <Panel title={tr("Learning evidence")}>
               <p>{data.summary}</p>
               <ul className="review-reasons">
                 {data.risk.reasons.map((r: string, i: number) => (
@@ -123,7 +132,9 @@ export function Performance() {
                 <table>
                   <thead>
                     <tr>
-                      <th>Assessment</th>
+                      <th>
+                        <Trans value={"Assessment"} />
+                      </th>
                       <th>{t("Score")}</th>
                       <th>{t("Feedback")}</th>
                     </tr>
@@ -156,7 +167,7 @@ export function Students() {
   return (
     <>
       <Heading
-        title="Students"
+        title={tr("Students")}
         description="Students enrolled in your assigned courses."
       />
       <CoursePicker value={id} onChange={setId} courses={courses} />
@@ -191,7 +202,7 @@ export function Profile() {
   return (
     <>
       <Heading
-        title="My profile"
+        title={tr("My profile")}
         description="Keep your learning preferences and personal details up to date."
       />
       <Notice error>{error}</Notice>
@@ -219,8 +230,12 @@ export function Profile() {
             </Field>
             <Field label="Language">
               <select name="language" defaultValue={data.language}>
-                <option value="en">English</option>
-                <option value="sw">Kiswahili</option>
+                <option value="en">
+                  <Trans value={"English"} />
+                </option>
+                <option value="sw">
+                  <Trans value={"Kiswahili"} />
+                </option>
               </select>
             </Field>
             {user?.role === "student" && (
@@ -245,8 +260,14 @@ export function Profile() {
               </>
             )}
             <p className="text-sm">
-              {data.email} · School ID {data.school_id}. Contact your school
-              administrator for account changes.
+              {data.email}
+              <Trans value={" · School ID "} />
+              {data.school_id}
+              <Trans
+                value={
+                  ". Contact your school administrator for account changes. "
+                }
+              />
             </p>
           </ActionForm>
         </Panel>

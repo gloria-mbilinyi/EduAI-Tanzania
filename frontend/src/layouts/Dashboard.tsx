@@ -1,3 +1,4 @@
+import { Trans, tr } from "../i18n";
 import { useState } from "react";
 import { Navigate, NavLink, Outlet, useLocation, Link } from "react-router-dom";
 import {
@@ -83,7 +84,10 @@ export function Brand() {
         <GraduationCap size={27} />
       </span>
       <span>
-        EduAI<span className="brand-country">TANZANIA</span>
+        <Trans value={" EduAI"} />
+        <span className="brand-country">
+          <Trans value={"TANZANIA"} />
+        </span>
       </span>
     </Link>
   );
@@ -105,7 +109,7 @@ export function Dashboard() {
           <Brand />
           <button
             className="icon-button mobile-only"
-            aria-label="Close navigation"
+            aria-label={tr("Close navigation")}
             onClick={() => setOpen(false)}
           >
             <X />
@@ -121,9 +125,9 @@ export function Dashboard() {
                   ? "Parent"
                   : "Student",
           )}{" "}
-          workspace
+          <Trans value={" workspace "} />
         </p>
-        <nav aria-label="Main navigation">
+        <nav aria-label={tr("Main navigation")}>
           {items.map(([path, label, Icon]) => (
             <NavLink
               key={path}
@@ -135,7 +139,11 @@ export function Dashboard() {
             >
               <Icon size={20} />
               <span>{t(label)}</span>
-              {path === "tutor" && <span className="tiny-tag">AI</span>}
+              {path === "tutor" && (
+                <span className="tiny-tag">
+                  <Trans value={"AI"} />
+                </span>
+              )}
             </NavLink>
           ))}
         </nav>
@@ -144,7 +152,9 @@ export function Dashboard() {
             <Building2 size={21} />
             <span>
               {t("Academic demonstration")}
-              <small>Fictional school records</small>
+              <small>
+                <Trans value={"Fictional school records"} />
+              </small>
             </span>
           </div>
           <button className="nav-item logout" onClick={logout}>
@@ -156,7 +166,7 @@ export function Dashboard() {
       {open && (
         <button
           className="sidebar-scrim"
-          aria-label="Close navigation"
+          aria-label={tr("Close navigation")}
           onClick={() => setOpen(false)}
         />
       )}
@@ -165,12 +175,14 @@ export function Dashboard() {
           <div className="breadcrumb">
             <button
               className="icon-button mobile-only"
-              aria-label="Open navigation"
+              aria-label={tr("Open navigation")}
               onClick={() => setOpen(true)}
             >
               <Menu />
             </button>
-            <span>Workspace</span>
+            <span>
+              <Trans value={"Workspace"} />
+            </span>
             <span className="breadcrumb-divider">/</span>
             <strong>{t(title)}</strong>
           </div>
@@ -213,8 +225,12 @@ export function Dashboard() {
           <Outlet />
         </main>
         <footer className="workspace-footer">
-          EduAI Tanzania Ltd.{" "}
-          <span>Thoughtful learning. Stronger school communities.</span>
+          <Trans value={" EduAI Tanzania Ltd."} />{" "}
+          <span>
+            <Trans
+              value={"Thoughtful learning. Stronger school communities."}
+            />
+          </span>
         </footer>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { Trans, tr } from "../i18n";
 import { ReactNode } from "react";
 import { useAuth } from "../contexts/Auth";
 import { useI18n } from "../i18n";
@@ -27,7 +28,9 @@ function Table({
         <thead>
           <tr>
             {columns.map(([label]) => (
-              <th key={label}>{label}</th>
+              <th key={label}>
+                <Trans value={label} />
+              </th>
             ))}
           </tr>
         </thead>
@@ -52,7 +55,7 @@ export function School() {
   return (
     <>
       <Heading
-        title="School"
+        title={tr("School")}
         description="Manage the registered school within your administrative scope."
       />
       <Notice error>{error}</Notice>
@@ -97,7 +100,7 @@ export function Users() {
   return (
     <>
       <Heading
-        title="Users"
+        title={tr("Users")}
         description="Manage school accounts and activate verified teachers."
       />
       <Notice error>{error}</Notice>
@@ -172,8 +175,11 @@ export function Users() {
             </select>
           </Field>
           <small>
-            New teacher accounts remain pending until separately activated.
-            Administrator provisioning is out of band.
+            <Trans
+              value={
+                " New teacher accounts remain pending until separately activated. Administrator provisioning is out of band. "
+              }
+            />
           </small>
         </ActionForm>
       </Panel>
@@ -189,7 +195,7 @@ export function TeacherAssignments() {
   return (
     <>
       <Heading
-        title="Teacher assignments"
+        title={tr("Teacher assignments")}
         description="Assign active teachers and enroll students in school courses."
       />
       <Notice error>{error}</Notice>
@@ -243,7 +249,7 @@ export function TeacherAssignments() {
           </ActionForm>
         </Panel>
       </div>
-      <Panel title="Current assignments">
+      <Panel title={tr("Current assignments")}>
         <Table
           rows={assignments}
           columns={[
@@ -262,7 +268,7 @@ export function TeacherAssignments() {
                     })
                   }
                 >
-                  Remove assignment
+                  <Trans value={" Remove assignment "} />
                 </ActionButton>
               ),
             ],
@@ -291,12 +297,15 @@ export function ParentLinks() {
   return (
     <>
       <Heading
-        title="Parent links"
+        title={tr("Parent links")}
         description="Verify family identity through school records before granting access."
       />
       <Notice>
-        Approval grants access to a student's academic records. Verify the
-        family relationship through your school's trusted process.
+        <Trans
+          value={
+            " Approval grants access to a student's academic records. Verify the family relationship through your school's trusted process. "
+          }
+        />
       </Notice>
       <Notice error>{error}</Notice>
       <Panel>
@@ -343,7 +352,7 @@ export function Reports() {
   return (
     <>
       <Heading
-        title="Reports"
+        title={tr("Reports")}
         description="School-scoped academic evidence and platform usage."
       />
       <Notice error>{error}</Notice>
@@ -421,8 +430,12 @@ function PlanFields({ plan = {} }: { plan?: Row }) {
       </div>
       <Field label="Status">
         <select name="active" defaultValue={String(plan.active ?? true)}>
-          <option value="true">Active</option>
-          <option value="false">Unavailable</option>
+          <option value="true">
+            <Trans value={"Active"} />
+          </option>
+          <option value="false">
+            <Trans value={"Unavailable"} />
+          </option>
         </select>
       </Field>
     </>
@@ -441,7 +454,7 @@ export function Plans() {
   return (
     <>
       <Heading
-        title="Plans"
+        title={tr("Plans")}
         description="Manage demonstration premium plans for your school."
       />
       <Notice error>{error}</Notice>
@@ -467,12 +480,19 @@ export function Plans() {
               ) : (
                 <>
                   <p>
-                    TZS {p.price_tzs.toLocaleString()} / {p.days} days
+                    <Trans value={" TZS "} />
+                    {p.price_tzs.toLocaleString()} / {p.days}
+                    <Trans value={" days "} />
                   </p>
-                  <Badge>Shared demonstration plan</Badge>
+                  <Badge>
+                    <Trans value={"Shared demonstration plan"} />
+                  </Badge>
                   <p className="text-sm mt-4">
-                    Shared plans are provisioned out of band. Create a school
-                    plan to manage its price and availability.
+                    <Trans
+                      value={
+                        " Shared plans are provisioned out of band. Create a school plan to manage its price and availability. "
+                      }
+                    />
                   </p>
                 </>
               )}
@@ -493,9 +513,11 @@ export function Subscriptions({ payments = false }: { payments?: boolean }) {
         description="Monitor simulated transactions and entitlement states within your school."
       />
       <Notice>
-        Simulated provider only. Active status requires a verified payment and
-        an unexpired subscription. Suspension and cancellation immediately deny
-        premium access.
+        <Trans
+          value={
+            " Simulated provider only. Active status requires a verified payment and an unexpired subscription. Suspension and cancellation immediately deny premium access. "
+          }
+        />
       </Notice>
       <Notice error>{error}</Notice>
       <Panel>
@@ -507,7 +529,10 @@ export function Subscriptions({ payments = false }: { payments?: boolean }) {
               (r) => (
                 <>
                   {r.user_name}
-                  <small>Subscription {r.id}</small>
+                  <small>
+                    <Trans value={"Subscription "} />
+                    {r.id}
+                  </small>
                 </>
               ),
             ],
@@ -578,7 +603,7 @@ export function Audit() {
   return (
     <>
       <Heading
-        title="Audit trail"
+        title={tr("Audit trail")}
         description="Recent account, academic, recommendation and payment actions in your school."
       />
       <Notice error>{error}</Notice>

@@ -5,6 +5,8 @@ import {
   ReactNode,
   useEffect,
 } from "react";
+import extra from "./sw.json";
+import { patch } from "../services/api";
 const sw: Record<string, string> = {
   Overview: "Muhtasari",
   "My courses": "Kozi zangu",
@@ -145,6 +147,24 @@ const Context = createContext<{
   t: (s: string) => string;
   toggle: () => void;
 }>(null!);
+export function tr(
+  value: string,
+  language = localStorage.getItem("eduai-language") || "en",
+): string {
+  const key = value.trim();
+  if (language !== "sw") return value;
+  const translated = (extra as Record<string, string>)[key] || sw[key];
+  if (translated) return value.replace(key, translated);
+  if (/^Only \d+ matching bank/.test(key))
+    return "Benki ina maswali machache yanayolingana; ongeza maswali yaliyokaguliwa mwenyewe.";
+  if (key.startsWith("Local generation unavailable"))
+    return "Uzalishaji wa ndani haupatikani; benki ya maswali imetumika.";
+  return value;
+}
+export function Trans({ value }: { value: string }) {
+  const { t } = useI18n();
+  return <>{t(value)}</>;
+}
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState(
     localStorage.getItem("eduai-language") || "en",
@@ -153,12 +173,27 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("eduai-language", lang);
     document.documentElement.lang = lang;
   }, [lang]);
+  useEffect(() => {
+    const sync = () => setLang(localStorage.getItem("eduai-language") || "en");
+    window.addEventListener("eduai-language", sync);
+    return () => window.removeEventListener("eduai-language", sync);
+  }, []);
   return (
     <Context.Provider
       value={{
         lang,
-        t: (s) => (lang === "sw" ? sw[s] || s : s),
-        toggle: () => setLang((x) => (x === "en" ? "sw" : "en")),
+        t: (s) => tr(s, lang),
+        toggle: () => {
+          const next = lang === "en" ? "sw" : "en";
+          setLang(next);
+          localStorage.setItem("eduai-language", next);
+          if (sessionStorage.getItem("eduai-token"))
+            patch("/me/language", { language: next })
+              .then((u) => {
+                sessionStorage.setItem("eduai-user", JSON.stringify(u));
+              })
+              .catch(() => {});
+        },
       }}
     >
       {children}
