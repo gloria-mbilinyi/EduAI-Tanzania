@@ -9,7 +9,7 @@ export default defineConfig({
     ["junit", { outputFile: "../docs/testing/playwright-results.xml" }],
   ],
   use: {
-    baseURL: "http://127.0.0.1:5173",
+    baseURL: process.env.EDUAI_BASE_URL || "http://127.0.0.1:5173",
     channel: process.env.PLAYWRIGHT_BROWSER_CHANNEL === 'chromium' ? undefined : 'chrome',
     headless: true,
     viewport: { width: 1440, height: 1000 },

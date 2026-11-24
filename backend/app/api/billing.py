@@ -79,4 +79,5 @@ def receipt(payment_id: int, u: User = Depends(principal), db: Session = Depends
     s = get(db, Subscription, p.subscription_id)
     if s.user_id != u.id: raise HTTPException(403, 'Receipt access denied')
     if p.status != 'verified': raise HTTPException(409, 'Payment has not been verified')
+    if u.language=='sw':return f'EduAI Tanzania RISITI YA MFANO\nHakuna fedha halisi zilizohamishwa\nKumbukumbu: {p.provider_reference}\nKiasi: TZS {p.amount_tzs}\nImehakikiwa: {p.verified_at.isoformat()} UTC\nInaisha: {s.expires_at.isoformat()} UTC\n'
     return f'EduAI Tanzania DEMONSTRATION RECEIPT\nNo real money transferred\nReference: {p.provider_reference}\nAmount: TZS {p.amount_tzs}\nVerified: {p.verified_at.isoformat()} UTC\nExpires: {s.expires_at.isoformat()} UTC\n'

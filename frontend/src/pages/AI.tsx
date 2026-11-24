@@ -60,6 +60,7 @@ export function Tutor() {
           <ActionForm
             label="Ask tutor"
             onSubmit={async (f) => {
+              const submitted=question;
               const r = await post("/tutor/ask", {
                 subject: f.get("subject"),
                 question,
@@ -67,7 +68,7 @@ export function Tutor() {
                 use_local_ai: f.has("use_local_ai"),
               });
               setStatus(t(r.provider_status || r.mode));
-              setQuestion("");
+              setQuestion(current=>current===submitted?'':current);
             }}
           >
             <Field label="Subject">

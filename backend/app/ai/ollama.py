@@ -33,7 +33,7 @@ def health():
         names={item.get('name') for item in request('/api/tags').get('models',[])}
         available=model in names
         return dict(enabled=True,available=available,model=model,reason='Ready' if available else 'Configured model is not installed')
-    except (httpx.HTTPError,ValueError,TypeError,KeyError):return dict(enabled=True,available=False,reason='Local AI is unavailable')
+    except (httpx.HTTPError,ValueError,TypeError,KeyError,AttributeError):return dict(enabled=True,available=False,reason='Local AI is unavailable')
 
 def generate(system,user,context=None,schema=None):
     state=health()

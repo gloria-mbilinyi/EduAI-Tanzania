@@ -5,6 +5,9 @@ test.skip(
   "Set EDUAI_DEMO_PASSWORD to the password supplied to the fictional seed script.",
 );
 async function login(page: Page, handle: string) {
+  const auth=await page.request.post('/api/auth/login',{data:{email:`${handle}@demo.eduai.test`,password}});
+  const identity=await auth.json();
+  await page.request.patch('/api/me/language',{headers:{Authorization:`Bearer ${identity.access_token}`},data:{language:'en'}});
   await page.goto("/login");
   await page.getByLabel("Email address").fill(`${handle}@demo.eduai.test`);
   await page.getByLabel("Password", { exact: true }).fill(password!);

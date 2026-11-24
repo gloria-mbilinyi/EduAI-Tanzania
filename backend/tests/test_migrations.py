@@ -1,11 +1,11 @@
-import subprocess
+from pathlib import Path
 from sqlalchemy import create_engine, text, inspect
 from app.migrate import migrate
 from app.seed import seed
 from sqlalchemy.orm import Session
 
 def test_upgrade_preserves_every_legacy_row_and_is_idempotent(tmp_path,monkeypatch):
-    old_schema = subprocess.check_output(['git', 'show', 'b45aa52:docs/architecture/SCHEMA.sql'], text=True)
+    old_schema = (Path(__file__).with_name('fixtures')/'001_schema.sql').read_text(encoding='utf-8')
     engine = create_engine('sqlite:///' + str(tmp_path / 'existing.db'))
     with engine.begin() as conn:
         for statement in old_schema.split(';'):
@@ -18,7 +18,6 @@ def test_upgrade_preserves_every_legacy_row_and_is_idempotent(tmp_path,monkeypat
         tables = inspect(conn).get_table_names()
         before = {t: list(conn.exec_driver_sql(f'SELECT * FROM "{t}"')) for t in tables}
     import importlib.util
-    from pathlib import Path
     spec=importlib.util.spec_from_file_location('upgrade',Path(__file__).resolve().parents[2]/'scripts/upgrade_database.py')
     helper=importlib.util.module_from_spec(spec);spec.loader.exec_module(helper)
     monkeypatch.setattr(helper,'engine',engine);monkeypatch.setattr(helper,'migrate',lambda:migrate(engine))

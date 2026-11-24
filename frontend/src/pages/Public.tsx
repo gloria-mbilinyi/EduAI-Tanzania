@@ -178,8 +178,8 @@ export function Public() {
               return (
                 <article key={i}>
                   <I size={25} />
-                  <h3>{String(title)}</h3>
-                  <p>{String(body)}</p>
+                  <h3>{t(String(title))}</h3>
+                  <p>{t(String(body))}</p>
                 </article>
               );
             })}

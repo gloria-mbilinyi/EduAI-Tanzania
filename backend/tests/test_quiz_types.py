@@ -35,3 +35,15 @@ def test_bank_drafts_types_language_limits_and_no_auto_publication(env):
         assert r.json()['status']=='draft'
         assert all(q['kind']==kind and q['language']=='sw' for q in r.json()['questions'])
     assert c.post('/api/teacher-tools/quiz-draft',headers=h('neema'),json={'course_id':1,'topic':'Linear equations','count':999}).status_code==422
+
+def test_local_quiz_schema_validates_drafts_without_writing_marks(env,monkeypatch):
+    from app.ai import ollama
+    c,db,_,h=env;before=db.query(Grade).count()
+    monkeypatch.setattr(ollama,'generate',lambda *a,**k:{'questions':[{'prompt':'Calculate one half plus one half.','kind':'numerical','answer':'1','explanation':'Two halves make one whole.','language':'en'}]})
+    body={'course_id':1,'topic':'Fractions','kind':'numerical','count':1,'use_local_ai':True}
+    response=c.post('/api/teacher-tools/quiz-draft',headers=h('neema'),json=body)
+    assert response.status_code==200 and response.json()['mode'].startswith('Ollama generated')
+    assert db.query(Grade).count()==before
+    monkeypatch.setattr(ollama,'generate',lambda *a,**k:{'questions':[{'prompt':'Calculate one half plus one half.','kind':'numerical','answer':'__import__(1)','explanation':'Unsafe key','language':'en'}]})
+    fallback=c.post('/api/teacher-tools/quiz-draft',headers=h('neema'),json=body).json()
+    assert 'bank fallback' in fallback['warning'] and not fallback['mode'].startswith('Ollama')

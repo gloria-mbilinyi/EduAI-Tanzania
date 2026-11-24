@@ -12,7 +12,7 @@ def bank_draft(data,subject):
         if subject!='Mathematics':raise ValueError('Numerical bank currently supports Mathematics; write other questions manually')
         if not entry or entry['id'] not in {'M01','M02','M04'}:raise ValueError('Numerical templates support linear equations, fractions and calculus')
         for i in range(data.count):
-            a=i+2;x=i+1;b=3
+            a=i+({'easy':2,'medium':3,'hard':5}[data.difficulty]);x=i+1;b=3 if data.difficulty!='hard' else 11
             if entry['id']=='M01':prompt=f'{a}x + {b} = {a*x+b}; '+('tafuta x.' if sw else 'find x.');answer=str(x)
             elif entry['id']=='M02':prompt=('Hesabu ' if sw else 'Calculate ')+f'{a}/2 + 1/2';answer=f'{a+1}/2'
             else:prompt=('Derivativi ya ' if sw else 'Evaluate the derivative of ')+f'{a}x^2 '+('katika x = 1.' if sw else 'at x = 1.');answer=str(2*a)

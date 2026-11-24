@@ -54,7 +54,8 @@ class MessageInput(Input):
 def send(data: MessageInput, u: User = Depends(principal), db: Session = Depends(get_db)):
     recipient = get(db, User, data.recipient_id)
     family_pair(db, u, recipient, data.student_id)
-    db.add(Notification(user_id=recipient.id, title='New school message', body=f'Message from {u.name}.'))
+    sw=recipient.language=='sw'
+    db.add(Notification(user_id=recipient.id, title='Ujumbe mpya wa shule' if sw else 'New school message', body=(f'Ujumbe kutoka {u.name}.' if sw else f'Message from {u.name}.')))
     return record(save(db, u, Message(sender_id=u.id, **data.model_dump()), 'message.sent'))
 
 @router.get('/messages')
