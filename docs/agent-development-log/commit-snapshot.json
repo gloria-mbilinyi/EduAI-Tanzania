@@ -1,271 +1,598 @@
 {
-  "snapshot_head": "085c9ebdcc916f0dfdd5bc27d3f4e0df9ce32784",
-  "reachable_commits": 53,
+  "snapshot_head": "39582149e30c41b48a48821e2d119c674b73fcb0",
+  "reachable_commits": 75,
+  "baseline_head": "b45aa529d53d735f9ab74108dd3b50e4dbda0e3f",
+  "baseline_count": 58,
+  "enhancement_commits_at_snapshot": 17,
+  "changed_files_since_baseline": [
+    ".env.example",
+    ".gitignore",
+    "README.md",
+    "backend/app/ai/corpus.py",
+    "backend/app/ai/math_solver.py",
+    "backend/app/ai/ollama.py",
+    "backend/app/ai/quiz_builder.py",
+    "backend/app/ai/recommendations.py",
+    "backend/app/ai/topics.py",
+    "backend/app/ai/tutor.py",
+    "backend/app/api/assignments.py",
+    "backend/app/api/auth.py",
+    "backend/app/api/billing.py",
+    "backend/app/api/families.py",
+    "backend/app/api/performance.py",
+    "backend/app/api/quizzes.py",
+    "backend/app/api/recommendations.py",
+    "backend/app/api/teacher_tools.py",
+    "backend/app/api/tutor.py",
+    "backend/app/main.py",
+    "backend/app/migrate.py",
+    "backend/app/models/__init__.py",
+    "backend/app/models/enhancements.py",
+    "backend/app/services/attempts.py",
+    "backend/app/services/i18n.py",
+    "backend/app/services/notifications.py",
+    "backend/app/services/performance.py",
+    "backend/app/services/sw.json",
+    "backend/requirements.lock.txt",
+    "backend/requirements.txt",
+    "backend/tests/fixtures/001_schema.sql",
+    "backend/tests/test_attempts.py",
+    "backend/tests/test_localization.py",
+    "backend/tests/test_math.py",
+    "backend/tests/test_migrations.py",
+    "backend/tests/test_ollama.py",
+    "backend/tests/test_progress.py",
+    "backend/tests/test_quiz_types.py",
+    "backend/tests/test_tutor_hybrid.py",
+    "diagrams/EDITING_AND_VALIDATION.md",
+    "diagrams/drawio/01_EduAI_Sequence_Diagram.drawio",
+    "diagrams/drawio/02_EduAI_Communication_Diagram.drawio",
+    "diagrams/drawio/03_AI_Recommendation_State_Machine.drawio",
+    "diagrams/drawio/04_Subscription_State_Machine.drawio",
+    "diagrams/drawio/05_EduAI_Overview_Package_Diagram.drawio",
+    "diagrams/drawio/06_Learning_AI_Detailed_Package.drawio",
+    "diagrams/drawio/07_Course_Assessment_Detailed_Package.drawio",
+    "diagrams/drawio/08_Admin_Parent_Subscription_Detailed_Package.drawio",
+    "diagrams/layout-validation.json",
+    "diagrams/pdf/01_EduAI_Sequence_Diagram.pdf",
+    "diagrams/pdf/02_EduAI_Communication_Diagram.pdf",
+    "diagrams/pdf/03_AI_Recommendation_State_Machine.pdf",
+    "diagrams/pdf/04_Subscription_State_Machine.pdf",
+    "diagrams/pdf/05_EduAI_Overview_Package_Diagram.pdf",
+    "diagrams/pdf/06_Learning_AI_Detailed_Package.pdf",
+    "diagrams/pdf/07_Course_Assessment_Detailed_Package.pdf",
+    "diagrams/pdf/08_Admin_Parent_Subscription_Detailed_Package.pdf",
+    "diagrams/png/01_EduAI_Sequence_Diagram.png",
+    "diagrams/png/02_EduAI_Communication_Diagram.png",
+    "diagrams/png/03_AI_Recommendation_State_Machine.png",
+    "diagrams/png/04_Subscription_State_Machine.png",
+    "diagrams/png/05_EduAI_Overview_Package_Diagram.png",
+    "diagrams/png/06_Learning_AI_Detailed_Package.png",
+    "diagrams/png/07_Course_Assessment_Detailed_Package.png",
+    "diagrams/png/08_Admin_Parent_Subscription_Detailed_Package.png",
+    "diagrams/validation.json",
+    "docs/KNOWN_LIMITATIONS.md",
+    "docs/api/API_GUIDE.md",
+    "docs/api/ROUTES.md",
+    "docs/api/openapi.json",
+    "docs/architecture/ARCHITECTURE.md",
+    "docs/architecture/DATABASE.md",
+    "docs/architecture/SCHEMA.sql",
+    "docs/architecture/UPGRADE.md",
+    "docs/requirements/COVERAGE_REPORT.md",
+    "docs/requirements/ENHANCEMENT_BRIEF.txt",
+    "docs/requirements/ENHANCEMENT_TRACEABILITY.md",
+    "docs/requirements/coverage.json",
+    "docs/screenshots/02-student-dashboard.png",
+    "docs/screenshots/03-teacher-dashboard.png",
+    "docs/screenshots/05-parent-dashboard.png",
+    "docs/screenshots/06-parent-report.png",
+    "docs/screenshots/07-administrator-dashboard.png",
+    "docs/screenshots/08-school-report.png",
+    "docs/screenshots/09-retrieval-tutor.png",
+    "docs/screenshots/10-kiswahili-tutor.png",
+    "docs/screenshots/11-verified-demo-subscription.png",
+    "docs/screenshots/12-student-mobile.png",
+    "docs/screenshots/13-courses-mobile.png",
+    "docs/screenshots/14-teacher-attempt-review.png",
+    "docs/screenshots/15-mobile-attempt-history.png",
+    "docs/screenshots/16-hybrid-math-tutor.png",
+    "docs/screenshots/17-kiswahili-math-mobile.png",
+    "docs/screenshots/18-reviewed-numerical-quiz-builder.png",
+    "docs/screenshots/19-symbolic-quiz-result.png",
+    "docs/screenshots/20-bilingual-student-workspace.png",
+    "docs/technical-proposal/EduAI_Tanzania_Technical_Proposal.docx",
+    "docs/technical-proposal/EduAI_Tanzania_Technical_Proposal.pdf",
+    "docs/testing/TESTING_REPORT.md",
+    "docs/testing/playwright-results.xml",
+    "docs/testing/pytest-results.xml",
+    "docs/testing/vitest-results.json",
+    "frontend/e2e/enhancements.spec.ts",
+    "frontend/e2e/workflows.spec.ts",
+    "frontend/playwright.config.ts",
+    "frontend/src/components/UI.tsx",
+    "frontend/src/contexts/Auth.tsx",
+    "frontend/src/i18n/index.tsx",
+    "frontend/src/i18n/sw.json",
+    "frontend/src/layouts/Dashboard.tsx",
+    "frontend/src/pages/AI.tsx",
+    "frontend/src/pages/Academics.tsx",
+    "frontend/src/pages/Admin.tsx",
+    "frontend/src/pages/AssignmentWorkflows.tsx",
+    "frontend/src/pages/Billing.tsx",
+    "frontend/src/pages/Families.tsx",
+    "frontend/src/pages/Overview.tsx",
+    "frontend/src/pages/Performance.tsx",
+    "frontend/src/pages/Public.tsx",
+    "frontend/src/pages/QuizWorkflows.tsx",
+    "frontend/src/services/api.ts",
+    "frontend/src/styles.css",
+    "frontend/src/tests/enhancements.test.tsx",
+    "frontend/vite.config.ts",
+    "scripts/build_coverage.py",
+    "scripts/build_proposal.py",
+    "scripts/check_diagram_layout.py",
+    "scripts/check_i18n.mjs",
+    "scripts/check_interactions.py",
+    "scripts/generate_uml.py",
+    "scripts/interaction_uml.py",
+    "scripts/package_uml.py",
+    "scripts/proposal_content.py",
+    "scripts/state_uml.py",
+    "scripts/uml_canvas.py",
+    "scripts/upgrade.ps1",
+    "scripts/upgrade_database.py"
+  ],
   "commits": [
     {
       "sha": "2d116e175b53078c24b649d4124a9046c3c5f1eb",
       "recorded_at": "2026-11-23T22:33:31+03:00",
-      "subject": "chore: initialize EduAI Tanzania repository"
+      "subject": "chore: initialize EduAI Tanzania repository",
+      "enhancement": false
     },
     {
       "sha": "f45bd5e62aac478790be500b16cdb29d79c887ec",
       "recorded_at": "2026-11-23T22:34:17+03:00",
-      "subject": "docs: record requirements business rules and delivery milestones"
+      "subject": "docs: record requirements business rules and delivery milestones",
+      "enhancement": false
     },
     {
       "sha": "7e3027e0fa054cfd828dbb815d3b51c126f02136",
       "recorded_at": "2026-11-23T22:34:21+03:00",
-      "subject": "docs: define application boundaries and normalized data design"
+      "subject": "docs: define application boundaries and normalized data design",
+      "enhancement": false
     },
     {
       "sha": "bb68c01b7fbf813701b4cd7dda7a42e6ef1fc6b2",
       "recorded_at": "2026-11-23T22:34:41+03:00",
-      "subject": "Initial commit"
+      "subject": "Initial commit",
+      "enhancement": false
     },
     {
       "sha": "3d6e8c482c88bae165e6b69d7a2e08b58e35dc0e",
       "recorded_at": "2026-11-23T22:35:07+03:00",
-      "subject": "feat(database): configure persistence and school scoped identities"
+      "subject": "feat(database): configure persistence and school scoped identities",
+      "enhancement": false
     },
     {
       "sha": "defbf2a4a44db7b5828b6bd0babd6280ba717c4f",
       "recorded_at": "2026-11-23T22:35:10+03:00",
-      "subject": "feat(database): model courses assessments and learning activity"
+      "subject": "feat(database): model courses assessments and learning activity",
+      "enhancement": false
     },
     {
       "sha": "85e7f889be520a10f38e0b8f0d4ecd1ff8e91d64",
       "recorded_at": "2026-11-23T22:36:08+03:00",
-      "subject": "feat(database): persist recommendation billing and audit lifecycles"
+      "subject": "feat(database): persist recommendation billing and audit lifecycles",
+      "enhancement": false
     },
     {
       "sha": "d96b364e22630136add878227b6b3179dfba3dcc",
       "recorded_at": "2026-11-23T22:36:12+03:00",
-      "subject": "feat(auth): add password hashing JWT and scoped authorization services"
+      "subject": "feat(auth): add password hashing JWT and scoped authorization services",
+      "enhancement": false
     },
     {
       "sha": "875a77a2996aa9722783620bccdfcb8518d02ed8",
       "recorded_at": "2026-11-23T22:37:04+03:00",
-      "subject": "feat(auth): implement registration login and editable profiles"
+      "subject": "feat(auth): implement registration login and editable profiles",
+      "enhancement": false
     },
     {
       "sha": "c0d8870a1500bc960e3ce1f5475f9eb6ac16bf96",
       "recorded_at": "2026-11-23T22:37:07+03:00",
-      "subject": "feat(courses): enforce assigned course management and protected materials"
+      "subject": "feat(courses): enforce assigned course management and protected materials",
+      "enhancement": false
     },
     {
       "sha": "89b11fe26f72ece9d0087d8d5f26bd94258d2156",
       "recorded_at": "2026-11-23T22:37:55+03:00",
-      "subject": "feat(assignments): persist submissions teacher grades and family alerts"
+      "subject": "feat(assignments): persist submissions teacher grades and family alerts",
+      "enhancement": false
     },
     {
       "sha": "e4ffe1519fb020c1a50267cb231ceba245e0ec9b",
       "recorded_at": "2026-11-23T22:37:57+03:00",
-      "subject": "feat(quizzes): add reviewed objective quizzes with automatic grading"
+      "subject": "feat(quizzes): add reviewed objective quizzes with automatic grading",
+      "enhancement": false
     },
     {
       "sha": "4f2149941bb81acc6e83d1d0f238c91c2806f723",
       "recorded_at": "2026-11-23T22:38:53+03:00",
-      "subject": "feat(performance): add scoped analytics risk explanations and CSV reports"
+      "subject": "feat(performance): add scoped analytics risk explanations and CSV reports",
+      "enhancement": false
     },
     {
       "sha": "09ce8997be4a8c048d83e45abcbba462b7544aa3",
       "recorded_at": "2026-11-23T22:38:56+03:00",
-      "subject": "feat(payments): verify simulated provider ledger before premium activation"
+      "subject": "feat(payments): verify simulated provider ledger before premium activation",
+      "enhancement": false
     },
     {
       "sha": "b4162d37f565fb9d68284a62615ba45468a61d22",
       "recorded_at": "2026-11-23T22:39:34+03:00",
-      "subject": "feat(ai): generate explainable pathways with mandatory teacher review"
+      "subject": "feat(ai): generate explainable pathways with mandatory teacher review",
+      "enhancement": false
     },
     {
       "sha": "c01cddaa85c3aaa84a86e8a21925c262da72466a",
       "recorded_at": "2026-11-23T22:40:23+03:00",
-      "subject": "feat(tutor): retrieve bilingual educational passages with source attribution"
+      "subject": "feat(tutor): retrieve bilingual educational passages with source attribution",
+      "enhancement": false
     },
     {
       "sha": "a60e803bc8ec215c1abbd5ffa90f536909c5163b",
       "recorded_at": "2026-11-23T22:41:06+03:00",
-      "subject": "feat(teachers): add entitled quiz and lesson draft assistance"
+      "subject": "feat(teachers): add entitled quiz and lesson draft assistance",
+      "enhancement": false
     },
     {
       "sha": "89c908c790980264a85807720a3d2353ab9276f1",
       "recorded_at": "2026-11-23T22:41:09+03:00",
-      "subject": "feat(parents): secure student links notifications and teacher messaging"
+      "subject": "feat(parents): secure student links notifications and teacher messaging",
+      "enhancement": false
     },
     {
       "sha": "b95665998a3ca257daa4a76e57f0abd58c33db21",
       "recorded_at": "2026-11-23T22:42:03+03:00",
-      "subject": "feat(admin): manage school identities assignments links and scoped reporting"
+      "subject": "feat(admin): manage school identities assignments links and scoped reporting",
+      "enhancement": false
     },
     {
       "sha": "ce97bc65c4cb70bc13c05d8a42f73efb12cbb185",
       "recorded_at": "2026-11-23T22:42:06+03:00",
-      "subject": "feat(admin): monitor payments plans and verified subscription lifecycles"
+      "subject": "feat(admin): monitor payments plans and verified subscription lifecycles",
+      "enhancement": false
     },
     {
       "sha": "fa164ab21402d4494754c8ac192b194ee5a3503c",
       "recorded_at": "2026-11-23T22:42:58+03:00",
-      "subject": "feat(demo): seed fictional schools users and end to end academic records"
+      "subject": "feat(demo): seed fictional schools users and end to end academic records",
+      "enhancement": false
     },
     {
       "sha": "b7cd64aa550d3aa6cba8c9322236db7ea623f604",
       "recorded_at": "2026-11-23T22:44:14+03:00",
-      "subject": "feat(frontend): scaffold React API state and bilingual interface foundation"
+      "subject": "feat(frontend): scaffold React API state and bilingual interface foundation",
+      "enhancement": false
     },
     {
       "sha": "7454426b28bea902646c2ff1fe2c32b0833123d1",
       "recorded_at": "2026-11-23T22:47:20+03:00",
-      "subject": "feat(ui): build responsive public pages authentication and role navigation"
+      "subject": "feat(ui): build responsive public pages authentication and role navigation",
+      "enhancement": false
     },
     {
       "sha": "70723b137bf4057f0890c81dc017a5687c492fe6",
       "recorded_at": "2026-11-23T22:48:00+03:00",
-      "subject": "test(auth): verify credentials school association activation and role boundaries"
+      "subject": "test(auth): verify credentials school association activation and role boundaries",
+      "enhancement": false
     },
     {
       "sha": "5036eb0fceb892a08133cba1bc0248c1366273f2",
       "recorded_at": "2026-11-23T22:48:03+03:00",
-      "subject": "feat(ui): show role dashboards with persisted performance and alerts"
+      "subject": "feat(ui): show role dashboards with persisted performance and alerts",
+      "enhancement": false
     },
     {
       "sha": "94fc95de7f5e7484f0cfecd2f83f8fd71f3e9aa1",
       "recorded_at": "2026-11-23T22:49:03+03:00",
-      "subject": "feat(ui): connect courses materials assignment grading and quiz workflows"
+      "subject": "feat(ui): connect courses materials assignment grading and quiz workflows",
+      "enhancement": false
     },
     {
       "sha": "f72d7970722bff47efa80fdeaba463795fdece31",
       "recorded_at": "2026-11-23T22:50:50+03:00",
-      "subject": "test(academics): exercise assessment workflows uploads and course isolation"
+      "subject": "test(academics): exercise assessment workflows uploads and course isolation",
+      "enhancement": false
     },
     {
       "sha": "df2cc231145b4af028f5321c0e8d57d80a8ebac7",
       "recorded_at": "2026-11-23T22:50:53+03:00",
-      "subject": "feat(ui): implement tutor review lesson planning and student report screens"
+      "subject": "feat(ui): implement tutor review lesson planning and student report screens",
+      "enhancement": false
     },
     {
       "sha": "6e6eb91281a4428af7053f3671d201f47f5d4ca0",
       "recorded_at": "2026-11-23T22:51:38+03:00",
-      "subject": "feat(ui): connect parent messaging notifications and simulated billing"
+      "subject": "feat(ui): connect parent messaging notifications and simulated billing",
+      "enhancement": false
     },
     {
       "sha": "9994f22646c387fd520ddeab7efbcd4f4ba94fcb",
       "recorded_at": "2026-11-23T22:52:36+03:00",
-      "subject": "feat(ui): implement school administration reports plans and payment monitoring"
+      "subject": "feat(ui): implement school administration reports plans and payment monitoring",
+      "enhancement": false
     },
     {
       "sha": "e85421364f32777ca60c0f22f36c98933cc809b6",
       "recorded_at": "2026-11-23T22:54:23+03:00",
-      "subject": "test(ai): verify recommendation review lifecycle bilingual retrieval and draft tools"
+      "subject": "test(ai): verify recommendation review lifecycle bilingual retrieval and draft tools",
+      "enhancement": false
     },
     {
       "sha": "4389d93f793c59b3e19eae0a4494f3031a65081e",
       "recorded_at": "2026-11-23T22:54:25+03:00",
-      "subject": "test(payments): reject forged outcomes and verify expiry suspension and receipts"
+      "subject": "test(payments): reject forged outcomes and verify expiry suspension and receipts",
+      "enhancement": false
     },
     {
       "sha": "b8e702a638716073b0837e4e638f9f08fa3f83e9",
       "recorded_at": "2026-11-23T22:55:12+03:00",
-      "subject": "test(families): verify parent consent school administration and private messaging"
+      "subject": "test(families): verify parent consent school administration and private messaging",
+      "enhancement": false
     },
     {
       "sha": "115a70ba032e80065b872c2612b08d59148c097d",
       "recorded_at": "2026-11-23T23:37:22+03:00",
-      "subject": "refactor(frontend): format source for maintainable review and pin formatter"
+      "subject": "refactor(frontend): format source for maintainable review and pin formatter",
+      "enhancement": false
     },
     {
       "sha": "9dcc48544a0e6f1f90f0a97a2b0ae74f526cb2bc",
       "recorded_at": "2026-11-23T23:37:23+03:00",
-      "subject": "test(frontend): cover language switching role navigation forms and API failures"
+      "subject": "test(frontend): cover language switching role navigation forms and API failures",
+      "enhancement": false
     },
     {
       "sha": "2aeecb659ddb5f2e9e34f97c81222ea1f7799ada",
       "recorded_at": "2026-11-23T23:38:33+03:00",
-      "subject": "chore: merge existing GitHub history without overwriting development"
+      "subject": "chore: merge existing GitHub history without overwriting development",
+      "enhancement": false
     },
     {
       "sha": "55d6a509d7f0466ac501262dd669b94fc5627369",
       "recorded_at": "2026-11-23T23:38:36+03:00",
-      "subject": "build(uml): add native editable graph generation validation and exports"
+      "subject": "build(uml): add native editable graph generation validation and exports",
+      "enhancement": false
     },
     {
       "sha": "1f64bd474fc72cf576c17a6187dc65a9c17b263f",
       "recorded_at": "2026-11-23T23:40:32+03:00",
-      "subject": "docs(uml): model four authorized business processes in one sequence diagram"
+      "subject": "docs(uml): model four authorized business processes in one sequence diagram",
+      "enhancement": false
     },
     {
       "sha": "9f553142a5827c8da87e173518b2740c6dc168b3",
       "recorded_at": "2026-11-23T23:40:53+03:00",
-      "subject": "docs(uml): map matching communication links numbered messages and guards"
+      "subject": "docs(uml): map matching communication links numbered messages and guards",
+      "enhancement": false
     },
     {
       "sha": "487ca021228ba319ca7df96a3222e1bf6f1b5888",
       "recorded_at": "2026-11-23T23:41:20+03:00",
-      "subject": "docs(uml): define recommendation review rejection and archival lifecycle"
+      "subject": "docs(uml): define recommendation review rejection and archival lifecycle",
+      "enhancement": false
     },
     {
       "sha": "1be9dbf863fa5d5a0285a483317af54e7e42b284",
       "recorded_at": "2026-11-23T23:42:17+03:00",
-      "subject": "docs(uml): define verified payment subscription and renewal lifecycle"
+      "subject": "docs(uml): define verified payment subscription and renewal lifecycle",
+      "enhancement": false
     },
     {
       "sha": "932fac485e21dbd44f49c06b3040199452c4aab0",
       "recorded_at": "2026-11-23T23:42:21+03:00",
-      "subject": "docs(uml): map overview packages to application modules and interfaces"
+      "subject": "docs(uml): map overview packages to application modules and interfaces",
+      "enhancement": false
     },
     {
       "sha": "a6655f266f11941cea3175bcbfb40728d7a0ed35",
       "recorded_at": "2026-11-23T23:42:24+03:00",
-      "subject": "docs(uml): detail learning evidence identities and recommendation services"
+      "subject": "docs(uml): detail learning evidence identities and recommendation services",
+      "enhancement": false
     },
     {
       "sha": "df7f9efd9a0b6c7c88e33af49d2b8fb4383adf92",
       "recorded_at": "2026-11-23T23:42:27+03:00",
-      "subject": "docs(uml): detail assigned courses assessment submissions and grading"
+      "subject": "docs(uml): detail assigned courses assessment submissions and grading",
+      "enhancement": false
     },
     {
       "sha": "ab815156caccb69f3073ac4f1df698c854b2dfe3",
       "recorded_at": "2026-11-23T23:42:31+03:00",
-      "subject": "docs(uml): detail approved family links scoped administration and billing"
+      "subject": "docs(uml): detail approved family links scoped administration and billing",
+      "enhancement": false
     },
     {
       "sha": "62a37497db5c5810c3269ca99a3b3035e8c79303",
       "recorded_at": "2026-11-23T23:51:45+03:00",
-      "subject": "fix(learning): record explicit study actions and test all role sign ins"
+      "subject": "fix(learning): record explicit study actions and test all role sign ins",
+      "enhancement": false
     },
     {
       "sha": "1abe5348a5ab90bdadfcde12934483d66ffe9b2a",
       "recorded_at": "2026-11-23T23:51:47+03:00",
-      "subject": "test(performance): cover risk boundaries and restricted parent registration"
+      "subject": "test(performance): cover risk boundaries and restricted parent registration",
+      "enhancement": false
     },
     {
       "sha": "8a81610a9048f3f6d0f44f16ffcf93188011c850",
       "recorded_at": "2026-11-23T23:52:59+03:00",
-      "subject": "fix(ui): associate form labels explicitly and render chart values without animation"
+      "subject": "fix(ui): associate form labels explicitly and render chart values without animation",
+      "enhancement": false
     },
     {
       "sha": "09b4603a2134ce5006185ff5c616b668c73896e5",
       "recorded_at": "2026-11-24T00:04:04+03:00",
-      "subject": "test(browser): exercise all roles bilingual tutoring verified checkout and mobile layouts"
+      "subject": "test(browser): exercise all roles bilingual tutoring verified checkout and mobile layouts",
+      "enhancement": false
     },
     {
       "sha": "be2d536670dac79eb3a2ca9d5762a3c379410f84",
       "recorded_at": "2026-11-24T00:04:07+03:00",
-      "subject": "docs(uml): refine interaction frames class associations and export validation"
+      "subject": "docs(uml): refine interaction frames class associations and export validation",
+      "enhancement": false
     },
     {
       "sha": "e4c857f2f47c75abb00ccde649575a2a05834985",
       "recorded_at": "2026-11-24T00:06:10+03:00",
-      "subject": "docs: document installation role demonstrations API contracts and schema"
+      "subject": "docs: document installation role demonstrations API contracts and schema",
+      "enhancement": false
     },
     {
       "sha": "bc13763d2c07c7afd3d54ab4ba8482911cead059",
       "recorded_at": "2026-11-24T00:06:12+03:00",
-      "subject": "ci: define API interface and browser checks for GitHub Actions"
+      "subject": "ci: define API interface and browser checks for GitHub Actions",
+      "enhancement": false
     },
     {
       "sha": "085c9ebdcc916f0dfdd5bc27d3f4e0df9ce32784",
       "recorded_at": "2026-11-24T00:06:13+03:00",
-      "subject": "docs(requirements): publish conservative traceability and known limitations"
+      "subject": "docs(requirements): publish conservative traceability and known limitations",
+      "enhancement": false
+    },
+    {
+      "sha": "9594e26db33ee2332c3cc5d8e71a90876bf8a19f",
+      "recorded_at": "2026-11-24T00:10:46+03:00",
+      "subject": "docs(testing): record executed results and actual desktop mobile screenshots",
+      "enhancement": false
+    },
+    {
+      "sha": "e2c38ee4dd317d5c902098b20d62cb285d8f2e1a",
+      "recorded_at": "2026-11-24T00:11:15+03:00",
+      "subject": "chore: declare document and image deliverables as binary Git artifacts",
+      "enhancement": false
+    },
+    {
+      "sha": "7b9513ab10afde74c13cb5282febceecef24758b",
+      "recorded_at": "2026-11-24T00:11:18+03:00",
+      "subject": "docs(proposal): create academic DOCX and reviewed PDF with actual UML figures",
+      "enhancement": false
+    },
+    {
+      "sha": "1a4e55bfefefced57ee4f4b32fe6350cf458c3f2",
+      "recorded_at": "2026-11-24T00:11:19+03:00",
+      "subject": "docs(agent): record human guidance execution evidence and authentic commit history",
+      "enhancement": false
+    },
+    {
+      "sha": "b45aa529d53d735f9ab74108dd3b50e4dbda0e3f",
+      "recorded_at": "2026-11-24T00:11:21+03:00",
+      "subject": "chore: validate final source tests diagrams and proposal artifacts",
+      "enhancement": false
+    },
+    {
+      "sha": "7e4bfe73eb2abe52aeb5efcd77434efcc56a3778",
+      "recorded_at": "2026-11-24T09:34:25+03:00",
+      "subject": "feat(database): preserve legacy records with additive attempt migrations",
+      "enhancement": true
+    },
+    {
+      "sha": "d8e5a6151d6a7dbb8b7aa21bb8138877c53c379a",
+      "recorded_at": "2026-11-24T09:36:07+03:00",
+      "subject": "feat(assignments): enforce teacher policies and append student attempts",
+      "enhancement": true
+    },
+    {
+      "sha": "bf1a696da09cee91e32c25b4cca01c4915faf550",
+      "recorded_at": "2026-11-24T09:36:44+03:00",
+      "subject": "feat(teachers): review resubmissions and preserve attempt feedback history",
+      "enhancement": true
+    },
+    {
+      "sha": "cbfcdcbb1714ff1b4695a61708c32fce25a98392",
+      "recorded_at": "2026-11-24T09:38:20+03:00",
+      "subject": "feat(learning): use official attempt scores and version pathway evidence",
+      "enhancement": true
+    },
+    {
+      "sha": "2153878d699cbf95a940bb2892937891adf718ba",
+      "recorded_at": "2026-11-24T09:39:18+03:00",
+      "subject": "feat(ai): add verified symbolic mathematics with bounded safe parsing",
+      "enhancement": true
+    },
+    {
+      "sha": "01ef141c08cce896d6eb23d4e14940f5d95e71f9",
+      "recorded_at": "2026-11-24T09:41:37+03:00",
+      "subject": "feat(ai): route bilingual tutoring by topic and scoped conversation context",
+      "enhancement": true
+    },
+    {
+      "sha": "68c567edb7ba6211f69d9c1d3a7d6e526d6821e8",
+      "recorded_at": "2026-11-24T09:42:38+03:00",
+      "subject": "feat(ai): add optional bounded Ollama provider with graceful fallback",
+      "enhancement": true
+    },
+    {
+      "sha": "5fe7fab0f61ef24bd7bf93fe4d3efa00a2ccbdba",
+      "recorded_at": "2026-11-24T09:45:02+03:00",
+      "subject": "feat(quizzes): add reviewed typed drafts and secure numeric and manual grading",
+      "enhancement": true
+    },
+    {
+      "sha": "ddc1a50d63cb19d7573804fda8f692575f63458f",
+      "recorded_at": "2026-11-24T09:47:17+03:00",
+      "subject": "feat(ui): expose assignment policies resubmission review and attempt histories",
+      "enhancement": true
+    },
+    {
+      "sha": "0cdb379e02853b93bd5e746d39db31390a874264",
+      "recorded_at": "2026-11-24T09:48:47+03:00",
+      "subject": "feat(ui): add hybrid tutor display and editable typed quiz review controls",
+      "enhancement": true
+    },
+    {
+      "sha": "4730ed8cfeea8e1cf14ec2666efc2bc3236ea52c",
+      "recorded_at": "2026-11-24T09:56:19+03:00",
+      "subject": "feat(i18n): translate role workflows errors reports and persisted preferences",
+      "enhancement": true
+    },
+    {
+      "sha": "1a164f31e754635308783ae6ce823d7ecb712f36",
+      "recorded_at": "2026-11-24T09:58:48+03:00",
+      "subject": "feat(upgrade): back up and verify data while bounding symbolic requests",
+      "enhancement": true
+    },
+    {
+      "sha": "642047085f375f01a35697a9564276ba8c2eb064",
+      "recorded_at": "2026-11-24T10:02:33+03:00",
+      "subject": "docs(uml): refine consistent interaction views with direct message labels",
+      "enhancement": true
+    },
+    {
+      "sha": "183a430b438b015441ce14105a0567a2bbfeeffc",
+      "recorded_at": "2026-11-24T10:06:59+03:00",
+      "subject": "docs(uml): clarify approval failure and subscription renewal lifecycles",
+      "enhancement": true
+    },
+    {
+      "sha": "b2282e0fe35f34651dce0f8b4c39a1e464489168",
+      "recorded_at": "2026-11-24T10:10:47+03:00",
+      "subject": "docs(uml): align detailed packages with attempt and hybrid AI models",
+      "enhancement": true
+    },
+    {
+      "sha": "a00990c1506f3446fe9b82d3817fca1206da8533",
+      "recorded_at": "2026-11-24T10:20:24+03:00",
+      "subject": "test(system): verify enhanced role workflows math quizzes and migration compatibility",
+      "enhancement": true
+    },
+    {
+      "sha": "39582149e30c41b48a48821e2d119c674b73fcb0",
+      "recorded_at": "2026-11-24T11:00:18+03:00",
+      "subject": "docs(proposal): revise academic delivery with readable figures and current evidence",
+      "enhancement": true
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Development activity from actual Git history
 
-Snapshot at `085c9ebdcc916f0dfdd5bc27d3f4e0df9ce32784`; 53 reachable commits. Later delivery commits are available in Git and the final bundle. The original remote Initial commit is retained and is not attributed to agent implementation.
+Snapshot at `39582149e30c41b48a48821e2d119c674b73fcb0`; 75 reachable commits. The enhancement starts from 58 commits at `b45aa529d53d735f9ab74108dd3b50e4dbda0e3f`. Later report and release commits are available in Git and the external final delivery report. The original remote Initial commit is retained and is not attributed to agent implementation.
 
 | SHA | Recorded commit time | Completed unit |
 | --- | --- | --- |
@@ -57,3 +57,25 @@ Snapshot at `085c9ebdcc916f0dfdd5bc27d3f4e0df9ce32784`; 53 reachable commits. La
 | `e4c857f2f47c75abb00ccde649575a2a05834985` | 2026-11-24T00:06:10+03:00 | docs: document installation role demonstrations API contracts and schema |
 | `bc13763d2c07c7afd3d54ab4ba8482911cead059` | 2026-11-24T00:06:12+03:00 | ci: define API interface and browser checks for GitHub Actions |
 | `085c9ebdcc916f0dfdd5bc27d3f4e0df9ce32784` | 2026-11-24T00:06:13+03:00 | docs(requirements): publish conservative traceability and known limitations |
+| `9594e26db33ee2332c3cc5d8e71a90876bf8a19f` | 2026-11-24T00:10:46+03:00 | docs(testing): record executed results and actual desktop mobile screenshots |
+| `e2c38ee4dd317d5c902098b20d62cb285d8f2e1a` | 2026-11-24T00:11:15+03:00 | chore: declare document and image deliverables as binary Git artifacts |
+| `7b9513ab10afde74c13cb5282febceecef24758b` | 2026-11-24T00:11:18+03:00 | docs(proposal): create academic DOCX and reviewed PDF with actual UML figures |
+| `1a4e55bfefefced57ee4f4b32fe6350cf458c3f2` | 2026-11-24T00:11:19+03:00 | docs(agent): record human guidance execution evidence and authentic commit history |
+| `b45aa529d53d735f9ab74108dd3b50e4dbda0e3f` | 2026-11-24T00:11:21+03:00 | chore: validate final source tests diagrams and proposal artifacts |
+| `7e4bfe73eb2abe52aeb5efcd77434efcc56a3778` | 2026-11-24T09:34:25+03:00 | feat(database): preserve legacy records with additive attempt migrations |
+| `d8e5a6151d6a7dbb8b7aa21bb8138877c53c379a` | 2026-11-24T09:36:07+03:00 | feat(assignments): enforce teacher policies and append student attempts |
+| `bf1a696da09cee91e32c25b4cca01c4915faf550` | 2026-11-24T09:36:44+03:00 | feat(teachers): review resubmissions and preserve attempt feedback history |
+| `cbfcdcbb1714ff1b4695a61708c32fce25a98392` | 2026-11-24T09:38:20+03:00 | feat(learning): use official attempt scores and version pathway evidence |
+| `2153878d699cbf95a940bb2892937891adf718ba` | 2026-11-24T09:39:18+03:00 | feat(ai): add verified symbolic mathematics with bounded safe parsing |
+| `01ef141c08cce896d6eb23d4e14940f5d95e71f9` | 2026-11-24T09:41:37+03:00 | feat(ai): route bilingual tutoring by topic and scoped conversation context |
+| `68c567edb7ba6211f69d9c1d3a7d6e526d6821e8` | 2026-11-24T09:42:38+03:00 | feat(ai): add optional bounded Ollama provider with graceful fallback |
+| `5fe7fab0f61ef24bd7bf93fe4d3efa00a2ccbdba` | 2026-11-24T09:45:02+03:00 | feat(quizzes): add reviewed typed drafts and secure numeric and manual grading |
+| `ddc1a50d63cb19d7573804fda8f692575f63458f` | 2026-11-24T09:47:17+03:00 | feat(ui): expose assignment policies resubmission review and attempt histories |
+| `0cdb379e02853b93bd5e746d39db31390a874264` | 2026-11-24T09:48:47+03:00 | feat(ui): add hybrid tutor display and editable typed quiz review controls |
+| `4730ed8cfeea8e1cf14ec2666efc2bc3236ea52c` | 2026-11-24T09:56:19+03:00 | feat(i18n): translate role workflows errors reports and persisted preferences |
+| `1a164f31e754635308783ae6ce823d7ecb712f36` | 2026-11-24T09:58:48+03:00 | feat(upgrade): back up and verify data while bounding symbolic requests |
+| `642047085f375f01a35697a9564276ba8c2eb064` | 2026-11-24T10:02:33+03:00 | docs(uml): refine consistent interaction views with direct message labels |
+| `183a430b438b015441ce14105a0567a2bbfeeffc` | 2026-11-24T10:06:59+03:00 | docs(uml): clarify approval failure and subscription renewal lifecycles |
+| `b2282e0fe35f34651dce0f8b4c39a1e464489168` | 2026-11-24T10:10:47+03:00 | docs(uml): align detailed packages with attempt and hybrid AI models |
+| `a00990c1506f3446fe9b82d3817fca1206da8533` | 2026-11-24T10:20:24+03:00 | test(system): verify enhanced role workflows math quizzes and migration compatibility |
+| `39582149e30c41b48a48821e2d119c674b73fcb0` | 2026-11-24T11:00:18+03:00 | docs(proposal): revise academic delivery with readable figures and current evidence |

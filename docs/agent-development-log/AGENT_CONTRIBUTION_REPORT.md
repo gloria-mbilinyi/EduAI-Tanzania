@@ -1,119 +1,45 @@
 # Agent contribution report
 
-## Human instructions and decisions
+## Human instructions and preserved baseline
 
-The human developer supplied the complete master brief retained in
-docs/requirements/MASTER_BRIEF.txt. It specified EduAI Tanzania, four roles,
-English/Kiswahili, React/TypeScript, FastAPI, relational storage, teacher-controlled
-assistance, simulated verified payments, eight editable draw.io files, a proposal,
-tests and incremental version control. It explicitly requested genuine commits
-and prohibited claiming unverified test or push success.
+The human developer supplied the original master brief and the enhancement brief retained under docs/requirements. The latest brief required modification of the existing project, hybrid mathematics and tutoring, multi-attempt assignments, reviewed quizzes, bilingual workflows, improved UML, a consistent proposal, additive migrations, actual tests and meaningful commits. It prohibited losing existing records or authentic history.
 
-The human confirmed gloria-mbilinyi/EduAI-Tanzania as the target, made the
-repository public, requested checking authentication as gloria-mbilinyi rather
-than the connector's buriro-ezekia identity, and instructed preservation of owner,
-existing work and all genuine history. These are human decisions, not agent-
-generated organizational requirements. No fictional stakeholder interviews,
-meetings, student study or human review approval are asserted.
+The human confirmed gloria-mbilinyi/EduAI-Tanzania, main, and preservation of the original remote initial commit. The human authorized GitHub CLI device authentication as gloria-mbilinyi and normal pushes. The agent verified that identity and repository Admin/Write permissions. No stakeholder interviews, meetings, classroom study, educator validation or actual model training are invented.
 
-## Agent analysis and architecture decisions
+The enhancement baseline was `b45aa529d53d735f9ab74108dd3b50e4dbda0e3f` with 58 reachable commits. The initial remote commit remains an ancestor. The working tree was clean; no database file was found inside this checkout at the start. No existing database was deleted or reset. Browser QA created a separate fictional database retained in ignored work storage.
 
-The agent inspected an empty workspace and established an independent repository
-before substantial code development. It retained all 50 functional IDs and 12
-business rules. An early planning total was corrected to the actual 50 after
-counting the identifiers. Coverage excludes four partial requirements.
+## Agent architecture decisions and changed modules
 
-The agent chose a modular local React/FastAPI architecture, SQLite for an external-
-service-free demo, SQLAlchemy models and a versioned baseline migration. It used
-current database-backed role/school checks, explicit parent approvals, assigned
-course checks, hidden answer keys, atomic teacher review publication and an
-internal simulated provider ledger. New teacher accounts require school activation.
-Existing-role reassignment was left partial rather than implemented ambiguously.
+The agent retained the modular React/FastAPI application. It added ten extension tables, resulting in 38 ORM tables and a migration ledger. Submission remains the stable student-assessment anchor, preserving old IDs and uniqueness constraints. SubmissionAttempt is append-only. Grade retains first-attempt IDs; AttemptGrade stores later marks. Policies, specific resubmission approval, immutable feedback history and final selection define the official result.
 
-## Modules implemented by the agent
+Performance counts at most one official mark per assessment and exposes attempts and improvement. Recommendation drafts use actual scores, weaker feedback, score-derived mastery, activity and preferences; immutable content/evidence snapshots retain each new version. Assigned-teacher approval still gates every publication. Grade changes never auto-publish a pathway.
 
-Identity and profile management; registered schools; courses and enrollment;
-assigned teacher management; notes, HTTPS links and protected capped uploads;
-assignments, text submissions, teacher grades and objective quizzes; performance
-charts, CSV reports and rule explanations; recommendation generation, review,
-rejection, regeneration, version/history and archival; bilingual retrieval tutor
-and private history; entitled lesson and question-bank drafts; verified family
-links, notifications and teacher-parent messages; plans, simulated payments,
-receipts, expiry, suspension and cancellation; administrator school reports,
-account activation and audit views; responsive public and four-role interfaces.
+The tutor separates explicit language handling, subject/topic classification, intent, safe symbolic work, retrieval, optional provider and private history. The parser constructs whitelisted SymPy objects from a bounded AST without evaluating user text. A separate process limits tutor computation. Topic gating fixes calculus-to-algebra mismatches. Twenty-five original bilingual notes cover eight subjects.
 
-The agent also created 28 normalized relational tables, seed/setup/run helpers,
-the actual API/schema reference, dependency locks, browser scenarios, screenshots,
-CI configuration, traceability and the technical proposal sources and artifacts.
+Ollama is local, optional and disabled by default. Model availability, bounded requests, limited context, source validation and graceful fallback are implemented. Prompt context is untrusted data; no grade/publication tools exist. No model was downloaded or evaluated. Quiz assistance supports reviewed typed drafts, parameterized numerical variants, secure objective/numeric grading and pending manual short-answer assessment.
 
-## AI implementation and capability boundaries
+The agent added policy and attempt interfaces, review/reopen controls, math formatting, structured quiz editing and persistent language preference. Static text, API errors, notifications and report labels were localized. Teacher-entered content keeps its original language. The source/API/schema reference now lists 71 paths and 84 operations.
 
-Recommendation/risk code uses transparent rules over persisted demonstration
-grades, activity, interests and preferences. The tutor performs lexical retrieval
-over 11 original bilingual teaching passages. No real student training dataset,
-validated accuracy or generative LLM is claimed. Lesson assistance combines
-retrieval and a template. Quiz assistance assembles existing question-bank items;
-novel generation is partial (TC-09 and AI-07). All recommendations require an
-assigned teacher approval before student visibility. Premium tools independently
-require a verified active subscription.
+## Migration preservation evidence
 
-## UML and documentation generation
+Versions 2 and 3 add tables only; no legacy table is dropped, altered or rebuilt. Compatibility tests populate frozen actual version-1 DDL, create and integrity-check a SQLite backup, compare every old table row, migrate twice and verify preservation. The PowerShell guide documents backup, upgrade and recovery boundaries. SQLite is exercised; PostgreSQL and operational restoration remain untested.
 
-The agent generated native mxGraph XML with separately editable vertices,
-connectors, compartment text, states, messages and guards. Sequence and
-communication diagrams use the same ordered process definitions. The exporter
-reads the saved XML for PNG/vector PDF generation. XML IDs, references, geometry
-and export files are checked. Visual review corrected attachment directions,
-class text crossings, relationship labels, combined Grade/Submission concepts and
-alt/opt/loop frame boundaries. Module stereotypes make conceptual services explicit.
+## Executed checks and corrected failures
 
-The proposal has all 31 requested sections, all eight diagrams and 17 enlarged
-interaction/package extracts. The PDF is independently rendered and reviewed.
-An online native-editor initialization attempt timed out before a source was
-loaded. The packaged DOCX renderer failed because soffice.exe was unavailable;
-editable DOCX content exists, but Word pagination is not claimed as verified.
+Actual results: 95 backend tests, 12 component/client tests and 12 running-browser scenarios pass. TypeScript and Vite production build passes. Original tests are retained. Browser scenarios cover all four roles, three attempts graded 45/80/100, specific extra approval, calculus and equation answers, Kiswahili persistence, reviewed numerical quizzes and 390-pixel layouts. Twenty screenshots come from the application.
 
-## Tests and corrections supported by evidence
+Testing caught and corrected a wrongly derived intermediate linear-equation step; map-reading subject ambiguity; a legacy fixture calling the upgraded service too early; Windows backup-journal path limits; a tutor draft-clearing race; untranslated dynamic public feature text; and asynchronous browser assertions reading earlier answers. An older server on default ports was identified and the enhanced QA app isolated on 8011/5181. Earlier failures are not counted as successful runs.
 
-Executed evidence: 48 real FastAPI/service tests with isolated SQLite databases,
-9 React/client tests, 8 Playwright scenarios against running local services and a
-successful TypeScript/Vite production build. Negative cases cover unrelated
-students, cross-school access, unassigned courses, student grade/review attempts,
-unapproved drafts, forged provider results, expired and unverified entitlement.
+## UML and proposal work
 
-The first browser run found form controls whose wrapper labels included option
-or textarea text. The agent replaced them with stable IDs and htmlFor labels,
-made an ambiguous test select a visible heading and reran the same scenarios
-successfully. Chart animation was disabled to make captured results stable.
-GET materials was changed to be read-only; students now explicitly mark study
-activity, preventing duplicated React development fetches from inflating evidence.
-The relevant added tests passed. SQL DDL export whitespace was corrected after
-git diff --check rejected the initial staging; no failed staging was presented
-as a successful commit.
+All eight original native drawio filenames remain. Sequence and communication views share 72 direct nested-numbered messages. State views distinguish stored, transient and derived states. Focused class packages reflect attempts, grade storage, approvals and hybrid AI services, with multiplicities at endpoints. Layout checks cover 737 text cells without overflow. Every diagram has a PNG and vector PDF with no raster PDF XObjects.
 
-## Git and synchronization evidence
+The 31-section proposal is updated in DOCX and an independently rendered 53-page PDF, with 39 figures and enlarged interaction, lifecycle and package inserts. All PDF pages were visually reviewed. DOCX XML, sections, page fields and figures are structurally checked. The Documents and PDF skills guided artifact revision. Computer Use was attempted for Word validation when COM failed.
 
-This report's history snapshot is **53 reachable commits at 085c9ebdcc916f0dfdd5bc27d3f4e0df9ce32784**.
-DEVELOPMENT_ACTIVITY.md and commit-snapshot.json list actual SHAs, recorded times
-and subjects. Final delivery commits after this snapshot are preserved in Git and
-the supplied bundle; the final external engineering report gives the final count.
-Git uses the pre-existing local author configuration; the agent executed the
-new development commits under the human's instruction. The retained remote
-Initial commit is not an agent contribution.
+Native diagrams.net opening remains unverified because embed initialization timed out before loading a source. Native Word pagination is also unverified: LibreOffice is unavailable, COM returned Access denied and supported desktop launching exposed no Word window. These unavailable checks are explicitly reported, not labeled passed.
 
-The original GitHub README commit was fetched and merged with both parent
-histories preserved. An add/add README conflict was resolved by retaining the
-original description and developed documentation. No force push or owner change
-was made. The connected GitHub identity has read access but no push permission.
-Git Credential Manager account enumeration and the device-login attempt for
-gloria-mbilinyi returned Windows access denied. No successful upload is invented.
+## Authentic history and remaining boundaries
 
-## Remaining work and human review
+At this snapshot `39582149e30c41b48a48821e2d119c674b73fcb0`, 75 commits are reachable, including 17 enhancement commits. The tables and JSON record actual SHAs and changed files. Report/release commits made afterward appear in Git and the external final synchronization report, avoiding a self-referential final SHA inside its own commit.
 
-The human developer should review academic wording, verify the editable files on
-the submission computer and assess teaching content with educators. Remaining
-functional work is complete localization, existing-role reassignment and novel
-quiz generation. Later deployment requires PostgreSQL checks, governance,
-operational security, capacity/recovery work and real provider integration if
-desired. Read docs/KNOWN_LIMITATIONS.md and the final validation report for exact
-verification limits. No real-school effectiveness study has been completed.
+Original functional coverage is 49/50 (98 percent); existing-role reassignment AD-02 remains partial. No real-model quality evaluation, curriculum certification, production deployment, real payment integration, accessibility certification, independent penetration test or learning-outcome study is claimed. One upstream deprecation warning and a large frontend bundle warning remain. Remote CI success is reported only if actually observed. Final push verification compares local and remote SHAs, complete history sets and artifact blob IDs without force-pushing.
