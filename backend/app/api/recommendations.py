@@ -27,6 +27,7 @@ def create(data: Generate, u: User = Depends(principal), db: Session = Depends(g
     content, reasons = generate(db, data.student_id, data.course_id)
     r = Recommendation(student_id=data.student_id, course_id=data.course_id, content=content, reasons=json.dumps(reasons))
     save(db, u, r, 'recommendation.generated_pending_review')
+    db.add(RecommendationRevision(recommendation_id=r.id,version=r.version,content=r.content,reasons=r.reasons));db.commit()
     return {'id': r.id, 'status': r.status, 'message': 'Draft sent to assigned teacher; hidden until approval'}
 
 @router.get('/recommendations')
@@ -62,8 +63,11 @@ def regenerate(recommendation_id: int, u: User = Depends(principal), db: Session
     r = get(db, Recommendation, recommendation_id)
     scope(db, u, r.student_id, r.course_id)
     if r.status != 'rejected': raise HTTPException(409, 'Only rejected drafts can be regenerated')
+    if not db.query(RecommendationRevision).filter_by(recommendation_id=r.id,version=r.version).first():
+        db.add(RecommendationRevision(recommendation_id=r.id,version=r.version,content=r.content,reasons=r.reasons))
     r.content, reasons = generate(db, r.student_id, r.course_id)
     r.reasons, r.version, r.status = json.dumps(reasons), r.version + 1, 'pending_review'
+    db.add(RecommendationRevision(recommendation_id=r.id,version=r.version,content=r.content,reasons=r.reasons))
     save(db, u, r, 'recommendation.regenerated')
     return {'id': r.id, 'status': r.status, 'version': r.version}
 
@@ -72,6 +76,11 @@ def history(recommendation_id: int, u: User = Depends(principal), db: Session = 
     r = get(db, Recommendation, recommendation_id)
     course_access(db, u, r.course_id, manage=True)
     return [record(a) for a in db.query(RecommendationApproval).filter_by(recommendation_id=r.id)]
+
+@router.get('/recommendations/{recommendation_id}/versions')
+def versions(recommendation_id:int,u:User=Depends(principal),db:Session=Depends(get_db)):
+    r=get(db,Recommendation,recommendation_id);course_access(db,u,r.course_id,manage=True)
+    return [record(v)|{'reasons':json.loads(v.reasons)} for v in db.query(RecommendationRevision).filter_by(recommendation_id=r.id).order_by(RecommendationRevision.version)]
 
 @router.post('/recommendations/{recommendation_id}/view')
 def viewed(recommendation_id: int, u: User = Depends(principal), db: Session = Depends(get_db)):
