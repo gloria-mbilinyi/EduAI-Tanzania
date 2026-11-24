@@ -1,4 +1,6 @@
-from datetime import datetime
+from datetime import datetime, timezone
+from typing import Literal
+from sqlalchemy.exc import IntegrityError
 from pydantic import Field
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -8,13 +10,31 @@ from ..core.database import get_db, now
 from ..core.security import principal, require, role
 from ..services.access import *
 from ..services.notifications import grade_alert
+from ..services import attempts as att
 
 router = APIRouter(prefix='/api', tags=['assignments'])
+
+class PolicyInput(Input):
+    max_attempts: int = Field(default=1, ge=1, le=20)
+    allow_resubmission: bool = False
+    allow_late: bool = False
+    require_feedback: bool = False
+    require_approval: bool = False
+    grading_policy: Literal['first','best','latest','selected'] = 'latest'
 
 class AssignmentInput(Input):
     title: str = Field(min_length=2, max_length=150)
     instructions: str = Field(min_length=5, max_length=10000)
     due_at: datetime | None = None
+    policy: PolicyInput = Field(default_factory=PolicyInput)
+
+def utc(value):
+    return value.astimezone(timezone.utc).replace(tzinfo=None) if value and value.tzinfo else value
+
+def set_policy(db, assignment_id, data):
+    p = db.query(AssignmentPolicy).filter_by(assignment_id=assignment_id).first() or AssignmentPolicy(assignment_id=assignment_id)
+    for k,v in data.items(): setattr(p,k,v)
+    db.add(p)
 
 class GradeInput(Input):
     score: float = Field(ge=0, le=100)
@@ -26,22 +46,28 @@ def assignments(course_id: int, u: User = Depends(principal), db: Session = Depe
     result = []
     for a in db.query(Assignment).filter_by(course_id=course_id):
         sub = db.query(Submission).filter_by(assignment_id=a.id, student_id=u.id).first()
-        grade = db.query(Grade).filter_by(submission_id=sub.id).first() if sub else None
-        result.append(record(a) | {'submitted': bool(sub), 'grade': record(grade) if grade else None})
+        state, sub, _ = att.eligibility(db,a,u.id)
+        selected = att.official(db,sub) if sub else None
+        result.append(record(a) | state | {'submitted': bool(sub), 'grade': selected['grade'] if selected else None,
+                     'official_attempt': selected['number'] if selected else None})
     return result
 
 @router.post('/courses/{course_id}/assignments', status_code=201)
 def create(course_id: int, data: AssignmentInput, u: User = Depends(principal), db: Session = Depends(get_db)):
     course_access(db, u, course_id, manage=True)
     values = data.model_dump()
-    if values['due_at']: values['due_at'] = values['due_at'].replace(tzinfo=None)
-    return record(save(db, u, Assignment(course_id=course_id, **values), 'assignment.create'))
+    p = values.pop('policy'); values['due_at'] = utc(values['due_at'])
+    a = Assignment(course_id=course_id, **values)
+    db.add(a); db.flush(); set_policy(db,a.id,p)
+    return record(save(db, u, a, 'assignment.create')) | {'policy': p}
 
 @router.patch('/assignments/{assignment_id}')
 def update(assignment_id: int, data: AssignmentInput, u: User = Depends(principal), db: Session = Depends(get_db)):
     a = get(db, Assignment, assignment_id)
     course_access(db, u, a.course_id, manage=True)
-    for k, v in data.model_dump().items(): setattr(a, k, v.replace(tzinfo=None) if k == 'due_at' and v else v)
+    values = data.model_dump(); p = values.pop('policy')
+    for k, v in values.items(): setattr(a, k, utc(v) if k == 'due_at' else v)
+    set_policy(db,a.id,p)
     return record(save(db, u, a, 'assignment.update'))
 
 @router.post('/assignments/{assignment_id}/submit', status_code=201)
@@ -49,11 +75,13 @@ def submit(assignment_id: int, data: TextInput, u: User = Depends(principal), db
     require(db, u, 'student')
     a = get(db, Assignment, assignment_id)
     course_access(db, u, a.course_id)
-    if a.due_at and a.due_at < now(): raise HTTPException(409, 'Assignment deadline has passed')
-    if db.query(Submission).filter_by(student_id=u.id, assignment_id=a.id).first(): raise HTTPException(409, 'Assignment already submitted')
-    s = Submission(student_id=u.id, assignment_id=a.id, content=data.body)
-    db.add(LearningActivity(student_id=u.id, course_id=a.course_id, action='assignment_submitted'))
-    return record(save(db, u, s, 'assignment.submit'))
+    try:
+        s, attempt = att.add_attempt(db,a,u,data.body)
+        save(db,u,attempt,'assignment.attempt_submit')
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(409,'An attempt was already submitted; refresh before retrying')
+    return record(s) | {'attempt_id':attempt.id,'attempt_number':attempt.number}
 
 @router.get('/assignments/{assignment_id}/submissions')
 def submissions(assignment_id: int, u: User = Depends(principal), db: Session = Depends(get_db)):
